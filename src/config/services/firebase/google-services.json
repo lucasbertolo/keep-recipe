@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "245761560244",
+    "project_id": "keep-recipe-7faac",
+    "storage_bucket": "keep-recipe-7faac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:245761560244:android:709e174f85f671aefd91e1",
+        "android_client_info": {
+          "package_name": "com.lucasbertolo2.keeprecipes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "245761560244-a60rd7vkm5opjhf76nqo6cjffklhrrd9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiNSatT_Uw2USfUPkm7_JePfViLTqZqjA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "245761560244-a60rd7vkm5opjhf76nqo6cjffklhrrd9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "245761560244-iqio3dn88lleh2jvbhr23lam681nfrjf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.lucasbertolo2.keeprecipes"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
