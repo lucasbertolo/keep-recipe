@@ -1,8 +1,8 @@
-import { TextInput, TextInputProps } from "@/shared/components";
+import { TextInput } from "@/shared/components";
 import { TextInput as TextInputPaper } from "react-native-paper";
 import { useState } from "react";
 
-type PasswordInputProps = TextInputProps & {};
+type PasswordInputProps = React.ComponentProps<typeof TextInput> & {};
 
 export const PasswordInput = ({
   value,
@@ -17,6 +17,7 @@ export const PasswordInput = ({
 
   return (
     <TextInput
+      {...rest}
       mode="outlined"
       label={label ?? "Senha"}
       secureTextEntry

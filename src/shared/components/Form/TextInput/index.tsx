@@ -16,9 +16,10 @@ const TextInput = ({ errorText, ...props }: TextInputProps) => {
         selectionColor={theme.colors.background}
         underlineColor="transparent"
         mode="outlined"
+        contentStyle={{ color: theme.colors.background }}
       />
 
-      {errorText ? (
+      {!!errorText && (
         <Text
           style={{
             fontSize: 14,
@@ -29,7 +30,7 @@ const TextInput = ({ errorText, ...props }: TextInputProps) => {
         >
           {errorText}
         </Text>
-      ) : null}
+      )}
     </View>
   );
 };

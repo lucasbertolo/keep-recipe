@@ -1,23 +1,22 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { InferType } from "yup";
-import { PasswordInput } from "../../components";
-import { useCreateUser } from "../../queries";
-import { registerSchema } from "../../validations";
 import {
   Button,
   Logo,
   Space,
   TextInput,
-  Typography,
   WrapperForm,
 } from "@/shared/components";
-import { useTheme } from "react-native-paper";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useRouter } from "expo-router";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { InferType } from "yup";
+import { LinkText, PasswordInput } from "../../components";
+import { useCreateUser } from "../../queries";
+import { registerSchema } from "../../validations";
 
 type Fields = InferType<typeof registerSchema>;
 
 export default function RegisterScreen() {
-  const theme = useTheme();
+  const router = useRouter();
   const { mutate: createUser } = useCreateUser();
 
   const handleRegister: SubmitHandler<Fields> = async (data) => {
@@ -42,7 +41,7 @@ export default function RegisterScreen() {
         name="email"
         render={({ field }) => (
           <TextInput
-            placeholder="Email"
+            label="Email"
             value={field.value}
             onChangeText={(text) => field.onChange(text)}
             returnKeyType="next"
@@ -91,6 +90,12 @@ export default function RegisterScreen() {
       <Button mode="contained" onPress={handleSubmit(handleRegister)}>
         Registrar
       </Button>
+
+      <LinkText
+        text="Já possui conta?"
+        textAction="Login"
+        action={() => router.replace("./login")}
+      />
     </WrapperForm>
   );
 }

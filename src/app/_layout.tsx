@@ -1,4 +1,5 @@
 import { useFirebaseSession } from "@/config/services";
+import { AuthProvider } from "@/features/Auth/provider";
 import { Colors } from "@/shared/constants/Colors";
 import { useLocalTheme } from "@/shared/hooks";
 import {
@@ -66,7 +67,9 @@ export default function RootLayout() {
       <ThemeProvider value={paperTheme}>
         <QueryClientProvider client={queryClient}>
           <RootSiblingParent>
-            <Slot />
+            <AuthProvider>
+              <Slot />
+            </AuthProvider>
           </RootSiblingParent>
         </QueryClientProvider>
       </ThemeProvider>

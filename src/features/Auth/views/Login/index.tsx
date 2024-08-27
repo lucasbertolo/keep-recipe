@@ -3,23 +3,19 @@ import {
   Logo,
   Space,
   TextInput,
-  Typography,
   WrapperForm,
 } from "@/shared/components";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "expo-router";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { TouchableOpacity, View, StyleSheet } from "react-native";
 import { InferType } from "yup";
-import { PasswordInput } from "../../components";
+import { LinkText, PasswordInput } from "../../components";
 import { useSignIn } from "../../queries";
 import { loginSchema } from "../../validations";
-import { useTheme } from "react-native-paper";
 
 type Fields = InferType<typeof loginSchema>;
 
 export default function LoginScreen() {
-  const theme = useTheme();
   const router = useRouter();
   const { mutate: signIn } = useSignIn();
 
@@ -79,34 +75,11 @@ export default function LoginScreen() {
         Login
       </Button>
 
-      <View style={styles.row}>
-        <Typography style={{ color: theme.colors.secondary }}>
-          Não possui conta?
-        </Typography>
-
-        <TouchableOpacity onPress={() => router.replace("./register")}>
-          <Typography style={[styles.link, { color: theme.colors.primary }]}>
-            {" "}
-            Registrar
-          </Typography>
-        </TouchableOpacity>
-      </View>
+      <LinkText
+        text="Não possui conta?"
+        textAction="Registrar"
+        action={() => router.replace("./register")}
+      />
     </WrapperForm>
   );
 }
-
-const styles = StyleSheet.create({
-  forgotPassword: {
-    width: "100%",
-    alignItems: "flex-end",
-    marginBottom: 24,
-  },
-  row: {
-    flexDirection: "row",
-    marginTop: 4,
-  },
-
-  link: {
-    fontWeight: "bold",
-  },
-});

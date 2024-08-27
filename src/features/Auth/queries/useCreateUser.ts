@@ -1,6 +1,7 @@
 import { useToast } from "@/shared/hooks";
-import auth from "@react-native-firebase/auth";
 import { useMutation } from "@tanstack/react-query";
+import { useAuth } from "../provider";
+import { useRouter } from "expo-router";
 
 type UseSignInParams = {
   email: string;
@@ -8,12 +9,21 @@ type UseSignInParams = {
 };
 
 export const useCreateUser = () => {
-  const firebaseAuth = auth();
+  const auth = useAuth();
+  const router = useRouter();
   const toast = useToast();
 
   return useMutation({
     mutationFn: async ({ password, email }: UseSignInParams) => {
-      return firebaseAuth.createUserWithEmailAndPassword(email, password);
+      return auth.registerUser(email, password);
+    },
+    onSuccess: () => {
+      toast.showToast({
+        message: "Usuário criado com sucesso, pronto para fazer o login",
+        type: "success",
+      });
+
+      router.navigate("/login");
     },
     onError: async (error) => {
       toast.showToast({ message: error.message });

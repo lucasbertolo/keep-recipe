@@ -10,12 +10,12 @@ type ShowToast = {
 export const useToast = () => {
   let toast: RootSiblings;
 
-  const showToast = ({ message }: ShowToast) => {
-    toast = new RootSiblings(<Toast message={message} />);
+  const showToast = ({ message, type = "error" }: ShowToast) => {
+    toast = new RootSiblings(<Toast message={message} type={type} />);
 
     setTimeout(() => {
       toast.destroy();
-    }, 2000);
+    }, 5000);
   };
 
   return { showToast };
