@@ -1,13 +1,13 @@
 import useReactQueryConfig from "@/config/apiConfig";
-import { useFirebaseSession } from "@/config/services";
+import { useAuth } from "@/features/Auth/provider";
 import { Redirect, Stack } from "expo-router";
 
 export default function RootLayout() {
-  const firebaseSession = useFirebaseSession();
+  const { session } = useAuth();
 
   useReactQueryConfig();
 
-  if (!firebaseSession.initializing && !firebaseSession.user) {
+  if (!session.initializing && !session.user) {
     return <Redirect href="../login" />;
   }
 

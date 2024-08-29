@@ -4,7 +4,7 @@
     "slug": "keep-recipes",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./src/shared/assets/images/icon.png",
+    "icon": "./src/shared/assets/images/favicon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
@@ -29,7 +29,7 @@
       "expo-router",
       "@react-native-firebase/app",
       "@react-native-firebase/auth",
-      "@react-native-firebase/crashlytics",
+      "@react-native-firebase/crashlytics",   
       [
         "expo-build-properties",
         {
@@ -37,7 +37,19 @@
             "useFrameworks": "static"
           }
         }
-      ]
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Permitir $(PRODUCT_NAME) acessar sua camera",
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "O aplicativo quer acesso para utilizar as imagens da sua galeria"
+        }
+      ]    
     ],
     "experiments": {
       "typedRoutes": true

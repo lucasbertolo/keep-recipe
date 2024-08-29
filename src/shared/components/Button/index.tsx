@@ -2,19 +2,35 @@ import React, { memo } from "react";
 import { StyleSheet } from "react-native";
 import { Button as PaperButton, useTheme } from "react-native-paper";
 
-type Props = React.ComponentProps<typeof PaperButton>;
+type Props = React.ComponentProps<typeof PaperButton> & {
+  variant?: "ghost" | "normal";
+};
 
-const Button = ({ mode, style, children, ...props }: Props) => {
+const Button = ({ mode, style, children, variant, ...props }: Props) => {
   const theme = useTheme();
+
+  const btnStyle =
+    variant === "ghost"
+      ? {
+          backgroundColor: theme.colors.background,
+          borderWidth: 1,
+          borderColor: theme.colors.onBackground,
+          ...styles.button,
+        }
+      : styles.button;
+  const txtStyle =
+    variant === "ghost"
+      ? { color: theme.colors.onBackground, ...styles.text }
+      : styles.text;
 
   return (
     <PaperButton
       style={[
-        styles.button,
+        btnStyle,
         mode === "outlined" && { backgroundColor: theme.colors.surface },
         style,
       ]}
-      labelStyle={styles.text}
+      labelStyle={txtStyle}
       mode={mode}
       {...props}
     >
