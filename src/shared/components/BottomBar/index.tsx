@@ -3,10 +3,12 @@ import {
   ParamListBase,
   TabNavigationState,
 } from "@react-navigation/native";
-import React from "react";
+import React, { useMemo } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { FAB, useTheme } from "react-native-paper";
 import { TabBarIcon } from "../navigation/TabBarIcon";
+import If from "../If";
+import { Shadows } from "@/shared/constants/Shadows";
 
 type BottomTabDescriptor = any;
 type BottomTabDescriptorMap = Record<string, BottomTabDescriptor>;
@@ -74,11 +76,13 @@ export const BottomBar = ({
         })}
       </View>
 
-      <FAB
-        icon="plus"
-        onPress={() => onTabPress(centerRoute)}
-        style={[styles.fab, { backgroundColor: theme.colors.primary }]}
-      />
+      <If condition={state.index !== centerIndex}>
+        <FAB
+          icon="plus"
+          onPress={() => onTabPress(centerRoute)}
+          style={[styles.fab, { backgroundColor: theme.colors.primary }]}
+        />
+      </If>
     </View>
   );
 };
@@ -88,12 +92,12 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: "lightgrey",
+    backgroundColor: "#FFF",
+    ...Shadows.medium,
   },
   tabContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
-    alignItems: "center",
     paddingVertical: 12,
     backgroundColor: "transparent",
   },

@@ -1,5 +1,5 @@
-import { AddRecipe } from "@/features/MyRecipes/views";
+import { AddRecipe } from "@/features/NewRecipes/views";
 
-export default function HomeScreen() {
+export default function AddRecipeScreen() {
   return <AddRecipe />;
 }

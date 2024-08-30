@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { Text, useTheme } from "react-native-paper";
 import { Typography } from "../../Typography";
+import { Shadows } from "@/shared/constants/Shadows";
 
 interface RadioButtonProps {
   selected: boolean;
@@ -78,11 +79,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     padding: 16,
     backgroundColor: "#FFF",
-    shadowColor: "#171717",
-    shadowOffset: { width: 1, height: 1 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    elevation: 4,
+    ...Shadows.light,
   },
   outerCircle: {
     width: 18,

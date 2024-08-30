@@ -34,4 +34,5 @@ export const recipeSchema = Yup.object().shape({
   difficulty: Yup.string().oneOf(["easy", "medium", "hard"]),
   observation: Yup.string(),
   rating: Yup.number(),
+  source: Yup.string(),
 });

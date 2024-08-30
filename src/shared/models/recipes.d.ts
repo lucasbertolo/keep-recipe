@@ -1,4 +1,4 @@
-declare namespace MyRecipes {
+declare namespace Recipes {
   type Ingredient = {
     name: string;
     quantity: string;
@@ -29,9 +29,9 @@ declare namespace MyRecipes {
     observation?: string;
   };
 
-  type AddRecipe = {
+  type Add = {
     userId: string;
-    recipe: MyRecipes.Recipe;
+    recipe: Recipe;
     photos: string[];
   };
 
@@ -39,7 +39,7 @@ declare namespace MyRecipes {
     addRecipe: (params: AddRecipe) => Promise<void>;
     getRecipes: (userId: string) => Promise<Recipe[]>;
     getRecipeById: (userId: string, recipeId: string) => Promise<Recipe | null>;
-    editRecipe: (userId: string, recipe: MyRecipes.Recipe) => Promise<void>;
+    editRecipe: (userId: string, recipe: Recipe) => Promise<void>;
     deleteRecipe: (userId: string, recipeId: string) => Promise<void>;
   }
 }

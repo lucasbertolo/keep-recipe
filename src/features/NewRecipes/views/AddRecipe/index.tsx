@@ -15,6 +15,7 @@ import {
   RecipeDetailsForm,
   StepsForm,
   TagsForm,
+  TimeForm,
 } from "../../components";
 import { recipeSchema } from "../../validations";
 
@@ -40,6 +41,7 @@ export const AddRecipe = () => {
       <StepsForm />,
       <TagsForm />,
       <DifficultyForm />,
+      <TimeForm />,
       <GeneralForm />,
       <PhotosForm />,
     ],

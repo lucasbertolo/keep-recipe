@@ -68,6 +68,7 @@ export const TagsForm = () => {
       <View style={{ flexDirection: "row", gap: 12, flexWrap: "wrap" }}>
         {getValues("tags")?.map((field) => (
           <Chip
+            key={field}
             closeIcon={"close"}
             onClose={() => removeTag(field ?? "")}
             style={{ backgroundColor: theme.colors.surfaceVariant }}

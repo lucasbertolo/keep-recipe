@@ -1,6 +1,6 @@
 import { FirebaseFirestoreService } from "@/config/services";
 
-export const useMyRecipes = () => {
+export const useNewRecipes = () => {
   const firestoreService: Recipes.Actions = new FirebaseFirestoreService();
 
   return { ...firestoreService };

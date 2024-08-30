@@ -15,37 +15,6 @@ export const GeneralForm = () => {
   return (
     <ContainerForm>
       <Typography variant="heading">Detalhes</Typography>
-      <Controller
-        control={control}
-        name="prepTime"
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            label="Tempo de preparo"
-            onBlur={onBlur}
-            keyboardType="numeric"
-            onChangeText={onChange}
-            value={value?.toString()}
-            error={!!errors.prepTime}
-            left={<PTextInput.Icon icon="clock-outline" size={18} />}
-          />
-        )}
-      />
-
-      <Controller
-        control={control}
-        name="cookTime"
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            label="Tempo no forno"
-            onBlur={onBlur}
-            keyboardType="numeric"
-            onChangeText={onChange}
-            value={value?.toString()}
-            error={!!errors.cookTime}
-            left={<PTextInput.Icon icon="clock-outline" size={18} />}
-          />
-        )}
-      />
 
       <Controller
         control={control}
@@ -66,7 +35,7 @@ export const GeneralForm = () => {
 
       <Controller
         control={control}
-        name="rating"
+        name="servings"
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
             label="Porções"
@@ -76,6 +45,21 @@ export const GeneralForm = () => {
             value={value?.toString()}
             error={!!errors.rating}
             left={<PTextInput.Icon icon="room-service-outline" size={18} />}
+          />
+        )}
+      />
+
+      <Controller
+        control={control}
+        name="source"
+        render={({ field: { onChange, onBlur, value } }) => (
+          <TextInput
+            label="Fonte"
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+            error={!!errors.source}
+            left={<PTextInput.Icon icon="link" size={18} />}
           />
         )}
       />

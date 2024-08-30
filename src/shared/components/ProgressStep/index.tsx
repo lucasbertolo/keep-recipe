@@ -110,11 +110,6 @@ export const ProgressSteps: React.FC<ProgressStepsProps> = ({
       <View style={styles.contentContainer}>{Content}</View>
 
       <View style={styles.buttonContainer}>
-        <If condition={currentStep !== lastStep} elseRender={submitButton}>
-          <Button mode="contained" onPress={onNext} style={styles.button}>
-            Próximo
-          </Button>
-        </If>
         <If condition={currentStep > PROGRESS_INITIAL_STEP}>
           <Button
             mode="contained"
@@ -123,6 +118,11 @@ export const ProgressSteps: React.FC<ProgressStepsProps> = ({
             style={[styles.button]}
           >
             Voltar
+          </Button>
+        </If>
+        <If condition={currentStep !== lastStep} elseRender={submitButton}>
+          <Button mode="contained" onPress={onNext} style={styles.button}>
+            Próximo
           </Button>
         </If>
       </View>

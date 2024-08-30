@@ -11,7 +11,6 @@ export default function TabLayout() {
     <Tabs
       tabBar={(props) => <BottomBar {...props} centerRoute="new-recipe" />}
       screenOptions={{
-        headerShown: true,
         headerStyle: { backgroundColor: "transparent" },
       }}
     >
@@ -19,6 +18,7 @@ export default function TabLayout() {
         name="index"
         options={{
           title: "Home",
+          headerShown: false,
           headerTitleStyle: { color: theme.colors.primary },
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon

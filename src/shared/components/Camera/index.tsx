@@ -1,16 +1,14 @@
 import { CameraView, useCameraPermissions } from "expo-camera";
+import * as ImagePicker from "expo-image-picker";
 import React, { useRef, useState } from "react";
 import { Modal, StyleSheet, TouchableOpacity, View } from "react-native";
 import { IconButton, useTheme } from "react-native-paper";
-import * as ImagePicker from "expo-image-picker";
 
 interface CameraComponentProps {
   onTakePhoto: (photoUri: string) => void;
 }
 
 export const Camera: React.FC<CameraComponentProps> = ({ onTakePhoto }) => {
-  console.log("BBB");
-
   const theme = useTheme();
   const [permission, requestPermission] = useCameraPermissions();
   const cameraRef = useRef<CameraView>(null);
@@ -31,12 +29,10 @@ export const Camera: React.FC<CameraComponentProps> = ({ onTakePhoto }) => {
   };
 
   const handleCloseCamera = () => {
-    console.log("AAAA");
     setIsCameraOpen(false);
   };
 
   const takePicture = async () => {
-    console.log("UAHSDUHASDUH");
     if (cameraRef.current) {
       const photo = await cameraRef.current.takePictureAsync();
 
@@ -48,8 +44,6 @@ export const Camera: React.FC<CameraComponentProps> = ({ onTakePhoto }) => {
   };
 
   const pickImage = async () => {
-    console.log("teste");
-
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
@@ -61,8 +55,6 @@ export const Camera: React.FC<CameraComponentProps> = ({ onTakePhoto }) => {
       handleCloseCamera();
     }
   };
-
-  console.log("cd", cameraRef.current);
 
   return (
     <>
@@ -79,16 +71,14 @@ export const Camera: React.FC<CameraComponentProps> = ({ onTakePhoto }) => {
           <View style={styles.close}>
             <IconButton
               icon={"close"}
-              onPress={() => console.log("AQUI")}
+              onPress={handleCloseCamera}
               iconColor={theme.colors.background}
             />
           </View>
           <CameraView style={styles.camera} ref={cameraRef}>
             <View style={styles.controls}>
               <View style={styles.collumn}>
-                <TouchableOpacity onPress={pickImage}>
-                  <IconButton icon="image" size={30} />
-                </TouchableOpacity>
+                <IconButton onPress={pickImage} icon="image" size={30} />
               </View>
 
               <View style={styles.collumn}>
@@ -114,9 +104,7 @@ const styles = StyleSheet.create({
     borderRadius: 32,
     borderWidth: 1,
   },
-  close: {
-    zIndex: 999,
-  },
+  close: {},
   containerPhoto: {
     backgroundColor: "#FFFFFF",
     padding: 16,

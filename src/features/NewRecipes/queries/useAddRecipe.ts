@@ -1,16 +1,16 @@
 import { useAuth } from "@/features/Auth/provider";
 import { useToast } from "@/shared/hooks";
 import { useMutation } from "@tanstack/react-query";
-import { useMyRecipes } from "../hooks";
+import { useNewRecipes } from "../hooks";
 
 type AddRecipeProps = {
-  recipe: MyRecipes.Recipe;
+  recipe: Recipes.Recipe;
 };
 
 export const useAddRecipe = () => {
   const auth = useAuth();
   const toast = useToast();
-  const { addRecipe } = useMyRecipes();
+  const { addRecipe } = useNewRecipes();
 
   return useMutation({
     mutationFn: async ({ recipe }: AddRecipeProps) => {

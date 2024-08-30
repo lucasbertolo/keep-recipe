@@ -11,3 +11,6 @@ export * from "./Camera";
 export * from "./Carousel";
 export * from "./ProgressStep";
 export * from "./BottomBar";
+export * from "./SearchBar";
+export * from "./BottomSheet";
+export * from "./Chips";

@@ -4,8 +4,8 @@ import { FirebaseStorageService } from "../storage";
 const USERS_COLLECTION = "users";
 const RECIPES_COLLECTION = "recipes";
 
-export class FirebaseFirestoreService implements MyRecipes.Actions {
-  async addRecipe({ photos, recipe, userId }: MyRecipes.AddRecipe) {
+export class FirebaseFirestoreService implements Recipes.Actions {
+  async addRecipe({ photos, recipe, userId }: Recipes.Add) {
     try {
       const storage = new FirebaseStorageService();
 
@@ -28,7 +28,7 @@ export class FirebaseFirestoreService implements MyRecipes.Actions {
 
   async deleteRecipe(recipeId: string) {}
 
-  async editRecipe(userId: string, recipe: MyRecipes.Recipe) {}
+  async editRecipe(userId: string, recipe: Recipes.Recipe) {}
 
   async getRecipes(userId: string) {
     try {
@@ -41,7 +41,7 @@ export class FirebaseFirestoreService implements MyRecipes.Actions {
 
       const recipes = recipesSnapshot.docs.map((doc) => ({
         id: doc.id,
-        ...(doc.data() as MyRecipes.Recipe),
+        ...(doc.data() as Recipes.Recipe),
       }));
 
       return recipes;
@@ -61,7 +61,7 @@ export class FirebaseFirestoreService implements MyRecipes.Actions {
         .get();
 
       if (recipeDoc.exists) {
-        return recipeDoc.data() as MyRecipes.Recipe;
+        return recipeDoc.data() as Recipes.Recipe;
       }
 
       return null;
