@@ -1,5 +1,5 @@
-import { AddRecipe } from "@/features/MyRecipes/views";
+import { View } from "react-native";
 
 export default function HomeScreen() {
-  return <AddRecipe />;
+  return <View />;
 }

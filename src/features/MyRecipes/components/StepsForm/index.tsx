@@ -7,7 +7,7 @@ import { InferType } from "yup";
 import { recipeSchema } from "../../validations";
 import { ContainerForm } from "../ContainerForm";
 
-export const IngredientsForm = () => {
+export const StepsForm = () => {
   const {
     control,
     formState: { errors },
@@ -15,21 +15,23 @@ export const IngredientsForm = () => {
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "ingredients",
+    name: "steps",
   });
 
-  const addNewIngredient = () => {
-    append({ name: "", quantity: "" });
+  const addNewStep = () => {
+    const index = !!fields[0]?.description ? fields.length + 1 : 0;
+
+    append({ description: "", index });
   };
 
   return (
     <ContainerForm>
-      <Typography>Descreva os ingredientes utilizados</Typography>
+      <Typography>Descreva os passos realizados</Typography>
       <Space />
 
-      <TouchableOpacity onPress={addNewIngredient}>
+      <TouchableOpacity onPress={addNewStep}>
         <Typography variant="caption" style={{ color: "blue" }}>
-          Toque aqui para adicionar um novo ingrediente
+          Toque aqui para adicionar um novo passo
         </Typography>
       </TouchableOpacity>
 
@@ -41,34 +43,19 @@ export const IngredientsForm = () => {
           <View style={{ flex: 3 }}>
             <Controller
               control={control}
-              name={`ingredients.${index}.name`}
-              defaultValue={item.name || ""}
+              name={`steps.${index}.description`}
+              defaultValue={item.description || ""}
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
-                  label="Ingredient Name"
+                  label={`Passo ${index + 1}`}
+                  placeholder={`Passo ${index + 1}`}
                   onBlur={onBlur}
+                  multiline
                   onChangeText={onChange}
                   value={value}
-                  numberOfLines={1}
-                  error={!!errors?.ingredients?.[index]?.name}
-                />
-              )}
-            />
-          </View>
-
-          <View style={{ flex: 1, marginLeft: 6 }}>
-            <Controller
-              control={control}
-              name={`ingredients.${index}.quantity`}
-              defaultValue={item.quantity}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
-                  label="Qtde"
-                  onBlur={onBlur}
-                  keyboardType="numeric"
-                  onChangeText={onChange}
-                  value={value}
-                  error={!!errors?.ingredients?.[index]?.quantity}
+                  numberOfLines={5}
+                  maxLength={500}
+                  error={!!errors?.steps?.[index]}
                 />
               )}
             />

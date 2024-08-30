@@ -1,6 +1,7 @@
 import React from "react";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { Text, useTheme, IconButton } from "react-native-paper";
+import { Typography } from "../../Typography";
 
 interface CustomCheckboxProps {
   checked: boolean;
@@ -22,13 +23,13 @@ export const Checkbox: React.FC<CustomCheckboxProps> = ({
           styles.checkbox,
           {
             backgroundColor: checked ? theme.colors.primary : "transparent",
-            borderColor: theme.colors.onSurface,
+            borderColor: theme.colors.outline,
           },
         ]}
       >
         {checked && <IconButton icon="check" size={16} iconColor="#FFF" />}
       </View>
-      <Text style={styles.label}>{label}</Text>
+      <Typography variant="body">{label}</Typography>
     </TouchableOpacity>
   );
 };
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     borderRadius: 4,
-    borderWidth: 2,
+    borderWidth: 1,
     justifyContent: "center",
     alignItems: "center",
     marginRight: 8,

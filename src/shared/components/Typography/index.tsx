@@ -38,7 +38,7 @@ export const Typography: React.FC<TypographyProps> = ({
 
 const styles = StyleSheet.create({
   heading: {
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: "bold",
     lineHeight: 32,
   },

@@ -1,13 +1,25 @@
-import { PROGRESS_INITIAL_STEP, ProgressSteps } from "@/shared/components";
+import { ProgressSteps } from "@/shared/components";
 import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useMemo, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { View } from "react-native";
 import { InferType } from "yup";
-import { PhotosForm, RecipeDetailsForm } from "../../components";
+import {
+  CategoryForm,
+  DifficultyForm,
+  GeneralForm,
+  HealthInfoForm,
+  IngredientsForm,
+  Introduction,
+  PhotosForm,
+  RecipeDetailsForm,
+  StepsForm,
+  TagsForm,
+} from "../../components";
 import { recipeSchema } from "../../validations";
 
 export const AddRecipe = () => {
+  const [hasInit, setHasInit] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
 
   const methods = useForm({
@@ -22,12 +34,19 @@ export const AddRecipe = () => {
   const forms = useMemo(
     () => [
       <RecipeDetailsForm />,
+      <CategoryForm />,
+      <HealthInfoForm />,
+      <IngredientsForm />,
+      <StepsForm />,
+      <TagsForm />,
+      <DifficultyForm />,
+      <GeneralForm />,
       <PhotosForm />,
-      <RecipeDetailsForm />,
-      <RecipeDetailsForm />,
     ],
     [],
   );
+
+  if (!hasInit) return <Introduction action={() => setHasInit(true)} />;
 
   return (
     <FormProvider {...methods}>

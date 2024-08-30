@@ -9,7 +9,7 @@ export const SectionLabel = ({ label }: SectionLabelProps) => {
     <>
       <Space />
       <Typography> {label}</Typography>
-      <Space />
+      <Space type="lg" />
     </>
   );
 };

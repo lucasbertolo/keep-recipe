@@ -12,7 +12,7 @@ export const PhotosForm = () => {
   return (
     <View style={{ flex: 1 }}>
       <Space type="lg" />
-      <Typography variant="subtitle" style={{ marginLeft: 12 }}>
+      <Typography variant="subtitle" style={{ marginLeft: 24 }}>
         Adicione imagens à sua receita
       </Typography>
       <Space type="lg" />

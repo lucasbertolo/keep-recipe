@@ -10,6 +10,11 @@ interface StepProps {
   action?: () => void;
 }
 
+export interface ProgressStepConfig {
+  hasNextButton?: boolean;
+  content: React.JSX.Element;
+}
+
 const Step: React.FC<StepProps> = ({ isActive, isCompleted, action }) => {
   const theme = useTheme();
 
@@ -144,8 +149,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   buttonContainer: {
-    flexDirection: "row-reverse",
-    justifyContent: "space-between",
     paddingHorizontal: 16,
     paddingBottom: 16,
   },

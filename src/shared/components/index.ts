@@ -10,3 +10,4 @@ export { default as Logo } from "./Logo";
 export * from "./Camera";
 export * from "./Carousel";
 export * from "./ProgressStep";
+export * from "./BottomBar";

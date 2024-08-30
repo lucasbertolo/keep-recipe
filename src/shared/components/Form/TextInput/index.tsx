@@ -14,7 +14,6 @@ const TextInput = ({ errorText, ...props }: TextInputProps) => {
         {...props}
         style={{ backgroundColor: theme.colors.background }}
         selectionColor={theme.colors.onBackground}
-        mode="flat"
         contentStyle={{ color: theme.colors.onBackground }}
       />
 

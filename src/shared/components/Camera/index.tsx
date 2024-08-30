@@ -9,6 +9,8 @@ interface CameraComponentProps {
 }
 
 export const Camera: React.FC<CameraComponentProps> = ({ onTakePhoto }) => {
+  console.log("BBB");
+
   const theme = useTheme();
   const [permission, requestPermission] = useCameraPermissions();
   const cameraRef = useRef<CameraView>(null);
@@ -29,10 +31,12 @@ export const Camera: React.FC<CameraComponentProps> = ({ onTakePhoto }) => {
   };
 
   const handleCloseCamera = () => {
+    console.log("AAAA");
     setIsCameraOpen(false);
   };
 
   const takePicture = async () => {
+    console.log("UAHSDUHASDUH");
     if (cameraRef.current) {
       const photo = await cameraRef.current.takePictureAsync();
 
@@ -44,6 +48,8 @@ export const Camera: React.FC<CameraComponentProps> = ({ onTakePhoto }) => {
   };
 
   const pickImage = async () => {
+    console.log("teste");
+
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
@@ -56,6 +62,8 @@ export const Camera: React.FC<CameraComponentProps> = ({ onTakePhoto }) => {
     }
   };
 
+  console.log("cd", cameraRef.current);
+
   return (
     <>
       <View style={styles.containerPhoto}>
@@ -63,11 +71,18 @@ export const Camera: React.FC<CameraComponentProps> = ({ onTakePhoto }) => {
           icon={"plus"}
           onPress={handleOpenCamera}
           style={[styles.openCamera, { borderColor: theme.colors.tertiary }]}
-        ></IconButton>
+        />
       </View>
 
       <Modal visible={isCameraOpen} animationType="slide">
         <View style={styles.container}>
+          <View style={styles.close}>
+            <IconButton
+              icon={"close"}
+              onPress={() => console.log("AQUI")}
+              iconColor={theme.colors.background}
+            />
+          </View>
           <CameraView style={styles.camera} ref={cameraRef}>
             <View style={styles.controls}>
               <View style={styles.collumn}>
@@ -98,6 +113,9 @@ const styles = StyleSheet.create({
   openCamera: {
     borderRadius: 32,
     borderWidth: 1,
+  },
+  close: {
+    zIndex: 999,
   },
   containerPhoto: {
     backgroundColor: "#FFFFFF",

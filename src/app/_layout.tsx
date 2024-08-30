@@ -9,7 +9,7 @@ import {
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import merge from "deepmerge";
 import { useFonts } from "expo-font";
-import { Slot } from "expo-router";
+import { Slot, Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -66,7 +66,17 @@ export default function RootLayout() {
           <GestureHandlerRootView style={{ flex: 1 }}>
             <RootSiblingParent>
               <AuthProvider>
-                <Slot />
+                <Stack>
+                  <Stack.Screen
+                    name="(auth)"
+                    options={{ headerShown: false }}
+                  />
+                  <Stack.Screen name="login" options={{ headerShown: false }} />
+                  <Stack.Screen
+                    name="register"
+                    options={{ headerShown: false }}
+                  />
+                </Stack>
               </AuthProvider>
             </RootSiblingParent>
           </GestureHandlerRootView>
