@@ -1,4 +1,3 @@
-import { useFirebaseSession } from "@/config/services";
 import { AuthProvider } from "@/features/Auth/provider";
 import { Colors } from "@/shared/constants/Colors";
 import { useLocalTheme } from "@/shared/hooks";
@@ -10,9 +9,10 @@ import {
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import merge from "deepmerge";
 import { useFonts } from "expo-font";
-import { Slot } from "expo-router";
+import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import {
   adaptNavigationTheme,
   MD3DarkTheme,
@@ -40,7 +40,6 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const firebaseSession = useFirebaseSession();
   const { colorScheme } = useLocalTheme();
 
   const paperTheme =
@@ -49,28 +48,38 @@ export default function RootLayout() {
   const queryClient = new QueryClient();
 
   const [loaded] = useFonts({
-    SpaceMono: require("../shared/assets/fonts/SpaceMono-Regular.ttf"),
+    Suse: require("../shared/assets/fonts/SUSE-Regular.ttf"),
   });
 
   useEffect(() => {
-    if (loaded && !firebaseSession.initializing) {
+    if (loaded) {
       SplashScreen.hideAsync();
     }
-  }, [loaded, firebaseSession.initializing]);
+  }, [loaded]);
 
-  if (!loaded || firebaseSession.initializing) {
-    return null;
-  }
+  if (!loaded) return null;
 
   return (
     <PaperProvider theme={paperTheme}>
       <ThemeProvider value={paperTheme}>
         <QueryClientProvider client={queryClient}>
-          <RootSiblingParent>
-            <AuthProvider>
-              <Slot />
-            </AuthProvider>
-          </RootSiblingParent>
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <RootSiblingParent>
+              <AuthProvider>
+                <Stack>
+                  <Stack.Screen
+                    name="(auth)"
+                    options={{ headerShown: false }}
+                  />
+                  <Stack.Screen name="login" options={{ headerShown: false }} />
+                  <Stack.Screen
+                    name="register"
+                    options={{ headerShown: false }}
+                  />
+                </Stack>
+              </AuthProvider>
+            </RootSiblingParent>
+          </GestureHandlerRootView>
         </QueryClientProvider>
       </ThemeProvider>
     </PaperProvider>

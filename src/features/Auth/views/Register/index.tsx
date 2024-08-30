@@ -94,7 +94,7 @@ export default function RegisterScreen() {
       <LinkText
         text="Já possui conta?"
         textAction="Login"
-        action={() => router.replace("./login")}
+        action={() => router.back()}
       />
     </WrapperForm>
   );

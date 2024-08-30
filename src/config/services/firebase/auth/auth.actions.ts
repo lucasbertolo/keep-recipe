@@ -1,7 +1,6 @@
-import { AuthApiInterface } from "@/features/Auth/model";
 import auth from "@react-native-firebase/auth";
 
-export class FirebaseAuthService implements AuthApiInterface {
+export class FirebaseAuthService implements Auth.Actions {
   async signIn(username: string, password: string): Promise<void> {
     try {
       await auth().signInWithEmailAndPassword(username, password);

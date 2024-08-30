@@ -1,5 +1,5 @@
-import { View } from "react-native";
+import { ListRecipes } from "@/features/MyRecipes/views";
 
-export default function HomeScreen() {
-  return <View />;
+export default function RecipesScreen() {
+  return <ListRecipes />;
 }

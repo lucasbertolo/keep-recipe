@@ -1,23 +1,25 @@
+import { BottomBar } from "@/shared/components";
+import { TabBarIcon } from "@/shared/components/navigation/TabBarIcon";
 import { Tabs } from "expo-router";
 import React from "react";
-import { TabBarIcon } from "@/shared/components/navigation/TabBarIcon";
-import { Colors } from "@/shared/constants/Colors";
-import { useColorScheme } from "react-native";
+import { useTheme } from "react-native-paper";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  const theme = useTheme();
 
   return (
     <Tabs
+      tabBar={(props) => <BottomBar {...props} centerRoute="new-recipe" />}
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-        headerShown: true,
+        headerStyle: { backgroundColor: "transparent" },
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
           title: "Home",
+          headerShown: false,
+          headerTitleStyle: { color: theme.colors.primary },
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
               name={focused ? "home" : "home-outline"}
@@ -27,9 +29,17 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="new-recipe"
+        options={{
+          title: "",
+          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+        }}
+      />
+      <Tabs.Screen
         name="config"
         options={{
           title: "Configurações",
+          headerTitleStyle: { color: theme.colors.primary },
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
               name={focused ? "settings" : "settings-outline"}

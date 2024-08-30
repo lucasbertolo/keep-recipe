@@ -12,11 +12,9 @@ const TextInput = ({ errorText, ...props }: TextInputProps) => {
     <View style={{ width: "100%", marginVertical: 12 }}>
       <Input
         {...props}
-        style={{ backgroundColor: theme.colors.onBackground }}
-        selectionColor={theme.colors.background}
-        underlineColor="transparent"
-        mode="outlined"
-        contentStyle={{ color: theme.colors.background }}
+        style={{ backgroundColor: theme.colors.background }}
+        selectionColor={theme.colors.onBackground}
+        contentStyle={{ color: theme.colors.onBackground }}
       />
 
       {!!errorText && (

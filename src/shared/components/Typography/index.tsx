@@ -1,30 +1,64 @@
-import React, { memo } from "react";
-import { StyleProp, Text, TextStyle } from "react-native";
+import React from "react";
+import { Text, StyleSheet, TextStyle } from "react-native";
 import { useTheme } from "react-native-paper";
 
-type Props = {
+interface TypographyProps {
+  variant?: "heading" | "subtitle" | "body" | "caption";
+  style?: TextStyle | TextStyle[];
   children: React.ReactNode;
-  style?: StyleProp<TextStyle>;
-};
+}
 
-const Typography = ({ children, style = {} as TextStyle }: Props) => {
+export const Typography: React.FC<TypographyProps> = ({
+  variant = "body",
+  style,
+  children,
+}) => {
   const theme = useTheme();
 
+  const getVariantStyle = (): TextStyle => {
+    switch (variant) {
+      case "heading":
+        return styles.heading;
+      case "subtitle":
+        return styles.subtitle;
+      case "caption":
+        return styles.caption;
+      case "body":
+      default:
+        return styles.body;
+    }
+  };
+
   return (
-    <Text
-      style={[
-        {
-          fontSize: 12,
-          color: theme.colors.secondary,
-          textAlign: "center",
-          marginBottom: 14,
-        },
-        style,
-      ]}
-    >
+    <Text style={[getVariantStyle(), { color: theme.colors.shadow }, style]}>
       {children}
     </Text>
   );
 };
 
-export default memo(Typography);
+const styles = StyleSheet.create({
+  heading: {
+    fontSize: 30,
+    fontWeight: "bold",
+    lineHeight: 32,
+    fontFamily: "Suse",
+  },
+  subtitle: {
+    fontSize: 18,
+    fontWeight: "600",
+    lineHeight: 24,
+    fontFamily: "Suse",
+  },
+  body: {
+    fontSize: 16,
+    fontWeight: "normal",
+    lineHeight: 22,
+    fontFamily: "Suse",
+  },
+  caption: {
+    fontSize: 12,
+    fontWeight: "400",
+    lineHeight: 16,
+    fontFamily: "Suse",
+  },
+});

@@ -78,7 +78,7 @@ export default function LoginScreen() {
       <LinkText
         text="Não possui conta?"
         textAction="Registrar"
-        action={() => router.replace("./register")}
+        action={() => router.push("./register")}
       />
     </WrapperForm>
   );
