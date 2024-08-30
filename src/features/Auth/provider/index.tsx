@@ -10,7 +10,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const session = useFirebaseSession();
 
   return (
-    <AuthContext.Provider value={{ ...authService, session }}>
+    <AuthContext.Provider
+      value={{
+        service: authService,
+        initializing: session.initializing,
+        user: session.user,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
@@ -18,6 +24,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
 export const useAuth = (): Auth.Provider => {
   const context = useContext(AuthContext);
+
   if (!context) {
     throw new Error("useAuth must be used within an AuthProvider");
   }

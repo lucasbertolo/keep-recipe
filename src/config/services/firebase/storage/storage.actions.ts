@@ -3,20 +3,28 @@ import uuid from "react-native-uuid";
 import { ImageResizerService } from "../../image-resizer";
 
 export class FirebaseStorageService {
-  async uploadPhotos(userId: string, photos: string[]) {
+  static async uploadPhotos(userId: string, photos: string[]) {
     try {
       const urls = [];
 
+      console.log("photos inside upload Photos", photos);
+
       for (const photo of photos) {
-        const resizedImage = await ImageResizerService.resizeImage(photo);
+        try {
+          const resizedImage = await ImageResizerService.resizeImage(photo);
 
-        const storageRef = storage().ref(`recipes/${userId}/${uuid.v4()}`);
+          console.log("resizedImage", resizedImage);
 
-        await storageRef.putFile(resizedImage);
+          const storageRef = storage().ref(`recipes/${userId}/${uuid.v4()}`);
 
-        const photoURL = await storageRef.getDownloadURL();
+          await storageRef.putFile(resizedImage);
 
-        urls.push(photoURL);
+          const photoURL = await storageRef.getDownloadURL();
+
+          urls.push(photoURL);
+        } catch (error) {
+          console.log("error inside loop", error);
+        }
       }
 
       return urls;

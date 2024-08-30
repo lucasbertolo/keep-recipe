@@ -1,22 +1,26 @@
 import firestore from "@react-native-firebase/firestore";
 import { FirebaseStorageService } from "../storage";
+import { cleanData } from "@/shared/utils";
 
 const USERS_COLLECTION = "users";
 const RECIPES_COLLECTION = "recipes";
 
 export class FirebaseFirestoreService implements Recipes.Actions {
-  async addRecipe({ photos, recipe, userId }: Recipes.Add) {
+  async addRecipe({ recipe }: Recipes.Add) {
     try {
-      const storage = new FirebaseStorageService();
+      const urls = await FirebaseStorageService.uploadPhotos(
+        recipe.userId,
+        recipe.photos ?? [],
+      );
 
-      const urls = await storage.uploadPhotos(userId, photos);
+      const model = cleanData(recipe);
 
       await firestore()
         .collection(USERS_COLLECTION)
-        .doc(userId)
+        .doc(recipe.userId)
         .collection(RECIPES_COLLECTION)
         .add({
-          ...recipe,
+          ...model,
           photos: urls,
           createdAt: firestore.FieldValue.serverTimestamp(),
         });

@@ -68,7 +68,7 @@ export const Filter = () => {
         name="category"
         render={({ field: { onChange, value } }) => (
           <MultiselectChip
-            options={["dessert", "main meal", "snack"]}
+            options={["dessert", "meal", "snack"]}
             onSelectionChange={onChange}
             value={value}
           />

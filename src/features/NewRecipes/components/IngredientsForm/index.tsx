@@ -45,7 +45,7 @@ export const IngredientsForm = () => {
               defaultValue={item.name || ""}
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
-                  label="Ingredient Name"
+                  label="Nome do ingrediente"
                   onBlur={onBlur}
                   onChangeText={onChange}
                   value={value}

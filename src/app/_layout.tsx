@@ -9,7 +9,7 @@ import {
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import merge from "deepmerge";
 import { useFonts } from "expo-font";
-import { Slot, Stack } from "expo-router";
+import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -48,7 +48,7 @@ export default function RootLayout() {
   const queryClient = new QueryClient();
 
   const [loaded] = useFonts({
-    SpaceMono: require("../shared/assets/fonts/SpaceMono-Regular.ttf"),
+    Suse: require("../shared/assets/fonts/SUSE-Regular.ttf"),
   });
 
   useEffect(() => {

@@ -15,7 +15,7 @@ export const useSignIn = () => {
 
   return useMutation({
     mutationFn: async ({ password, email }: UseSignInParams) => {
-      return auth.signIn(email, password);
+      return auth.service.signIn(email, password);
     },
     onSuccess: () => {
       router.replace("/");

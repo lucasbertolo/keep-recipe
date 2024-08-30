@@ -1,4 +1,4 @@
-import { SearchBar } from "@/shared/components";
+import { SearchBar, Typography } from "@/shared/components";
 import { useSearchBar } from "@/shared/hooks";
 import { useCallback, useMemo } from "react";
 import { FlatList, ListRenderItemInfo, View } from "react-native";
@@ -37,10 +37,16 @@ export const ListRecipes = () => {
         filterChildren={<Filter />}
       />
 
+      <View style={{ paddingHorizontal: 18, marginBottom: -20 }}>
+        <Typography variant="subtitle">Minhas receitas</Typography>
+      </View>
+
       <FlatList
         data={filteredRecipes}
         renderItem={renderItem}
-        contentContainerStyle={{ gap: 12 }}
+        style={{ flex: 1 }}
+        contentContainerStyle={{ gap: 24, paddingHorizontal: 12 }}
+        horizontal
       />
     </View>
   );

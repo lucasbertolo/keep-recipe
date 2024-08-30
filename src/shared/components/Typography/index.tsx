@@ -41,20 +41,24 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
     lineHeight: 32,
+    fontFamily: "Suse",
   },
   subtitle: {
     fontSize: 18,
     fontWeight: "600",
     lineHeight: 24,
+    fontFamily: "Suse",
   },
   body: {
     fontSize: 16,
     fontWeight: "normal",
     lineHeight: 22,
+    fontFamily: "Suse",
   },
   caption: {
     fontSize: 12,
     fontWeight: "400",
     lineHeight: 16,
+    fontFamily: "Suse",
   },
 });

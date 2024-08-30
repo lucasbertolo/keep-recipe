@@ -3,13 +3,13 @@ import { useAuth } from "@/features/Auth/provider";
 import { Redirect, Stack } from "expo-router";
 
 export default function RootLayout() {
-  const { session } = useAuth();
+  const { initializing, user } = useAuth();
 
   useReactQueryConfig();
 
-  if (!session.initializing && !session.user) {
-    return <Redirect href="../login" />;
-  }
+  if (initializing) return null;
+
+  if (!user) return <Redirect href="../login" />;
 
   return (
     <Stack>

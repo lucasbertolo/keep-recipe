@@ -35,7 +35,7 @@ export const CarouselPhotos = ({
   const baseOptions = {
     vertical: false,
     width: screenWidth,
-    height: (height ?? screenWidth) * 0.7,
+    height: (height ?? screenWidth) * 1.2,
   };
 
   const ref = React.useRef<ICarouselInstance>(null);
@@ -65,6 +65,8 @@ export const CarouselPhotos = ({
   };
 
   const shouldShowPagination = React.useMemo(() => {
+    if (formattedPhotos.length <= 1) return false;
+
     return formattedPhotos[progress.value] !== "camera";
   }, [progress.value, formattedPhotos]);
 

@@ -1,12 +1,19 @@
 import { CarouselPhotos, Space, Typography } from "@/shared/components";
-import React, { useState } from "react";
+import React from "react";
+import { Controller, useFormContext } from "react-hook-form";
 import { View } from "react-native";
+import { InferType } from "yup";
+import { recipeSchema } from "../../validations";
 
 export const PhotosForm = () => {
-  const [photos, setPhotos] = useState<string[]>([]);
+  const { control, setValue, getValues } =
+    useFormContext<InferType<typeof recipeSchema>>();
 
   const handleTakePhoto = (photoUri: string) => {
-    setPhotos((prevPhotos) => [...prevPhotos, photoUri]);
+    const prevPhotos = getValues("photos");
+
+    console.log("prevPhotos", prevPhotos);
+    setValue("photos", [...(prevPhotos ?? []), photoUri]);
   };
 
   return (
@@ -17,7 +24,13 @@ export const PhotosForm = () => {
       </Typography>
       <Space type="lg" />
 
-      <CarouselPhotos photos={photos} takePhoto={handleTakePhoto} />
+      <Controller
+        control={control}
+        name="photos"
+        render={({ field: { value } }) => (
+          <CarouselPhotos photos={value ?? []} takePhoto={handleTakePhoto} />
+        )}
+      />
     </View>
   );
 };

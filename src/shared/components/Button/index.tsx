@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
   },
   text: {
+    fontFamily: "Suse",
     fontWeight: "bold",
     fontSize: 15,
     lineHeight: 26,

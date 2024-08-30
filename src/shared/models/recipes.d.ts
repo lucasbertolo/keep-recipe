@@ -4,6 +4,10 @@ declare namespace Recipes {
     quantity: string;
   };
 
+  type Difficulty = "easy" | "medium" | "hard";
+
+  type Category = "dessert" | "meal" | "snack";
+
   type Recipe = {
     userId: string;
     title: string;
@@ -13,7 +17,7 @@ declare namespace Recipes {
     averageMoneySpent?: number;
     tags?: string[];
     steps?: string[];
-    category?: "dessert" | "main meal" | "snack";
+    category?: Category;
     isVegan?: boolean;
     isVegetarian?: boolean;
     isGlutenFree?: boolean;
@@ -23,20 +27,18 @@ declare namespace Recipes {
     cookTime?: number;
     totalTime?: number;
     servings?: number;
-    difficulty?: "easy" | "medium" | "hard";
+    difficulty?: Difficulty;
     source?: string;
     rating?: number;
     observation?: string;
   };
 
   type Add = {
-    userId: string;
     recipe: Recipe;
-    photos: string[];
   };
 
   interface Actions {
-    addRecipe: (params: AddRecipe) => Promise<void>;
+    addRecipe: (params: Add) => Promise<void>;
     getRecipes: (userId: string) => Promise<Recipe[]>;
     getRecipeById: (userId: string, recipeId: string) => Promise<Recipe | null>;
     editRecipe: (userId: string, recipe: Recipe) => Promise<void>;

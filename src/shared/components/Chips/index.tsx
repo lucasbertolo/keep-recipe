@@ -2,7 +2,7 @@ import { View } from "react-native";
 import { Chip } from "react-native-paper";
 
 type ListChipsProps = {
-  onRemove: (e: string) => void;
+  onRemove?: (e: string) => void;
   chips: string[];
 };
 
@@ -17,7 +17,7 @@ export const ListChips = ({ onRemove, chips }: ListChipsProps) => {
       }}
     >
       {chips.map((field) => (
-        <Chip key={field} closeIcon={"close"} onClose={() => onRemove(field)}>
+        <Chip key={field} closeIcon={"close"} onClose={() => onRemove?.(field)}>
           {field}
         </Chip>
       ))}

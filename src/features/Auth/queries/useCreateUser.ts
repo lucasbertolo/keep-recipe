@@ -15,7 +15,7 @@ export const useCreateUser = () => {
 
   return useMutation({
     mutationFn: async ({ password, email }: UseSignInParams) => {
-      return auth.registerUser(email, password);
+      return auth.service.registerUser(email, password);
     },
     onSuccess: () => {
       toast.showToast({

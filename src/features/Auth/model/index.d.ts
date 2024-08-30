@@ -11,10 +11,9 @@ declare namespace Auth {
     email: string | null;
   }
 
-  interface Provider extends Auth.Actions {
-    session: {
-      user?: Auth.User;
-      initializing: boolean;
-    };
+  interface Provider {
+    service: Auth.Actions;
+    user?: Auth.User;
+    initializing: boolean;
   }
 }

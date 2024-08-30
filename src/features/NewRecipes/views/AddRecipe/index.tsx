@@ -1,7 +1,7 @@
 import { ProgressSteps } from "@/shared/components";
 import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useMemo, useState } from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { View } from "react-native";
 import { InferType } from "yup";
 import {
@@ -18,18 +18,29 @@ import {
   TimeForm,
 } from "../../components";
 import { recipeSchema } from "../../validations";
+import { useAddRecipe } from "../../queries";
 
 export const AddRecipe = () => {
   const [hasInit, setHasInit] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
+
+  const { mutate: addRecipe } = useAddRecipe();
 
   const methods = useForm({
     resolver: yupResolver(recipeSchema),
     defaultValues: {},
   });
 
-  const onSubmit = (data?: InferType<typeof recipeSchema>) => {
-    console.log("Form Data:", data);
+  const onSubmit: SubmitHandler<InferType<typeof recipeSchema>> = (data) => {
+    const model: Recipes.Recipe = {
+      ...methods.getValues(),
+      userId: "",
+      totalTime: (data.cookTime ?? 0) + (data.prepTime ?? 0),
+      steps: data.steps?.map((s) => s.description),
+      difficulty: data.difficulty as Recipes.Difficulty,
+    };
+
+    addRecipe({ recipe: model });
   };
 
   const forms = useMemo(
@@ -57,7 +68,7 @@ export const AddRecipe = () => {
           currentStep={currentStep}
           setStep={setCurrentStep}
           content={forms}
-          onSubmit={() => onSubmit()}
+          onSubmit={methods.handleSubmit(onSubmit)}
         />
       </View>
     </FormProvider>

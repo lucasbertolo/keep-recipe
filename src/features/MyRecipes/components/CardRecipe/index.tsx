@@ -1,8 +1,8 @@
-import { CarouselPhotos, If, Typography } from "@/shared/components";
+import { If, Typography } from "@/shared/components";
 import { Shadows } from "@/shared/constants/Shadows";
-import { useState } from "react";
-import { View } from "react-native";
-import { Card, useTheme } from "react-native-paper";
+import { useMemo } from "react";
+import { Image, StyleSheet, View } from "react-native";
+import { useTheme } from "react-native-paper";
 
 type CardRecipeProps = {
   recipe: Recipes.Recipe;
@@ -11,42 +11,73 @@ type CardRecipeProps = {
 export const CardRecipe = ({ recipe }: CardRecipeProps) => {
   const theme = useTheme();
 
-  const [cardWidth, setCardWidth] = useState(0);
+  const coverPhoto = useMemo(() => {
+    const photo = recipe?.photos?.[0];
+
+    if (photo) return photo;
+
+    return "";
+  }, [recipe]);
 
   return (
-    <Card
-      style={{
-        width: "90%",
-        alignSelf: "center",
-        backgroundColor: theme.colors.background,
-        borderRadius: 12,
-        ...Shadows.light,
-      }}
-      onLayout={(event) => {
-        const { width } = event.nativeEvent.layout;
+    <View style={[styles.card, { backgroundColor: theme.colors.background }]}>
+      <Image style={styles.carousel} src={coverPhoto} />
 
-        setCardWidth(width);
-      }}
-    >
-      <If condition={!!cardWidth}>
-        <CarouselPhotos
-          width={cardWidth}
-          containerStyle={{ borderTopRightRadius: 12, borderTopLeftRadius: 12 }}
-          photos={[
-            "https://picsum.photos/200",
-            "https://picsum.photos/200",
-            "https://picsum.photos/200",
-            "https://picsum.photos/200",
-            "https://picsum.photos/200",
-          ]}
-        />
-      </If>
+      <View style={styles.details}>
+        <Typography variant="body">{recipe.title}</Typography>
 
-      <View style={{ padding: 12 }}>
-        <Typography>{recipe.title}</Typography>
-        <Typography>{recipe.totalTime}</Typography>
-        <Typography>{recipe.category}</Typography>
+        <View style={styles.row}>
+          <If condition={!!recipe.servings}>
+            <Typography
+              variant="caption"
+              style={{ color: theme.colors.outline }}
+            >
+              {recipe.servings} porções
+            </Typography>
+          </If>
+
+          <If condition={!!recipe.servings && !!recipe.totalTime}>
+            <View style={{ marginHorizontal: 6 }}>
+              <Typography
+                variant="caption"
+                style={{ color: theme.colors.outline }}
+              >
+                -
+              </Typography>
+            </View>
+          </If>
+
+          <If condition={!!recipe.totalTime}>
+            <Typography
+              variant="caption"
+              style={{ color: theme.colors.outline }}
+            >
+              {recipe.totalTime} min
+            </Typography>
+          </If>
+        </View>
       </View>
-    </Card>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  card: {
+    alignSelf: "center",
+    borderRadius: 12,
+  },
+  carousel: {
+    borderRadius: 12,
+    width: 240,
+    height: 360,
+    ...Shadows.light,
+  },
+  details: {
+    padding: 12,
+  },
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 3,
+  },
+});

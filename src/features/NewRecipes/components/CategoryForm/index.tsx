@@ -17,8 +17,8 @@ export const CategoryForm = () => {
         render={({ field: { onChange, value } }) => (
           <RNPRadioButton.Group onValueChange={onChange} value={value}>
             <RadioButton
-              selected={value === "main meal"}
-              onPress={() => onChange("main meal")}
+              selected={value === "meal"}
+              onPress={() => onChange("meal")}
               label="Refeição"
               description="Almoços, jantares e cafés da manhã"
             />
