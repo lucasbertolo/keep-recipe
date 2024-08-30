@@ -49,7 +49,7 @@ Adicione as configurações geradas ao criar os serviços de storage/firestore/a
 
 4. **Inicie o projeto com Expo:**
 
-   ``npx expo start```
+   ```npx expo start```
 
 ## Dicas para Rodar o Projeto
 
