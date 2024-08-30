@@ -1,51 +1,66 @@
-# Welcome to your Expo app 👋
+# Projeto de Receitas
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Este é um aplicativo de receitas onde os usuários podem adicionar, editar e visualizar suas próprias receitas. As receitas podem incluir fotos e são armazenadas de forma privada para cada usuário.
 
-## Get started
+## Funcionalidades
 
-1. Install dependencies
+- Adicionar receitas com fotos
+- Filtrar receitas por diversos filtros, como categoria e dificuldade
+- Exibir as receitas
+- Utilizar autenticação Firebase
+- Armazenar fotos no Firebase Storage
+- Usar Firestore para armazenar informações das receitas
 
-   ```bash
-   npm install
-   ```
+## Tecnologias Utilizadas
 
-2. Start the app
+- [Expo](https://expo.dev/)
+- [React Native](https://reactnative.dev/)
+- [React Native Paper](https://callstack.github.io/react-native-paper/)
+- [React Hook Form](https://react-hook-form.com/)
+- [Yup](https://github.com/jquense/yup)
+- [@react-native-firebase/storage](https://rnfirebase.io/storage/usage)
+- [@react-native-firebase/firestore](https://rnfirebase.io/firestore/usage)
 
-   ```bash
-    npx expo start
-   ```
+## Pré-requisitos
 
-In the output, you'll find options to open the app in a
+Antes de começar, certifique-se de ter instalado:
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- Node.js (v14 ou superior)
+- npm ou yarn
+- Expo CLI (`npm install -g expo-cli`)
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Como Rodar o Projeto
 
-## Get a fresh project
+1. **Clone o repositório:**
 
-When you're ready, run:
+   ```git clone https://github.com/lucasbertolo/keep-recipe```
+   ```cd keep-recipe```
 
-```bash
-npm run reset-project
-```
+2. **Instale as dependências:**
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+   ```npm install```
 
-## Learn more
+   ```yarn install```
 
-To learn more about developing your project with Expo, look at the following resources:
+3. **Configure o Firebase:**
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Crie um projeto no Firebase.
+Adicione as configurações geradas ao criar os serviços de storage/firestore/auth do Firebase na src/config/services/firebase
 
-## Join the community
+4. **Inicie o projeto com Expo:**
 
-Join our community of developers creating universal apps.
+   ```npx expo start```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
-# keep-recipe
+## Dicas para Rodar o Projeto
+
+- Erros de Permissão: Certifique-se de configurar as permissões corretas no Firebase Firestore e Storage.
+- Ambiente de Desenvolvimento: Se estiver testando em um emulador iOS, certifique-se de que todas as permissões (como câmera e galeria) estão devidamente configuradas.
+- Expo CLI: Para evitar erros de compatibilidade, sempre use a versão recomendada de Expo para cada pacote (verifique o package.json).
+
+## Contribuição
+
+Contribuições são bem-vindas! Sinta-se à vontade para abrir uma issue ou enviar um pull request.
+
+## Licença
+
+Este projeto está licenciado sob a licença MIT.
