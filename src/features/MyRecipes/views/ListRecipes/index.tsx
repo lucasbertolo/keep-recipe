@@ -1,4 +1,4 @@
-import { SearchBar, Typography } from "@/shared/components";
+import { EmptyList, SearchBar, Typography } from "@/shared/components";
 import { useSearchBar } from "@/shared/hooks";
 import { useCallback, useMemo, useState } from "react";
 import {
@@ -109,6 +109,12 @@ export const ListRecipes = () => {
     return filterBySearchBar(model ?? []);
   }, [recipes, filterBySearchBar, filters]);
 
+  const emptyListMessage = useMemo(() => {
+    return !!recipes?.length
+      ? "Seu filtro não retornou resultados"
+      : "Parece que você ainda não tem receitas";
+  }, [recipes?.length]);
+
   return (
     <View style={{ flex: 1 }}>
       <SearchBar
@@ -127,6 +133,9 @@ export const ListRecipes = () => {
         style={{ flex: 1 }}
         contentContainerStyle={{ gap: 24, paddingHorizontal: 12 }}
         horizontal
+        ListEmptyComponent={
+          <EmptyList label={emptyListMessage} paddingParent={24} />
+        }
       />
     </View>
   );
