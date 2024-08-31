@@ -12,18 +12,22 @@ export const PasswordInput = ({
 }: PasswordInputProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleClickShowPassword = () => setShowPassword(!showPassword);
-  const handleMouseDownPassword = () => setShowPassword(!showPassword);
+  const handleShowPassword = () => setShowPassword((prevState) => !prevState);
 
   return (
     <TextInput
       {...rest}
-      mode="outlined"
       label={label ?? "Senha"}
-      secureTextEntry
+      secureTextEntry={!!showPassword}
+      textContentType="oneTimeCode"
       onChange={onChange}
       value={value}
-      right={<TextInputPaper.Icon icon="eye" />}
+      right={
+        <TextInputPaper.Icon
+          onPress={handleShowPassword}
+          icon={showPassword ? "eye-outline" : "eye-off-outline"}
+        />
+      }
     />
   );
 };

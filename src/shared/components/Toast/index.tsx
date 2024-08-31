@@ -1,36 +1,57 @@
-import React from "react";
-import { Text, View } from "react-native";
-import { useTheme } from "react-native-paper";
+import React, { useMemo, useState } from "react";
+import { Snackbar, useTheme } from "react-native-paper";
 
 type ToastProps = {
   message: string;
   type: "success" | "error";
+  onClose: () => void;
+  onPress?: {
+    label: string;
+    action: () => void;
+  };
 };
 
-export const Toast = ({ message, type }: ToastProps) => {
+export const Toast = ({ message, type, onClose, onPress }: ToastProps) => {
   const theme = useTheme();
+
+  const [visible, setVisible] = useState(true);
+
+  const handleClose = () => {
+    console.log("AQQUIII");
+    onClose();
+    setVisible(false);
+  };
+
+  const style = useMemo(() => {
+    if (type === "error")
+      return {
+        backgroundColor: theme.colors.error,
+        color: theme.colors.onError,
+      };
+
+    return {
+      backgroundColor: theme.colors.primary,
+      color: theme.colors.onPrimary,
+    };
+  }, [type, theme.colors]);
+
+  const action = onPress
+    ? {
+        label: onPress.label,
+        onPress: () => {
+          onPress.action();
+        },
+      }
+    : undefined;
+
   return (
-    <View
-      style={{
-        position: "absolute",
-        bottom: 10,
-        left: 20,
-        right: 20,
-        backgroundColor:
-          type === "success" ? theme.colors.primary : theme.colors.error,
-        padding: 10,
-        borderRadius: 5,
-      }}
+    <Snackbar
+      visible={visible}
+      style={style}
+      onDismiss={handleClose}
+      action={action}
     >
-      <Text
-        style={{
-          color:
-            type === "success" ? theme.colors.onPrimary : theme.colors.onError,
-          textAlign: "center",
-        }}
-      >
-        {message}
-      </Text>
-    </View>
+      {message}
+    </Snackbar>
   );
 };

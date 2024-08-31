@@ -17,10 +17,14 @@ type Fields = InferType<typeof registerSchema>;
 
 export default function RegisterScreen() {
   const router = useRouter();
-  const { mutate: createUser } = useCreateUser();
+  const { mutate: createUser, isPending } = useCreateUser();
 
   const handleRegister: SubmitHandler<Fields> = async (data) => {
-    createUser({ email: data.email, password: data.password });
+    createUser({
+      email: data.email,
+      password: data.password,
+      displayName: data.displayName,
+    });
   };
 
   const {
@@ -35,6 +39,24 @@ export default function RegisterScreen() {
   return (
     <WrapperForm>
       <Logo />
+
+      <Controller
+        control={control}
+        name="displayName"
+        render={({ field }) => (
+          <TextInput
+            label="Nome do usuário"
+            value={field.value}
+            onChangeText={(text) => field.onChange(text)}
+            returnKeyType="next"
+            autoCapitalize="none"
+            error={!!errors.displayName?.message}
+            errorText={errors.displayName?.message}
+          />
+        )}
+      />
+
+      <Space />
 
       <Controller
         control={control}
@@ -87,7 +109,11 @@ export default function RegisterScreen() {
 
       <Space />
 
-      <Button mode="contained" onPress={handleSubmit(handleRegister)}>
+      <Button
+        mode="contained"
+        onPress={handleSubmit(handleRegister)}
+        loading={isPending}
+      >
         Registrar
       </Button>
 

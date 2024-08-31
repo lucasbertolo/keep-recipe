@@ -1,8 +1,13 @@
 declare namespace Auth {
+  interface RegisterUser {
+    displayName: string;
+    email: string;
+    password: string;
+  }
   interface Actions {
     signIn: (username: string, password: string) => Promise<void>;
     signOut: () => Promise<void>;
-    registerUser: (username: string, password: string) => Promise<void>;
+    registerUser: (props: RegisterUser) => Promise<void>;
   }
 
   interface User {
