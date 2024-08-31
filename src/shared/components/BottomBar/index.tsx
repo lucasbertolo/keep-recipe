@@ -95,10 +95,8 @@ export const BottomBar = ({
           style={[
             styles.fab,
             {
-              backgroundColor: theme.colors.surfaceVariant,
-              borderColor: theme.colors.primary,
-              borderWidth: 1,
-              borderRadius: 12,
+              backgroundColor: theme.colors.onPrimary,
+              borderColor: theme.colors.outlineVariant,
             },
           ]}
           iconColor={theme.colors.primary}
@@ -131,6 +129,10 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 15,
     alignSelf: "center",
+    borderWidth: 1,
+    borderRadius: 24,
+    height: 48,
+    width: 48,
   },
 });
 

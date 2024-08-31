@@ -86,4 +86,22 @@ export class FirebaseFirestoreService implements Recipes.Actions {
 
     return { date, atTime };
   }
+
+  async getTags(userId: string) {
+    try {
+      const recipesSnapshot = await firestore()
+        .collection("users")
+        .doc(userId)
+        .collection("recipes")
+        .get();
+
+      const tags = recipesSnapshot.docs.map((doc) => doc.data().tags);
+
+      const uniqueTags = [...new Set(tags.flat())];
+
+      return uniqueTags;
+    } catch {
+      return [];
+    }
+  }
 }

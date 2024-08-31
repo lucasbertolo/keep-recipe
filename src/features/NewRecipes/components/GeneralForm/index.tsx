@@ -34,6 +34,7 @@ export const GeneralForm = () => {
             error={!!errors.rating}
             errorText={errors.rating?.message}
             left={<PTextInput.Icon icon="star-settings-outline" size={18} />}
+            returnKeyType="next"
           />
         )}
       />
@@ -51,6 +52,7 @@ export const GeneralForm = () => {
             error={!!errors.servings}
             errorText={errors.servings?.message}
             left={<PTextInput.Icon icon="room-service-outline" size={18} />}
+            returnKeyType="next"
           />
         )}
       />
@@ -65,8 +67,10 @@ export const GeneralForm = () => {
             onChangeText={onChange}
             value={value}
             error={!!errors.source}
+            autoCapitalize="none"
             errorText={errors.source?.message}
             left={<PTextInput.Icon icon="link" size={18} />}
+            returnKeyType="next"
           />
         )}
       />
@@ -85,6 +89,7 @@ export const GeneralForm = () => {
             error={!!errors.observation}
             errorText={errors.observation?.message}
             left={<PTextInput.Icon icon="note-edit-outline" size={18} />}
+            returnKeyType="done"
           />
         )}
       />

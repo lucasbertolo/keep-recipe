@@ -28,13 +28,12 @@ export const useLocalTheme = () => {
     }
   }, [globalColorScheme]);
 
-  const toggleTheme = async () => {
-    const newScheme = localColorScheme === "light" ? "dark" : "light";
-    setLocalColorScheme(newScheme);
+  const toggleTheme = async (newTheme: "dark" | "light") => {
+    setLocalColorScheme(newTheme);
 
-    await AsyncStorage.setItem(StorageKeys.theme, newScheme);
+    await AsyncStorage.setItem(StorageKeys.theme, newTheme);
 
-    router.setParams({ colorScheme: newScheme });
+    router.setParams({ colorScheme: newTheme });
   };
 
   return { toggleTheme, colorScheme: localColorScheme };

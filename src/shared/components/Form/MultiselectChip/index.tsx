@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { Chip } from "react-native-paper";
+import { Chip, Icon, IconButton, useTheme } from "react-native-paper";
 
 type Props = {
   options: string[];
@@ -13,6 +13,8 @@ export const MultiselectChip = ({
   onSelectionChange,
   value,
 }: Props) => {
+  const theme = useTheme();
+
   const handleChipPress = (chip: string) => {
     const isSelected = value.includes(chip);
 
@@ -25,16 +27,33 @@ export const MultiselectChip = ({
 
   return (
     <View style={styles.chipContainer}>
-      {options.map((chip) => (
-        <Chip
-          key={chip}
-          style={styles.chip}
-          selected={value.includes(chip)}
-          onPress={() => handleChipPress(chip)}
-        >
-          {chip}
-        </Chip>
-      ))}
+      {options.map((chip) => {
+        const isSelected = value.includes(chip);
+        const textColor = isSelected
+          ? theme.colors.onPrimary
+          : theme.colors.onSurfaceVariant;
+        const backgroundColor = isSelected
+          ? theme.colors.primary
+          : theme.colors.surfaceVariant;
+
+        const icon = () =>
+          isSelected ? (
+            <Icon source="check" size={10} color={textColor} />
+          ) : undefined;
+
+        return (
+          <Chip
+            key={chip}
+            style={[{ backgroundColor }, styles.chip]}
+            textStyle={{ color: textColor }}
+            selected={isSelected}
+            icon={icon}
+            onPress={() => handleChipPress(chip)}
+          >
+            {chip}
+          </Chip>
+        );
+      })}
     </View>
   );
 };
@@ -48,6 +67,5 @@ const styles = StyleSheet.create({
   },
   chip: {
     margin: 4,
-    backgroundColor: "lightgray",
   },
 });

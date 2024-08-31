@@ -1,5 +1,7 @@
 import {
+  Button,
   CarouselPhotos,
+  If,
   ListChips,
   Space,
   Typography,
@@ -7,7 +9,7 @@ import {
 import { CategoryDictionary, DifficultyDictionary } from "@/shared/enums";
 import { useRouter } from "expo-router";
 import React, { useMemo } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Divider, IconButton, useTheme } from "react-native-paper";
 import {
   IngredientDetails,
@@ -17,6 +19,7 @@ import {
 } from "../../components";
 import { useMyRecipes } from "../../provider";
 import { FirebaseFirestoreService } from "@/config/services";
+import * as Linking from "expo-linking";
 
 export const DetailsRecipe = () => {
   const theme = useTheme();
@@ -29,6 +32,12 @@ export const DetailsRecipe = () => {
     if (!date) return;
     return new Date(date).toLocaleDateString("pt-BR");
   }, [recipe?.createdAt]);
+
+  const goToSource = () => {
+    if (!recipe?.source) return;
+
+    Linking.openURL(recipe.source);
+  };
 
   return (
     <ScrollView>
@@ -115,6 +124,21 @@ export const DetailsRecipe = () => {
           text={`Nota: ${recipe?.rating}`}
           shouldHide={!recipe?.rating}
         />
+        <If
+          condition={!!recipe?.source}
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            marginBottom: 6,
+          }}
+        >
+          <Typography>Fonte: </Typography>
+          <TouchableOpacity onPress={goToSource}>
+            <Typography color={theme.colors.primary}>
+              {recipe?.source}
+            </Typography>
+          </TouchableOpacity>
+        </If>
         <TextDetailCard
           text={`Data de criação: ${created}`}
           shouldHide={!recipe?.createdAt?.seconds}

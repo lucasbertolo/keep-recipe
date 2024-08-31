@@ -1,14 +1,13 @@
 import { useAuth } from "@/features/Auth/provider";
-import { Button, Checkbox, Space, Typography } from "@/shared/components";
-import { useLocalTheme } from "@/shared/hooks";
+import { Button, Space, Typography } from "@/shared/components";
 import { View } from "react-native";
 import { Divider, useTheme } from "react-native-paper";
+import { ThemeInput } from "../../components";
 import { useSignOut } from "../../queries";
 
 export const Options = () => {
   const theme = useTheme();
   const { user } = useAuth();
-  const { toggleTheme, colorScheme } = useLocalTheme();
 
   const { mutate: signOut } = useSignOut();
 
@@ -29,13 +28,11 @@ export const Options = () => {
         <Space type="lg" />
         <Divider />
         <Space type="lg" />
+
         <Typography variant="subtitle">Tema</Typography>
         <Space type="lg" />
-        <Checkbox
-          label="Modo noturno"
-          checked={colorScheme === "dark"}
-          onPress={() => toggleTheme()}
-        />
+
+        <ThemeInput />
       </View>
 
       <View style={{ alignSelf: "flex-start" }}>

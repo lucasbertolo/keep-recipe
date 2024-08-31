@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     fontFamily: "Suse",
   },
   body: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "normal",
     lineHeight: 22,
     fontFamily: "Suse",

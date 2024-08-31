@@ -37,7 +37,7 @@ export const AddRecipe = () => {
   const [hasInit, setHasInit] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
 
-  const { mutate: addRecipe } = useAddRecipe();
+  const { mutate: addRecipe, isPending } = useAddRecipe();
 
   const methods = useForm({
     resolver: yupResolver(recipeSchema),
@@ -84,6 +84,7 @@ export const AddRecipe = () => {
           content={forms}
           onSubmit={methods.handleSubmit(onSubmit)}
           fieldNamesPerStep={fieldNamesPerStep}
+          loading={isPending}
         />
       </View>
     </FormProvider>
