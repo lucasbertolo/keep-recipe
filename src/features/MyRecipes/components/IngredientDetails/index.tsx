@@ -33,6 +33,7 @@ export const IngredientDetails = ({ recipe }: Props) => {
         ))}
       </View>
       <Divider />
+      <Space type="lg" />
     </>
   );
 };

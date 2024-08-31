@@ -46,7 +46,11 @@ export const DetailsRecipe = () => {
 
       <View style={{ padding: 16 }}>
         <View style={[styles.row, { justifyContent: "space-between" }]}>
-          <Typography variant="subtitle">{recipe?.title}</Typography>
+          <View style={{ flex: 1 }}>
+            <Typography variant="subtitle" fontType="medium">
+              {recipe?.title}
+            </Typography>
+          </View>
 
           <TextDetailCard
             variant="caption"
@@ -57,12 +61,38 @@ export const DetailsRecipe = () => {
         </View>
         <Space type="sm" />
         <Divider />
-        <Space type="lg" />
+        <Space type="sm" />
         <TextDetailCard
           text={recipe?.description}
           shouldHide={!recipe?.description}
           hasMarginBottom
         />
+
+        <TextDetailCard
+          variant="caption"
+          text={recipe?.isDairyFree ? "Sem latícinios" : ""}
+          shouldHide={!recipe?.isDairyFree}
+          style={{ color: theme.colors.outline }}
+        />
+        <TextDetailCard
+          variant="caption"
+          text={recipe?.isVegan ? "Vegano" : ""}
+          shouldHide={!recipe?.isDairyFree}
+          style={{ color: theme.colors.outline }}
+        />
+        <TextDetailCard
+          variant="caption"
+          text={recipe?.isVegetarian ? "Vegetariano" : ""}
+          shouldHide={!recipe?.isDairyFree}
+          style={{ color: theme.colors.outline }}
+        />
+        <TextDetailCard
+          variant="caption"
+          text={recipe?.isGlutenFree ? "Sem gluten" : ""}
+          shouldHide={!recipe?.isDairyFree}
+          style={{ color: theme.colors.outline }}
+        />
+
         <TextDetailCard
           text={`Dificuldade: ${DifficultyDictionary[recipe?.difficulty!]}`}
           shouldHide={!recipe?.difficulty}
@@ -87,7 +117,7 @@ export const DetailsRecipe = () => {
         />
         <TextDetailCard
           text={`Data de criação: ${created}`}
-          shouldHide={!recipe?.createdAt}
+          shouldHide={!recipe?.createdAt?.seconds}
         />
       </View>
     </ScrollView>

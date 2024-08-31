@@ -33,6 +33,18 @@ declare namespace Recipes {
     observation?: string;
   };
 
+  type Filters = {
+    category: string[];
+    difficulty: string[];
+    isVegan: boolean;
+    isVegetarian: boolean;
+    isGlutenFree: boolean;
+    isDairyFree: boolean;
+    prepTime: number;
+    servings: number;
+    tags: string[];
+  };
+
   type Add = {
     recipe: Recipe;
   };
