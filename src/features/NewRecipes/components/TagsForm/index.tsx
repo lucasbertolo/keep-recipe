@@ -1,4 +1,4 @@
-import { Button, Space, TextInput, Typography } from "@/shared/components";
+import { Button, TextInput } from "@/shared/components";
 import { useToast } from "@/shared/hooks";
 import React, { useState } from "react";
 import { useFormContext } from "react-hook-form";
@@ -7,6 +7,7 @@ import { Chip, useTheme } from "react-native-paper";
 import { InferType } from "yup";
 import { recipeSchema } from "../../validations";
 import { ContainerForm } from "../ContainerForm";
+import { TitleForm } from "../TitleForm";
 
 export const TagsForm = () => {
   const theme = useTheme();
@@ -39,8 +40,10 @@ export const TagsForm = () => {
 
   return (
     <ContainerForm>
-      <Typography>Adicione tags para identificar sua receita</Typography>
-      <Space />
+      <TitleForm
+        title="Adicione algumas tags para identificar sua receita"
+        subtitle="Palavras chave"
+      />
 
       <View
         style={{

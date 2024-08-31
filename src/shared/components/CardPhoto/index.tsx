@@ -8,6 +8,7 @@ export const CardPhoto = (props: React.PropsWithChildren) => {
         alignItems: "center",
         justifyContent: "center",
         width: "100%",
+        position: "relative",
       }}
     >
       {props.children}

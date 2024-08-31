@@ -6,6 +6,7 @@ interface TypographyProps {
   variant?: "heading" | "subtitle" | "body" | "caption";
   fontType?: "light" | "regular" | "bold" | "semibold" | "medium";
   style?: TextStyle | TextStyle[];
+  color?: string;
   children: React.ReactNode;
 }
 
@@ -14,6 +15,7 @@ export const Typography: React.FC<TypographyProps> = ({
   style,
   fontType = "regular",
   children,
+  color,
 }) => {
   const theme = useTheme();
 
@@ -51,7 +53,7 @@ export const Typography: React.FC<TypographyProps> = ({
     <Text
       style={[
         getVariantStyle(),
-        { color: theme.colors.shadow, fontFamily: getFontFamily() },
+        { color: color ?? theme.colors.shadow, fontFamily: getFontFamily() },
         style,
       ]}
     >

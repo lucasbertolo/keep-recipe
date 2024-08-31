@@ -1,8 +1,9 @@
 import React, { useMemo } from "react";
 import { StyleSheet, TouchableWithoutFeedback, View } from "react-native";
 import { useTheme } from "react-native-paper";
-import If from "../If";
 import Button from "../Button";
+import If from "../If";
+import { useFormContext } from "react-hook-form";
 
 interface StepProps {
   isActive: boolean;
@@ -55,6 +56,7 @@ interface ProgressStepsProps {
   content: React.JSX.Element[];
   isCompleted?: boolean;
   onSubmit: () => void;
+  fieldNamesPerStep?: string[][];
 }
 
 export const PROGRESS_INITIAL_STEP = 0;
@@ -64,9 +66,11 @@ export const ProgressSteps: React.FC<ProgressStepsProps> = ({
   setStep,
   content,
   isCompleted,
+  fieldNamesPerStep,
   onSubmit,
 }) => {
-  const theme = useTheme();
+  const { trigger } = useFormContext();
+
   const Content = content[currentStep];
 
   const onStepPress = (index: number) => {
@@ -77,8 +81,14 @@ export const ProgressSteps: React.FC<ProgressStepsProps> = ({
 
   const lastStep = content.length - 1;
 
-  const onNext = () => {
+  const onNext = async () => {
     if (currentStep === lastStep) return;
+
+    if (fieldNamesPerStep) {
+      const isStepValid = await trigger(fieldNamesPerStep[currentStep]);
+
+      if (!isStepValid) return;
+    }
 
     setStep(currentStep + 1);
   };
@@ -90,7 +100,7 @@ export const ProgressSteps: React.FC<ProgressStepsProps> = ({
   };
 
   const submitButton = (
-    <Button mode="contained" onPress={onSubmit} style={styles.button}>
+    <Button mode="contained" onPress={onSubmit}>
       Enviar
     </Button>
   );
@@ -111,12 +121,12 @@ export const ProgressSteps: React.FC<ProgressStepsProps> = ({
 
       <View style={styles.buttonContainer}>
         <If condition={currentStep > PROGRESS_INITIAL_STEP}>
-          <Button mode="outlined" onPress={onPrevious} style={[styles.button]}>
+          <Button mode="outlined" onPress={onPrevious}>
             Voltar
           </Button>
         </If>
         <If condition={currentStep !== lastStep} elseRender={submitButton}>
-          <Button mode="contained" onPress={onNext} style={styles.button}>
+          <Button mode="contained" onPress={onNext}>
             Próximo
           </Button>
         </If>
@@ -144,10 +154,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   buttonContainer: {
-    paddingHorizontal: 16,
-    paddingBottom: 16,
-  },
-  button: {
-    marginHorizontal: 8,
+    paddingBottom: 18,
+    paddingHorizontal: 18,
   },
 });

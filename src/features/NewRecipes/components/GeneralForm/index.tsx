@@ -5,6 +5,7 @@ import { TextInput as PTextInput } from "react-native-paper";
 import { InferType } from "yup";
 import { recipeSchema } from "../../validations";
 import { ContainerForm } from "../ContainerForm";
+import { TitleForm } from "../TitleForm";
 
 export const GeneralForm = () => {
   const {
@@ -14,7 +15,10 @@ export const GeneralForm = () => {
 
   return (
     <ContainerForm>
-      <Typography variant="heading">Detalhes</Typography>
+      <TitleForm
+        title="Deixe sua receita mais completa"
+        subtitle="Informações gerais"
+      />
 
       <Controller
         control={control}
@@ -28,6 +32,7 @@ export const GeneralForm = () => {
             onChangeText={onChange}
             value={value?.toString()}
             error={!!errors.rating}
+            errorText={errors.rating?.message}
             left={<PTextInput.Icon icon="star-settings-outline" size={18} />}
           />
         )}
@@ -43,7 +48,8 @@ export const GeneralForm = () => {
             keyboardType="numeric"
             onChangeText={onChange}
             value={value?.toString()}
-            error={!!errors.rating}
+            error={!!errors.servings}
+            errorText={errors.servings?.message}
             left={<PTextInput.Icon icon="room-service-outline" size={18} />}
           />
         )}
@@ -59,6 +65,7 @@ export const GeneralForm = () => {
             onChangeText={onChange}
             value={value}
             error={!!errors.source}
+            errorText={errors.source?.message}
             left={<PTextInput.Icon icon="link" size={18} />}
           />
         )}
@@ -76,6 +83,7 @@ export const GeneralForm = () => {
             multiline
             value={value}
             error={!!errors.observation}
+            errorText={errors.observation?.message}
             left={<PTextInput.Icon icon="note-edit-outline" size={18} />}
           />
         )}

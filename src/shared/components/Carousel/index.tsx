@@ -9,9 +9,11 @@ import { CarouselRenderItemInfo } from "react-native-reanimated-carousel/lib/typ
 import { Camera } from "../Camera";
 import { CardPhoto } from "../CardPhoto";
 import If from "../If";
+import { IconButton, useTheme } from "react-native-paper";
 
 type CarouselPhotosProps = {
   takePhoto?: (uri: string) => void;
+  removePhoto?: (uri: string) => void;
   photos: string[];
   limitPhotos?: number;
   width?: number;
@@ -27,8 +29,11 @@ export const CarouselPhotos = ({
   height,
   hasParallax,
   containerStyle,
-  limitPhotos = 10,
+  removePhoto,
+  limitPhotos = 5,
 }: CarouselPhotosProps) => {
+  const theme = useTheme();
+
   const screenWidth = width ?? Dimensions.get("window").width;
 
   const progress = useSharedValue<number>(0);
@@ -59,6 +64,19 @@ export const CarouselPhotos = ({
 
     return (
       <CardPhoto>
+        <If
+          condition={!!removePhoto}
+          style={{
+            width: "100%",
+            paddingTop: 24,
+            alignItems: "flex-end",
+          }}
+        >
+          <IconButton
+            icon="trash-can-outline"
+            onPress={() => removePhoto?.(item)}
+          />
+        </If>
         <Image src={item} style={{ width: "100%", height: "100%" }}></Image>
       </CardPhoto>
     );

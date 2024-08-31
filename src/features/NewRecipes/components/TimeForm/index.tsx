@@ -5,6 +5,7 @@ import { TextInput as PTextInput } from "react-native-paper";
 import { InferType } from "yup";
 import { recipeSchema } from "../../validations";
 import { ContainerForm } from "../ContainerForm";
+import { TitleForm } from "../TitleForm";
 
 export const TimeForm = () => {
   const {
@@ -14,7 +15,11 @@ export const TimeForm = () => {
 
   return (
     <ContainerForm>
-      <Typography variant="heading">Detalhes</Typography>
+      <TitleForm
+        title="Quanto tempo preciso para esta receita?"
+        subtitle="Tempo"
+      />
+
       <Controller
         control={control}
         name="prepTime"
