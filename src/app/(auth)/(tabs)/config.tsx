@@ -1,5 +1,5 @@
-import { View } from "react-native";
+import { Options } from "@/features/Settings/views";
 
-export default function TabTwoScreen() {
-  return <View />;
+export default function ConfigScreen() {
+  return <Options />;
 }

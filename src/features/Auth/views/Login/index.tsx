@@ -17,7 +17,7 @@ type Fields = InferType<typeof loginSchema>;
 
 export default function LoginScreen() {
   const router = useRouter();
-  const { mutate: signIn } = useSignIn();
+  const { mutate: signIn, isPending } = useSignIn();
 
   const handleLogin: SubmitHandler<Fields> = async (data) => {
     signIn({ email: data.email, password: data.password });
@@ -26,11 +26,17 @@ export default function LoginScreen() {
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<Fields>({
     resolver: yupResolver(loginSchema),
     mode: "onSubmit",
   });
+
+  const navigateToRegister = () => {
+    reset({});
+    router.push("./register");
+  };
 
   return (
     <WrapperForm>
@@ -71,14 +77,18 @@ export default function LoginScreen() {
 
       <Space />
 
-      <Button mode="contained" onPress={handleSubmit(handleLogin)}>
+      <Button
+        mode="contained"
+        onPress={handleSubmit(handleLogin)}
+        loading={isPending}
+      >
         Login
       </Button>
 
       <LinkText
         text="Não possui conta?"
         textAction="Registrar"
-        action={() => router.push("./register")}
+        action={navigateToRegister}
       />
     </WrapperForm>
   );

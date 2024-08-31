@@ -1,5 +1,10 @@
 import React, { memo } from "react";
-import { KeyboardAvoidingView, StyleSheet, View } from "react-native";
+import {
+  KeyboardAvoidingView,
+  ScrollView,
+  StyleSheet,
+  View,
+} from "react-native";
 import { useTheme } from "react-native-paper";
 
 type Props = {
@@ -10,13 +15,16 @@ const WrapperForm = ({ children }: Props) => {
   const theme = useTheme();
 
   return (
-    <View
-      style={[styles.background, { backgroundColor: theme.colors.background }]}
+    <ScrollView
+      contentContainerStyle={[
+        styles.background,
+        { backgroundColor: theme.colors.background },
+      ]}
     >
       <KeyboardAvoidingView style={[styles.container]} behavior="padding">
         {children}
       </KeyboardAvoidingView>
-    </View>
+    </ScrollView>
   );
 };
 
