@@ -24,4 +24,13 @@ export class FirebaseStorageService {
       throw new Error(`Error sending images: ${(error as Error).message}`);
     }
   }
+
+  static async deletePhoto(photoUrl: string) {
+    try {
+      const storageRef = storage().refFromURL(photoUrl);
+      await storageRef.delete();
+    } catch (error) {
+      throw new Error(`Error sending images: ${(error as Error).message}`);
+    }
+  }
 }

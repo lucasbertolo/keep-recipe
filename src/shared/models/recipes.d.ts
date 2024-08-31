@@ -9,6 +9,7 @@ declare namespace Recipes {
   type Category = "dessert" | "meal" | "snack";
 
   type Recipe = {
+    id: string;
     userId: string;
     title: string;
     description?: string;
