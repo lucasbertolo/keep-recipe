@@ -35,7 +35,7 @@ export const CarouselPhotos = ({
   const baseOptions = {
     vertical: false,
     width: screenWidth,
-    height: (height ?? screenWidth) * 1.2,
+    height: (height ?? screenWidth) * 0.8,
   };
 
   const ref = React.useRef<ICarouselInstance>(null);

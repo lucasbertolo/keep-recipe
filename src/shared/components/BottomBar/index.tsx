@@ -1,11 +1,12 @@
 import {
+  CommonActions,
   NavigationHelpers,
   ParamListBase,
   TabNavigationState,
 } from "@react-navigation/native";
 import React, { useMemo } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { FAB, useTheme } from "react-native-paper";
+import { FAB, IconButton, useTheme } from "react-native-paper";
 import { TabBarIcon } from "../navigation/TabBarIcon";
 import If from "../If";
 import { Shadows } from "@/shared/constants/Shadows";
@@ -42,6 +43,17 @@ export const BottomBar = ({
     });
 
     if (!event.defaultPrevented) {
+      if (routeName === centerRoute) {
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{ name: routeName }],
+          }),
+        );
+
+        return;
+      }
+
       navigation.navigate(routeName);
     }
   };
@@ -77,10 +89,19 @@ export const BottomBar = ({
       </View>
 
       <If condition={state.index !== centerIndex}>
-        <FAB
+        <IconButton
           icon="plus"
           onPress={() => onTabPress(centerRoute)}
-          style={[styles.fab, { backgroundColor: theme.colors.primary }]}
+          style={[
+            styles.fab,
+            {
+              backgroundColor: theme.colors.surfaceVariant,
+              borderColor: theme.colors.primary,
+              borderWidth: 1,
+              borderRadius: 12,
+            },
+          ]}
+          iconColor={theme.colors.primary}
         />
       </If>
     </View>
@@ -108,7 +129,7 @@ const styles = StyleSheet.create({
   },
   fab: {
     position: "absolute",
-    bottom: 10,
+    bottom: 15,
     alignSelf: "center",
   },
 });

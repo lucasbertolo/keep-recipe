@@ -34,6 +34,7 @@ Antes de começar, certifique-se de ter instalado:
 1. **Clone o repositório:**
 
    ```git clone https://github.com/lucasbertolo/keep-recipe```
+   
    ```cd keep-recipe```
 
 2. **Instale as dependências:**
