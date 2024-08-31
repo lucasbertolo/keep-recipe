@@ -5,6 +5,11 @@ import { cleanData } from "@/shared/utils";
 const USERS_COLLECTION = "users";
 const RECIPES_COLLECTION = "recipes";
 
+type TimestampDate = {
+  nanoseconds?: number;
+  seconds?: number;
+};
+
 export class FirebaseFirestoreService implements Recipes.Actions {
   async addRecipe({ recipe }: Recipes.Add) {
     try {
@@ -73,5 +78,15 @@ export class FirebaseFirestoreService implements Recipes.Actions {
       console.error("Error getting recipe: ", error);
       throw error;
     }
+  }
+
+  static getDate({ nanoseconds, seconds }: TimestampDate) {
+    if (!seconds || !nanoseconds) return {};
+
+    const fireBaseTime = new Date(seconds * 1000 + nanoseconds / 1000000);
+    const date = fireBaseTime.toDateString();
+    const atTime = fireBaseTime.toLocaleTimeString();
+
+    return { date, atTime };
   }
 }

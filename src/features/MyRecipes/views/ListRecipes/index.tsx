@@ -10,6 +10,7 @@ import {
 import { CardRecipe, Filter } from "../../components";
 import { useGetRecipes } from "../../queries";
 import { useRouter } from "expo-router";
+import { useMyRecipes } from "../../provider";
 
 const searchParams: (keyof Recipes.Recipe)[] = [
   "title",
@@ -20,19 +21,21 @@ const searchParams: (keyof Recipes.Recipe)[] = [
 
 export const ListRecipes = () => {
   const router = useRouter();
+  const { selectRecipe } = useMyRecipes();
   const { search, filterBySearchBar, handleSearch } =
     useSearchBar<Recipes.Recipe>(searchParams);
 
   const { data: recipes, isLoading, isRefetching } = useGetRecipes();
 
-  const navigateToDetails = () => {
+  const navigateToDetails = (recipe: Recipes.Recipe) => {
+    selectRecipe(recipe);
     router.navigate("/(auth)/details-recipe");
   };
 
   const renderItem = useCallback(
     ({ item }: ListRenderItemInfo<Recipes.Recipe>) => {
       return (
-        <TouchableOpacity onPress={navigateToDetails}>
+        <TouchableOpacity onPress={() => navigateToDetails(item)}>
           <CardRecipe recipe={item} />
         </TouchableOpacity>
       );

@@ -1,33 +1,39 @@
 import { Space, Typography } from "@/shared/components";
 import React from "react";
 import { View, StyleSheet } from "react-native";
+import { Divider } from "react-native-paper";
 
 type Props = {
-  recipe: Recipes.Recipe;
+  recipe?: Recipes.Recipe;
 };
 
 export const IngredientDetails = ({ recipe }: Props) => {
-  if (!recipe.ingredients?.length) return null;
+  if (!recipe?.ingredients?.length) return null;
 
   return (
-    <View style={{ marginVertical: 12 }}>
-      <Typography variant="subtitle">Ingredientes</Typography>
+    <>
+      <Divider />
 
-      <Space type="md" />
+      <View style={{ marginVertical: 12 }}>
+        <Typography variant="subtitle">Ingredientes</Typography>
 
-      {recipe.ingredients?.map((ingredient) => (
-        <View
-          style={[
-            styles.row,
-            { justifyContent: "space-between", marginTop: 12 },
-          ]}
-          key={ingredient.name}
-        >
-          <Typography>{ingredient.name} </Typography>
-          <Typography>{ingredient.quantity} </Typography>
-        </View>
-      ))}
-    </View>
+        <Space type="md" />
+
+        {recipe.ingredients?.map((ingredient) => (
+          <View
+            style={[
+              styles.row,
+              { justifyContent: "space-between", marginTop: 12 },
+            ]}
+            key={ingredient.name}
+          >
+            <Typography>{ingredient.name} </Typography>
+            <Typography>{ingredient.quantity} </Typography>
+          </View>
+        ))}
+      </View>
+      <Divider />
+    </>
   );
 };
 

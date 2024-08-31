@@ -13,7 +13,7 @@ declare namespace Recipes {
     title: string;
     description?: string;
     photos?: string[];
-    createdAt?: Date;
+    createdAt?: { nanoseconds: number; seconds: number };
     averageMoneySpent?: number;
     tags?: string[];
     steps?: string[];
@@ -44,4 +44,10 @@ declare namespace Recipes {
     editRecipe: (userId: string, recipe: Recipe) => Promise<void>;
     deleteRecipe: (userId: string, recipeId: string) => Promise<void>;
   }
+
+  type MyRecipesProvider = {
+    service: Actions;
+    selectedRecipe?: Recipe;
+    selectRecipe: (e: Recipe) => void;
+  };
 }

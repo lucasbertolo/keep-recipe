@@ -9,6 +9,8 @@ type ListChipsProps = {
 export const ListChips = ({ onRemove, chips }: ListChipsProps) => {
   const theme = useTheme();
 
+  if (!chips.length) return;
+
   return (
     <View
       style={{ flexDirection: "row", gap: 12, flexWrap: "wrap", padding: 12 }}

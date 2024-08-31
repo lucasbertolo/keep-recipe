@@ -1,7 +1,7 @@
 import { useAuth } from "@/features/Auth/provider";
 import { useQuery } from "@tanstack/react-query";
-import { useMyRecipes } from "../hooks";
 import { RecipeActions } from "@/shared/enums";
+import { useMyRecipes } from "../provider";
 
 type GetRecipeProps = {};
 
