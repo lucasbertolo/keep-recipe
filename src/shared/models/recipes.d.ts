@@ -55,6 +55,7 @@ declare namespace Recipes {
     getRecipeById: (userId: string, recipeId: string) => Promise<Recipe | null>;
     editRecipe: (userId: string, recipe: Recipe) => Promise<void>;
     deleteRecipe: (userId: string, recipeId: string) => Promise<void>;
+    getTags: (userId: string) => Promise<string[]>;
   }
 
   type MyRecipesProvider = {

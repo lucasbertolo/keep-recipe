@@ -4,10 +4,12 @@ import {
   ListChips,
   Lookup,
   MultiselectChip,
+  Space,
   TextInput,
 } from "@/shared/components";
 import { useBottomSheet } from "@gorhom/bottom-sheet";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { useGetTags } from "../../queries";
 
 type FilterProps = {
   filters: Recipes.Filters;
@@ -16,6 +18,8 @@ type FilterProps = {
 
 export const Filter = ({ filters, setFilters }: FilterProps) => {
   const { close } = useBottomSheet();
+
+  const { data: tags } = useGetTags();
 
   const { control, setValue, handleSubmit, reset } = useForm({
     defaultValues: { ...filters },
@@ -88,6 +92,8 @@ export const Filter = ({ filters, setFilters }: FilterProps) => {
         )}
       />
 
+      <Space type="lg" />
+
       <Controller
         control={control}
         name="isVegan"
@@ -133,17 +139,27 @@ export const Filter = ({ filters, setFilters }: FilterProps) => {
         )}
       />
 
-      <Controller
-        control={control}
-        name="tags"
-        render={({ field: { onChange, value } }) => (
-          <>
-            <Lookup label="Tags" data={[]} onSelect={onChange} values={value} />
+      {!!tags?.length && (
+        <Controller
+          control={control}
+          name="tags"
+          render={({ field: { onChange, value } }) => (
+            <>
+              <Lookup
+                label="Tags"
+                data={tags ?? []}
+                onSelect={onChange}
+                values={value}
+              />
 
-            <ListChips chips={value} onRemove={(e) => onRemoveTag(value, e)} />
-          </>
-        )}
-      />
+              <ListChips
+                chips={value}
+                onRemove={(e) => onRemoveTag(value, e)}
+              />
+            </>
+          )}
+        />
+      )}
 
       <Button mode="outlined" onPress={resetFilters}>
         Apagar

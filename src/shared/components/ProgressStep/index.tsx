@@ -57,6 +57,7 @@ interface ProgressStepsProps {
   isCompleted?: boolean;
   onSubmit: () => void;
   fieldNamesPerStep?: string[][];
+  loading?: boolean;
 }
 
 export const PROGRESS_INITIAL_STEP = 0;
@@ -68,6 +69,7 @@ export const ProgressSteps: React.FC<ProgressStepsProps> = ({
   isCompleted,
   fieldNamesPerStep,
   onSubmit,
+  loading,
 }) => {
   const { trigger } = useFormContext();
 
@@ -93,6 +95,14 @@ export const ProgressSteps: React.FC<ProgressStepsProps> = ({
     setStep(currentStep + 1);
   };
 
+  const handleSubmit = async () => {
+    const canSubmit = await trigger();
+
+    if (!canSubmit) return;
+
+    onSubmit();
+  };
+
   const onPrevious = () => {
     if (currentStep <= PROGRESS_INITIAL_STEP) return;
 
@@ -100,7 +110,7 @@ export const ProgressSteps: React.FC<ProgressStepsProps> = ({
   };
 
   const submitButton = (
-    <Button mode="contained" onPress={onSubmit}>
+    <Button mode="contained" onPress={handleSubmit} loading={loading}>
       Enviar
     </Button>
   );

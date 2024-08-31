@@ -25,13 +25,15 @@ export const TimeForm = () => {
         name="prepTime"
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
-            label="Tempo de preparo"
+            label="Tempo de preparo(minutos)"
             onBlur={onBlur}
-            keyboardType="numeric"
+            keyboardType="number-pad"
             onChangeText={onChange}
             value={value?.toString()}
             error={!!errors.prepTime}
+            errorText={errors.prepTime?.message}
             left={<PTextInput.Icon icon="clock-outline" size={18} />}
+            returnKeyType="next"
           />
         )}
       />
@@ -41,13 +43,15 @@ export const TimeForm = () => {
         name="cookTime"
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
-            label="Tempo no forno"
+            label="Tempo no forno(minutos)"
             onBlur={onBlur}
-            keyboardType="numeric"
+            keyboardType="number-pad"
             onChangeText={onChange}
             value={value?.toString()}
             error={!!errors.cookTime}
+            errorText={errors.cookTime?.message}
             left={<PTextInput.Icon icon="clock-outline" size={18} />}
+            returnKeyType="done"
           />
         )}
       />

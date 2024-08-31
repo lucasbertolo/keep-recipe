@@ -3,15 +3,15 @@ import { useQuery } from "@tanstack/react-query";
 import { RecipeActions } from "@/shared/enums";
 import { useMyRecipes } from "../provider";
 
-export const useGetRecipes = () => {
+export const useGetTags = () => {
   const auth = useAuth();
 
   const { service } = useMyRecipes();
 
   return useQuery({
-    queryKey: [RecipeActions.getRecipes, auth.user?.uid],
+    queryKey: [RecipeActions.getTags, auth.user?.uid],
     queryFn: async () => {
-      return service.getRecipes(auth.user?.uid ?? "");
+      return service.getTags(auth.user?.uid ?? "");
     },
   });
 };

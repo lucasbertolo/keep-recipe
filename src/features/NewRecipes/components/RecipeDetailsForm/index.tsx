@@ -27,6 +27,7 @@ export const RecipeDetailsForm = () => {
             value={value}
             error={!!errors.title}
             errorText={errors.title?.message}
+            returnKeyType="next"
           />
         )}
       />
@@ -43,6 +44,7 @@ export const RecipeDetailsForm = () => {
             numberOfLines={5}
             multiline
             error={!!errors.description}
+            returnKeyType="done"
           />
         )}
       />

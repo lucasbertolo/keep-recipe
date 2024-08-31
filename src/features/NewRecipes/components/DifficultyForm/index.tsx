@@ -50,9 +50,9 @@ export const DifficultyForm = () => {
         )}
       />
 
-      <If condition={!!errors.category?.message}>
+      <If condition={!!errors.difficulty?.message}>
         <Typography color={theme.colors.error}>
-          {errors.category?.message}
+          {errors.difficulty?.message}
         </Typography>
       </If>
     </ContainerForm>
