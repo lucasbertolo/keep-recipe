@@ -21,7 +21,8 @@ export const recipeSchema = Yup.object().shape({
   tags: Yup.array().of(Yup.string().required()),
   photos: Yup.array()
     .of(Yup.string().required())
-    .min(1, "É necessário pelo menos 1 imagem"),
+    .min(1, "É necessário pelo menos 1 imagem")
+    .required("É necessário pelo menos 1 imagem"),
   isVegan: Yup.boolean(),
   isVegetarian: Yup.boolean(),
   isGlutenFree: Yup.boolean(),

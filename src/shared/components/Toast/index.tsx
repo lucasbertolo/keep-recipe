@@ -3,7 +3,7 @@ import { Snackbar, useTheme } from "react-native-paper";
 
 type ToastProps = {
   message: string;
-  type: "success" | "error";
+  type: "success" | "error" | "warning";
   onClose: () => void;
   onPress?: {
     label: string;
@@ -22,15 +22,26 @@ export const Toast = ({ message, type, onClose, onPress }: ToastProps) => {
   };
 
   const style = useMemo(() => {
-    if (type === "error")
+    if (type === "error") {
       return {
         backgroundColor: theme.colors.error,
         color: theme.colors.onError,
+        zIndex: 1,
       };
+    }
+
+    if (type === "warning") {
+      return {
+        backgroundColor: "##FFB700",
+        color: theme.colors.onPrimary,
+        zIndex: 1,
+      };
+    }
 
     return {
       backgroundColor: theme.colors.primary,
       color: theme.colors.onPrimary,
+      zIndex: 1,
     };
   }, [type, theme.colors]);
 

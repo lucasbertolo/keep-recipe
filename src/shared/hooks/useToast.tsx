@@ -4,7 +4,7 @@ import { Toast } from "../components";
 
 type ShowToast = {
   message: string;
-  type?: "error" | "success";
+  type?: "error" | "success" | "warning";
   onPress?: { label: string; action: () => void };
   time?: number;
 };
