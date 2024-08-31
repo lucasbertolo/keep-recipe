@@ -1,5 +1,6 @@
+import { FirebaseFirestoreService } from "@/config/services";
 import {
-  Button,
+  BottomSheet,
   CarouselPhotos,
   If,
   ListChips,
@@ -7,21 +8,24 @@ import {
   Typography,
 } from "@/shared/components";
 import { CategoryDictionary, DifficultyDictionary } from "@/shared/enums";
+import * as Linking from "expo-linking";
 import { useRouter } from "expo-router";
-import React, { useMemo } from "react";
+import React, { useMemo, useRef } from "react";
 import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Divider, IconButton, useTheme } from "react-native-paper";
 import {
   IngredientDetails,
+  MenuDetail,
   StepDetails,
   TextDetailCard,
   TimeDetails,
 } from "../../components";
 import { useMyRecipes } from "../../provider";
-import { FirebaseFirestoreService } from "@/config/services";
-import * as Linking from "expo-linking";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
 
 export const DetailsRecipe = () => {
+  const menuModalRef = useRef<BottomSheetModal>(null);
+
   const theme = useTheme();
   const router = useRouter();
   const { selectedRecipe: recipe } = useMyRecipes();
@@ -39,6 +43,10 @@ export const DetailsRecipe = () => {
     Linking.openURL(recipe.source);
   };
 
+  const handleDisplayMenu = (): void => {
+    if (menuModalRef?.current) menuModalRef.current.present();
+  };
+
   return (
     <ScrollView>
       <View style={styles.header}>
@@ -48,6 +56,14 @@ export const DetailsRecipe = () => {
           iconColor={theme.colors.primary}
           style={{ backgroundColor: theme.colors.onPrimary }}
           onPress={() => router.back()}
+        />
+
+        <IconButton
+          icon="dots-horizontal"
+          size={24}
+          iconColor={theme.colors.primary}
+          style={{ backgroundColor: theme.colors.onPrimary }}
+          onPress={handleDisplayMenu}
         />
       </View>
 
@@ -144,6 +160,13 @@ export const DetailsRecipe = () => {
           shouldHide={!recipe?.createdAt?.seconds}
         />
       </View>
+
+      <BottomSheet
+        bottomSheetModalRef={menuModalRef}
+        defaultSnapPoints={["35%", "40%", "50%"]}
+      >
+        <MenuDetail />
+      </BottomSheet>
     </ScrollView>
   );
 };
@@ -156,6 +179,8 @@ const styles = StyleSheet.create({
     left: 0,
     padding: 8,
     zIndex: 100,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   row: {
     flexDirection: "row",
