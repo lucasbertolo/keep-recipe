@@ -1,16 +1,26 @@
-import { RadioButton } from "@/shared/components";
+import { If, RadioButton, Typography } from "@/shared/components";
 import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { RadioButton as RNPRadioButton } from "react-native-paper";
+import { RadioButton as RNPRadioButton, useTheme } from "react-native-paper";
 import { InferType } from "yup";
 import { recipeSchema } from "../../validations";
 import { ContainerForm } from "../ContainerForm";
+import { TitleForm } from "../TitleForm";
 
 export const DifficultyForm = () => {
-  const { control } = useFormContext<InferType<typeof recipeSchema>>();
+  const theme = useTheme();
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext<InferType<typeof recipeSchema>>();
 
   return (
     <ContainerForm>
+      <TitleForm
+        title="Qual foi a dificuldade em fazer esta receita?"
+        subtitle="Preparo"
+      />
+
       <Controller
         control={control}
         name="difficulty"
@@ -39,6 +49,12 @@ export const DifficultyForm = () => {
           </RNPRadioButton.Group>
         )}
       />
+
+      <If condition={!!errors.category?.message}>
+        <Typography color={theme.colors.error}>
+          {errors.category?.message}
+        </Typography>
+      </If>
     </ContainerForm>
   );
 };

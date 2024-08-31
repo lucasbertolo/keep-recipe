@@ -1,12 +1,13 @@
 import * as Yup from "yup";
 
 export const recipeSchema = Yup.object().shape({
-  createdAt: Yup.date(),
   title: Yup.string()
     .required("É necessário colocar um título")
     .max(30, "Título deve ter no máximo 30 caracteres"),
   description: Yup.string(),
-  category: Yup.string().oneOf(["meal", "dessert", "snack"]).required(),
+  category: Yup.string()
+    .oneOf(["meal", "dessert", "snack"])
+    .required("É necessário escolher uma categoria"),
   steps: Yup.array().of(
     Yup.object().shape({
       description: Yup.string()
@@ -16,7 +17,9 @@ export const recipeSchema = Yup.object().shape({
     }),
   ),
   tags: Yup.array().of(Yup.string().required()),
-  photos: Yup.array().of(Yup.string().required()),
+  photos: Yup.array()
+    .of(Yup.string().required())
+    .required("É necessário pelo menos 1 imagem"),
   isVegan: Yup.boolean(),
   isVegetarian: Yup.boolean(),
   isGlutenFree: Yup.boolean(),

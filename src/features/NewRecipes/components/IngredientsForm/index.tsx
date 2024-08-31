@@ -1,4 +1,4 @@
-import { Space, TextInput, Typography } from "@/shared/components";
+import { TextInput, Typography } from "@/shared/components";
 import React from "react";
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 import { TouchableOpacity, View } from "react-native";
@@ -6,6 +6,7 @@ import { IconButton } from "react-native-paper";
 import { InferType } from "yup";
 import { recipeSchema } from "../../validations";
 import { ContainerForm } from "../ContainerForm";
+import { TitleForm } from "../TitleForm";
 
 export const IngredientsForm = () => {
   const {
@@ -24,8 +25,10 @@ export const IngredientsForm = () => {
 
   return (
     <ContainerForm>
-      <Typography>Descreva os ingredientes utilizados</Typography>
-      <Space />
+      <TitleForm
+        title="Coloque os ingredientes utilizados"
+        subtitle="Ingredientes"
+      />
 
       <TouchableOpacity onPress={addNewIngredient}>
         <Typography variant="caption" style={{ color: "blue" }}>
@@ -38,14 +41,14 @@ export const IngredientsForm = () => {
           key={item.id}
           style={{ flexDirection: "row", alignItems: "center" }}
         >
-          <View style={{ flex: 3 }}>
+          <View style={{ flex: 4 }}>
             <Controller
               control={control}
               name={`ingredients.${index}.name`}
               defaultValue={item.name || ""}
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
-                  label="Nome do ingrediente"
+                  label="Nome"
                   onBlur={onBlur}
                   onChangeText={onChange}
                   value={value}
@@ -56,7 +59,7 @@ export const IngredientsForm = () => {
             />
           </View>
 
-          <View style={{ flex: 1, marginLeft: 6 }}>
+          <View style={{ flex: 2, marginLeft: 6 }}>
             <Controller
               control={control}
               name={`ingredients.${index}.quantity`}

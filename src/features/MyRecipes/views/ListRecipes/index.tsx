@@ -2,8 +2,10 @@ import { EmptyList, SearchBar, Typography } from "@/shared/components";
 import { useSearchBar } from "@/shared/hooks";
 import { useCallback, useMemo, useState } from "react";
 import {
+  Dimensions,
   FlatList,
   ListRenderItemInfo,
+  StyleSheet,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -11,6 +13,7 @@ import { CardRecipe, Filter } from "../../components";
 import { useGetRecipes } from "../../queries";
 import { useRouter } from "expo-router";
 import { useMyRecipes } from "../../provider";
+import { ActivityIndicator } from "react-native-paper";
 
 const searchParams: (keyof Recipes.Recipe)[] = [
   "title",
@@ -109,11 +112,21 @@ export const ListRecipes = () => {
     return filterBySearchBar(model ?? []);
   }, [recipes, filterBySearchBar, filters]);
 
-  const emptyListMessage = useMemo(() => {
-    return !!recipes?.length
+  const ListEmptyComponent = useCallback(() => {
+    if (isLoading || isRefetching) {
+      return (
+        <View style={styles.loading}>
+          <ActivityIndicator animating={true} />
+        </View>
+      );
+    }
+
+    const message = !!recipes?.length
       ? "Seu filtro não retornou resultados"
       : "Parece que você ainda não tem receitas";
-  }, [recipes?.length]);
+
+    return <EmptyList label={message} paddingParent={24} />;
+  }, [isLoading, recipes?.length, isRefetching]);
 
   return (
     <View style={{ flex: 1 }}>
@@ -123,7 +136,7 @@ export const ListRecipes = () => {
         filterChildren={<Filter setFilters={setFilters} filters={filters} />}
       />
 
-      <View style={{ paddingHorizontal: 18, marginBottom: 24 }}>
+      <View style={styles.title}>
         <Typography variant="subtitle">Minhas receitas</Typography>
       </View>
 
@@ -131,12 +144,21 @@ export const ListRecipes = () => {
         data={filteredRecipes}
         renderItem={renderItem}
         style={{ flex: 1 }}
-        contentContainerStyle={{ gap: 24, paddingHorizontal: 12 }}
+        contentContainerStyle={styles.flatList}
         horizontal
-        ListEmptyComponent={
-          <EmptyList label={emptyListMessage} paddingParent={24} />
-        }
+        ListEmptyComponent={ListEmptyComponent}
       />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  loading: {
+    flex: 1,
+    width: Dimensions.get("window").width - 24,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  flatList: { gap: 24, paddingHorizontal: 12 },
+  title: { paddingHorizontal: 18, marginBottom: 24 },
+});

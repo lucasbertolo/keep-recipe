@@ -1,4 +1,4 @@
-import { Space, TextInput, Typography } from "@/shared/components";
+import { TextInput, Typography } from "@/shared/components";
 import React from "react";
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 import { TouchableOpacity, View } from "react-native";
@@ -6,6 +6,7 @@ import { IconButton } from "react-native-paper";
 import { InferType } from "yup";
 import { recipeSchema } from "../../validations";
 import { ContainerForm } from "../ContainerForm";
+import { TitleForm } from "../TitleForm";
 
 export const StepsForm = () => {
   const {
@@ -26,8 +27,7 @@ export const StepsForm = () => {
 
   return (
     <ContainerForm>
-      <Typography>Descreva os passos realizados</Typography>
-      <Space />
+      <TitleForm title="Descreva os modo de preparo" subtitle="Passo a passo" />
 
       <TouchableOpacity onPress={addNewStep}>
         <Typography variant="caption" style={{ color: "blue" }}>
@@ -56,6 +56,7 @@ export const StepsForm = () => {
                   numberOfLines={5}
                   maxLength={500}
                   error={!!errors?.steps?.[index]}
+                  errorText={errors?.steps?.[index]?.message}
                 />
               )}
             />

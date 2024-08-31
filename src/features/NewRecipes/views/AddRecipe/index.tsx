@@ -20,6 +20,19 @@ import {
 import { useAddRecipe } from "../../queries";
 import { recipeSchema } from "../../validations";
 
+const fieldNamesPerStep: (keyof Recipes.Recipe)[][] = [
+  ["title", "description"],
+  ["category"],
+  ["isVegan", "isVegetarian", "isGlutenFree", "isDairyFree"],
+  ["ingredients"],
+  ["steps"],
+  ["tags"],
+  ["difficulty"],
+  ["prepTime", "cookTime"],
+  ["source", "rating", "servings", "observation"],
+  ["photos"],
+];
+
 export const AddRecipe = () => {
   const [hasInit, setHasInit] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
@@ -29,6 +42,7 @@ export const AddRecipe = () => {
   const methods = useForm({
     resolver: yupResolver(recipeSchema),
     defaultValues: {},
+    mode: "onChange",
   });
 
   const onSubmit: SubmitHandler<InferType<typeof recipeSchema>> = (data) => {
@@ -69,6 +83,7 @@ export const AddRecipe = () => {
           setStep={setCurrentStep}
           content={forms}
           onSubmit={methods.handleSubmit(onSubmit)}
+          fieldNamesPerStep={fieldNamesPerStep}
         />
       </View>
     </FormProvider>

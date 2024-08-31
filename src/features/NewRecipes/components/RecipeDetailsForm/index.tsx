@@ -1,9 +1,10 @@
-import { TextInput, Typography } from "@/shared/components";
+import { TextInput } from "@/shared/components";
 import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { InferType } from "yup";
 import { recipeSchema } from "../../validations";
 import { ContainerForm } from "../ContainerForm";
+import { TitleForm } from "../TitleForm";
 
 export const RecipeDetailsForm = () => {
   const {
@@ -13,7 +14,8 @@ export const RecipeDetailsForm = () => {
 
   return (
     <ContainerForm>
-      <Typography variant="heading">Detalhes</Typography>
+      <TitleForm title="Descreva sua receita" subtitle="Detalhes" />
+
       <Controller
         control={control}
         name="title"
@@ -24,6 +26,7 @@ export const RecipeDetailsForm = () => {
             onChangeText={onChange}
             value={value}
             error={!!errors.title}
+            errorText={errors.title?.message}
           />
         )}
       />

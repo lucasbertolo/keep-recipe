@@ -3,15 +3,18 @@ import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { InferType } from "yup";
 import { recipeSchema } from "../../validations";
-import { SectionLabel } from "../SectionLabel";
 import { ContainerForm } from "../ContainerForm";
+import { TitleForm } from "../TitleForm";
 
 export const HealthInfoForm = () => {
   const { control } = useFormContext<InferType<typeof recipeSchema>>();
 
   return (
     <ContainerForm>
-      <SectionLabel label="Características" />
+      <TitleForm
+        title="Preencha as características"
+        subtitle="Receitas saudáveis"
+      />
 
       <Controller
         control={control}

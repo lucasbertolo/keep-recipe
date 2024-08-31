@@ -1,7 +1,6 @@
 export * from "./RecipeDetailsForm";
 export * from "./IngredientsForm";
 export * from "./PhotosForm";
-export * from "./SectionLabel";
 export * from "./Introduction";
 export * from "./CategoryForm";
 export * from "./HealthInfoForm";
@@ -11,3 +10,4 @@ export * from "./GeneralForm";
 export * from "./ContainerForm";
 export * from "./TagsForm";
 export * from "./TimeForm";
+export * from "./TitleForm";
