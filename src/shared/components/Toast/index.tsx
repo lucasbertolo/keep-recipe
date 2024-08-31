@@ -17,7 +17,6 @@ export const Toast = ({ message, type, onClose, onPress }: ToastProps) => {
   const [visible, setVisible] = useState(true);
 
   const handleClose = () => {
-    console.log("AQQUIII");
     onClose();
     setVisible(false);
   };

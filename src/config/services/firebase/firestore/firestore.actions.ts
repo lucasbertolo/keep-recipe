@@ -30,7 +30,6 @@ export class FirebaseFirestoreService implements Recipes.Actions {
           createdAt: firestore.FieldValue.serverTimestamp(),
         });
     } catch (error) {
-      console.error("Error adding recipes: ", error);
       throw error;
     }
   }
@@ -55,7 +54,6 @@ export class FirebaseFirestoreService implements Recipes.Actions {
 
       return recipes;
     } catch (error) {
-      console.error("Error getting recipes: ", error);
       throw error;
     }
   }
@@ -75,7 +73,6 @@ export class FirebaseFirestoreService implements Recipes.Actions {
 
       return null;
     } catch (error) {
-      console.error("Error getting recipe: ", error);
       throw error;
     }
   }

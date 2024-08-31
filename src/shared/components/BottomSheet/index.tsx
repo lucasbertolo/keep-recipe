@@ -23,10 +23,6 @@ export const BottomSheet = ({
     [defaultSnapPoints],
   );
 
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log("handleSheetChanges", index);
-  }, []);
-
   const Backdrop = useCallback(
     (backdropProps: BottomSheetBackdropProps) => (
       <BottomSheetBackdrop {...backdropProps} enableTouchThrough />
@@ -41,7 +37,6 @@ export const BottomSheet = ({
         ref={bottomSheetModalRef}
         index={1}
         snapPoints={snapPoints}
-        onChange={handleSheetChanges}
         containerStyle={{ zIndex: 1, width: "100%" }}
         style={{ width: "100%" }}
       >

@@ -1,5 +1,4 @@
 export const formatFirebaseAuthError = (errorCode: string): string => {
-  console.log("errorCode", errorCode);
   switch (errorCode) {
     case "auth/invalid-email":
       return "O e-mail fornecido é inválido.";

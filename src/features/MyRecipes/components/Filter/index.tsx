@@ -32,7 +32,6 @@ export const Filter = ({ filters, setFilters }: FilterProps) => {
   };
 
   const onSubmit: SubmitHandler<Recipes.Filters> = (data) => {
-    console.log("ADSBUHSAD");
     setFilters(data);
     close();
   };
