@@ -17,8 +17,8 @@ import {
   TagsForm,
   TimeForm,
 } from "../../components";
-import { recipeSchema } from "../../validations";
 import { useAddRecipe } from "../../queries";
+import { recipeSchema } from "../../validations";
 
 export const AddRecipe = () => {
   const [hasInit, setHasInit] = useState(false);

@@ -1,38 +1,40 @@
 import {
+  Button,
   Checkbox,
   ListChips,
   Lookup,
   MultiselectChip,
   TextInput,
 } from "@/shared/components";
-import { Controller, useForm } from "react-hook-form";
+import { useBottomSheet } from "@gorhom/bottom-sheet";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
-// type FilterType = { [key: string]: any };
+type FilterProps = {
+  filters: Recipes.Filters;
+  setFilters: (e: Recipes.Filters) => void;
+};
 
-// type FilterProps = {
-//   filters: FilterType;
-//   onUpdateFilters: (e: FilterType) => void;
-// };
+export const Filter = ({ filters, setFilters }: FilterProps) => {
+  const { close } = useBottomSheet();
 
-export const Filter = () => {
-  const { control, setValue } = useForm({
-    defaultValues: {
-      category: [],
-      difficulty: [],
-      isVegan: false,
-      isVegetarian: false,
-      isGlutenFree: false,
-      isDairyFree: false,
-      prepTime: 0,
-      servings: 0,
-      tags: [] as string[],
-    },
+  const { control, setValue, handleSubmit, reset } = useForm({
+    defaultValues: { ...filters },
   });
 
   const onRemoveTag = (value: string[], field: string) => {
     const newTags = value.filter((tag) => tag !== field) ?? "";
 
     setValue("tags", newTags);
+  };
+
+  const resetFilters = () => {
+    reset({});
+  };
+
+  const onSubmit: SubmitHandler<Recipes.Filters> = (data) => {
+    console.log("ADSBUHSAD");
+    setFilters(data);
+    close();
   };
 
   return (
@@ -143,6 +145,14 @@ export const Filter = () => {
           </>
         )}
       />
+
+      <Button mode="outlined" onPress={resetFilters}>
+        Apagar
+      </Button>
+
+      <Button mode="contained" onPress={handleSubmit(onSubmit)}>
+        Salvar
+      </Button>
     </>
   );
 };

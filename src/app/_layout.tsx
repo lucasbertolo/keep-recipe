@@ -1,4 +1,5 @@
 import { AuthProvider } from "@/features/Auth/provider";
+import { Fonts } from "@/shared/assets/fonts";
 import { Colors } from "@/shared/constants/Colors";
 import { useLocalTheme } from "@/shared/hooks";
 import {
@@ -47,9 +48,7 @@ export default function RootLayout() {
 
   const queryClient = new QueryClient();
 
-  const [loaded] = useFonts({
-    Suse: require("../shared/assets/fonts/SUSE-Regular.ttf"),
-  });
+  const [loaded] = useFonts(Fonts);
 
   useEffect(() => {
     if (loaded) {

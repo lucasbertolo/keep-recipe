@@ -12,7 +12,6 @@ export const PhotosForm = () => {
   const handleTakePhoto = (photoUri: string) => {
     const prevPhotos = getValues("photos");
 
-    console.log("prevPhotos", prevPhotos);
     setValue("photos", [...(prevPhotos ?? []), photoUri]);
   };
 

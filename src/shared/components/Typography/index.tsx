@@ -4,6 +4,7 @@ import { useTheme } from "react-native-paper";
 
 interface TypographyProps {
   variant?: "heading" | "subtitle" | "body" | "caption";
+  fontType?: "light" | "regular" | "bold" | "semibold" | "medium";
   style?: TextStyle | TextStyle[];
   children: React.ReactNode;
 }
@@ -11,6 +12,7 @@ interface TypographyProps {
 export const Typography: React.FC<TypographyProps> = ({
   variant = "body",
   style,
+  fontType = "regular",
   children,
 }) => {
   const theme = useTheme();
@@ -29,8 +31,30 @@ export const Typography: React.FC<TypographyProps> = ({
     }
   };
 
+  const getFontFamily = (): string => {
+    switch (fontType) {
+      case "light":
+        return "Suse";
+      case "semibold":
+        return "SuseSemiBold";
+      case "medium":
+        return "SuseMedium";
+      case "bold":
+        return "SuseBold";
+      case "regular":
+      default:
+        return "SuseRegular";
+    }
+  };
+
   return (
-    <Text style={[getVariantStyle(), { color: theme.colors.shadow }, style]}>
+    <Text
+      style={[
+        getVariantStyle(),
+        { color: theme.colors.shadow, fontFamily: getFontFamily() },
+        style,
+      ]}
+    >
       {children}
     </Text>
   );

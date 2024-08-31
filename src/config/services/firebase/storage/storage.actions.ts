@@ -7,24 +7,16 @@ export class FirebaseStorageService {
     try {
       const urls = [];
 
-      console.log("photos inside upload Photos", photos);
-
       for (const photo of photos) {
-        try {
-          const resizedImage = await ImageResizerService.resizeImage(photo);
+        const resizedImage = await ImageResizerService.resizeImage(photo);
 
-          console.log("resizedImage", resizedImage);
+        const storageRef = storage().ref(`recipes/${userId}/${uuid.v4()}`);
 
-          const storageRef = storage().ref(`recipes/${userId}/${uuid.v4()}`);
+        await storageRef.putFile(resizedImage);
 
-          await storageRef.putFile(resizedImage);
+        const photoURL = await storageRef.getDownloadURL();
 
-          const photoURL = await storageRef.getDownloadURL();
-
-          urls.push(photoURL);
-        } catch (error) {
-          console.log("error inside loop", error);
-        }
+        urls.push(photoURL);
       }
 
       return urls;
