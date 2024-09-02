@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Dimensions, Image, StyleProp, View, ViewStyle } from "react-native";
+import { IconButton } from "react-native-paper";
 import { useSharedValue } from "react-native-reanimated";
 import Carousel, {
   ICarouselInstance,
@@ -9,7 +10,6 @@ import { CarouselRenderItemInfo } from "react-native-reanimated-carousel/lib/typ
 import { Camera } from "../Camera";
 import { CardPhoto } from "../CardPhoto";
 import If from "../If";
-import { IconButton, useTheme } from "react-native-paper";
 
 type CarouselPhotosProps = {
   takePhoto?: (uri: string) => void;
@@ -32,8 +32,6 @@ export const CarouselPhotos = ({
   removePhoto,
   limitPhotos = 5,
 }: CarouselPhotosProps) => {
-  const theme = useTheme();
-
   const screenWidth = width ?? Dimensions.get("window").width;
 
   const progress = useSharedValue<number>(0);

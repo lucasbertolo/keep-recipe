@@ -1,5 +1,5 @@
 import { type ErrorBoundaryProps } from "expo-router";
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Typography } from "../Typography";
 import Button from "../Button";
 import { ErrorSvg } from "@/shared/assets/images/svg";
@@ -13,7 +13,7 @@ export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
   }, [error]);
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <View style={styles.container}>
       <ErrorSvg width={64} height={64} />
 
       <Space type="lg" />
@@ -22,3 +22,11 @@ export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});

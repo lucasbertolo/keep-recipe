@@ -37,7 +37,7 @@ export const CardRecipe = ({ recipe }: CardRecipeProps) => {
           </If>
 
           <If condition={!!recipe.servings && !!recipe.totalTime}>
-            <View style={{ marginHorizontal: 6 }}>
+            <View style={styles.caption}>
               <Typography
                 variant="caption"
                 style={{ color: theme.colors.outline }}
@@ -74,6 +74,9 @@ const styles = StyleSheet.create({
   },
   details: {
     padding: 12,
+  },
+  caption: {
+    marginHorizontal: 6,
   },
   row: {
     flexDirection: "row",

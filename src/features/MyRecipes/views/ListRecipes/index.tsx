@@ -65,10 +65,6 @@ export const ListRecipes = () => {
 
     let model = [...recipes];
 
-    console.log("model", model);
-
-    console.log("filters", filters);
-
     if (filters.category.length > 0) {
       model = model.filter((recipe) =>
         filters.category.includes(recipe.category ?? ""),

@@ -1,6 +1,6 @@
 import { Typography } from "@/shared/components";
 import React from "react";
-import { Alert, TouchableOpacity, View } from "react-native";
+import { Alert, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Divider, IconButton } from "react-native-paper";
 import { useRemoveRecipe } from "../../queries";
 import { useToast } from "@/shared/hooks";
@@ -40,7 +40,7 @@ export const MenuDetail = () => {
 
   return (
     <View>
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
+      <View style={styles.row}>
         <IconButton icon="trash-can-outline" size={18} />
         <TouchableOpacity onPress={handleRemove}>
           <Typography>Remover receita</Typography>
@@ -49,7 +49,7 @@ export const MenuDetail = () => {
 
       <Divider />
 
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
+      <View style={styles.row}>
         <IconButton icon="share-outline" size={18} />
 
         <TouchableOpacity onPress={handleShare}>
@@ -61,3 +61,10 @@ export const MenuDetail = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+});

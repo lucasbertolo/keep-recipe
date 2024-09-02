@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { TextInput as Input, useTheme } from "react-native-paper";
 
 export type TextInputProps = React.ComponentProps<typeof Input> & {
@@ -9,7 +9,7 @@ export type TextInputProps = React.ComponentProps<typeof Input> & {
 const TextInput = ({ errorText, ...props }: TextInputProps) => {
   const theme = useTheme();
   return (
-    <View style={{ width: "100%", marginVertical: 12 }}>
+    <View style={styles.container}>
       <Input
         {...props}
         style={{ backgroundColor: theme.colors.background }}
@@ -18,14 +18,7 @@ const TextInput = ({ errorText, ...props }: TextInputProps) => {
       />
 
       {!!errorText && (
-        <Text
-          style={{
-            fontSize: 14,
-            color: theme.colors.error,
-            paddingHorizontal: 4,
-            paddingTop: 4,
-          }}
-        >
+        <Text style={[styles.text, { color: theme.colors.error }]}>
           {errorText}
         </Text>
       )}
@@ -34,3 +27,15 @@ const TextInput = ({ errorText, ...props }: TextInputProps) => {
 };
 
 export default memo(TextInput);
+
+const styles = StyleSheet.create({
+  container: {
+    width: "100%",
+    marginVertical: 12,
+  },
+  text: {
+    fontSize: 14,
+    paddingHorizontal: 4,
+    paddingTop: 4,
+  },
+});

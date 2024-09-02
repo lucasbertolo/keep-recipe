@@ -31,7 +31,6 @@ export const Lookup = ({ data, label, onSelect, values }: LookupProps) => {
   };
 
   const handleSelectItem = (item: string) => {
-    console.log("####");
     setQuery("");
     setIsFocused(false);
 
@@ -51,8 +50,6 @@ export const Lookup = ({ data, label, onSelect, values }: LookupProps) => {
   const dataWithoutValues = useMemo(() => {
     return filteredData.filter((s) => !values.includes(s)).filter((s) => !!s);
   }, [filteredData, values]);
-
-  console.log("dataWithoutValues", dataWithoutValues);
 
   return (
     <View style={styles.container}>

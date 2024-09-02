@@ -9,10 +9,16 @@ type IntroductionProps = {
 
 export const Introduction = ({ action }: IntroductionProps) => {
   const theme = useTheme();
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View>
-        <View style={styles.circleSvg}>
+        <View
+          style={[
+            styles.circleSvg,
+            { backgroundColor: theme.colors.secondaryContainer },
+          ]}
+        >
           <ChefHatSvg width={60} height={60} />
         </View>
 
@@ -51,7 +57,6 @@ const styles = StyleSheet.create({
   circleSvg: {
     padding: 12,
     borderRadius: 42,
-    backgroundColor: "rgba(0, 104, 116, 0.1)",
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "flex-start",

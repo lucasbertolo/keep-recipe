@@ -89,9 +89,9 @@ export const DetailsRecipe = () => {
 
       <CarouselPhotos photos={recipe?.photos ?? []} />
 
-      <View style={{ padding: 16 }}>
-        <View style={[styles.row, { justifyContent: "space-between" }]}>
-          <View style={{ flex: 1 }}>
+      <View style={styles.titleContainer}>
+        <View style={[styles.row]}>
+          <View style={styles.titleCollumn}>
             <Typography variant="subtitle" fontType="medium">
               {recipe?.title}
             </Typography>
@@ -179,14 +179,7 @@ export const DetailsRecipe = () => {
               text={`Nota: ${recipe?.rating}`}
               shouldHide={!recipe?.rating}
             />
-            <If
-              condition={!!recipe?.source}
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginBottom: 6,
-              }}
-            >
+            <If condition={!!recipe?.source} style={styles.sourceContainer}>
               <Typography>Fonte: </Typography>
               <TouchableOpacity onPress={goToSource}>
                 <Typography color={theme.colors.primary}>
@@ -204,7 +197,7 @@ export const DetailsRecipe = () => {
 
       <BottomSheet
         bottomSheetModalRef={menuModalRef}
-        defaultSnapPoints={["35%", "40%", "50%"]}
+        defaultSnapPoints={["45%", "50%", "55%"]}
       >
         <MenuDetail />
       </BottomSheet>
@@ -225,8 +218,19 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: "row",
-    justifyContent: "flex-start",
     alignItems: "center",
     marginVertical: 6,
+    justifyContent: "space-between",
+  },
+  titleContainer: {
+    padding: 16,
+  },
+  titleCollumn: {
+    flex: 1,
+  },
+  sourceContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 6,
   },
 });
