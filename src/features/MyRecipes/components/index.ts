@@ -5,3 +5,4 @@ export * from "./TimeDetails";
 export * from "./IngredientDetails";
 export * from "./StepDetails";
 export * from "./MenuDetail";
+export * from "./SectionDetails";

@@ -8,19 +8,38 @@ import {
 import { CategoryDictionary, DifficultyDictionary } from "@/shared/enums";
 import { useBottomSheet } from "@gorhom/bottom-sheet";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { View } from "react-native";
 
 type FilterProps = {
+  defaultFilters: Recipes.Filters;
   filters: Recipes.Filters;
   setFilters: (e: Recipes.Filters) => void;
 };
 
-export const Filter = ({ filters, setFilters }: FilterProps) => {
+export const Filter = ({
+  filters,
+  setFilters,
+  defaultFilters,
+}: FilterProps) => {
   const { close } = useBottomSheet();
 
   // const { data: tags } = useGetTags();
 
-  const { control, handleSubmit, reset } = useForm({
-    defaultValues: { ...filters },
+  const { control, handleSubmit, reset } = useForm<Recipes.Filters>({
+    defaultValues: {
+      ...filters,
+      difficulty: filters.difficulty
+        ? filters.difficulty.map(
+            (key) =>
+              DifficultyDictionary[key as keyof typeof DifficultyDictionary],
+          )
+        : undefined,
+      category: filters.category
+        ? filters.category.map(
+            (key) => CategoryDictionary[key as keyof typeof CategoryDictionary],
+          )
+        : undefined,
+    },
   });
 
   // const onRemoveTag = (value: string[], field: string) => {
@@ -30,7 +49,7 @@ export const Filter = ({ filters, setFilters }: FilterProps) => {
   // };
 
   const resetFilters = () => {
-    reset({});
+    reset(defaultFilters);
   };
 
   const getKey = (obj: object, key: string) => {
@@ -51,7 +70,8 @@ export const Filter = ({ filters, setFilters }: FilterProps) => {
         getKey(DifficultyDictionary, item),
       );
     }
-    setFilters(data);
+
+    setFilters(model);
     close();
   };
 
@@ -79,32 +99,39 @@ export const Filter = ({ filters, setFilters }: FilterProps) => {
         />
       )}
        */}
-      <Controller
-        control={control}
-        name="prepTime"
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            label="Máximo tempo de preparo"
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value?.toString()}
-            keyboardType="numeric"
+      <View style={{ flexDirection: "row", gap: 12 }}>
+        <View style={{ flex: 1 }}>
+          <Controller
+            control={control}
+            name="prepTime"
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                label="Máximo tempo de preparo"
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value?.toString()}
+                keyboardType="numeric"
+              />
+            )}
           />
-        )}
-      />
-      <Controller
-        control={control}
-        name="servings"
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            label="Mínimo de Porções"
-            onBlur={onBlur}
-            onChangeText={onChange}
-            keyboardType="numeric"
-            value={value?.toString()}
+        </View>
+
+        <View style={{ flex: 1 }}>
+          <Controller
+            control={control}
+            name="servings"
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                label="Mínimo de Porções"
+                onBlur={onBlur}
+                onChangeText={onChange}
+                keyboardType="numeric"
+                value={value?.toString()}
+              />
+            )}
           />
-        )}
-      />
+        </View>
+      </View>
       <Controller
         control={control}
         name="category"
@@ -185,7 +212,7 @@ export const Filter = ({ filters, setFilters }: FilterProps) => {
       />
 
       <Button mode="outlined" onPress={resetFilters}>
-        Apagar
+        Limpar
       </Button>
 
       <Button mode="contained" onPress={handleSubmit(onSubmit)}>

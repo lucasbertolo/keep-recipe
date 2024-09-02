@@ -50,7 +50,7 @@ export const SearchBar = ({
 
       {!!filterChildren && (
         <BottomSheet
-          defaultSnapPoints={["70%", "80%", "90%"]}
+          defaultSnapPoints={["85%", "90%", "95%"]}
           bottomSheetModalRef={filterModalRef}
         >
           {filterChildren}

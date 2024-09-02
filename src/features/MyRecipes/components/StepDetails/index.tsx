@@ -28,7 +28,7 @@ export const StepDetails = ({ recipe }: Props) => {
         ))}
       </View>
       <Divider />
-      <Space type="lg" />
+      <Space />
     </>
   );
 };
