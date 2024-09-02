@@ -31,6 +31,7 @@ export const Lookup = ({ data, label, onSelect, values }: LookupProps) => {
   };
 
   const handleSelectItem = (item: string) => {
+    console.log("####");
     setQuery("");
     setIsFocused(false);
 
@@ -48,8 +49,10 @@ export const Lookup = ({ data, label, onSelect, values }: LookupProps) => {
   };
 
   const dataWithoutValues = useMemo(() => {
-    return filteredData.filter((s) => !values.includes(s));
+    return filteredData.filter((s) => !values.includes(s)).filter((s) => !!s);
   }, [filteredData, values]);
+
+  console.log("dataWithoutValues", dataWithoutValues);
 
   return (
     <View style={styles.container}>
@@ -65,14 +68,16 @@ export const Lookup = ({ data, label, onSelect, values }: LookupProps) => {
         style={styles.input}
       />
 
-      {isFocused && filteredData.length > 0 && (
+      {isFocused && dataWithoutValues.length > 0 && (
         <View style={styles.listContainer}>
           <FlatList
             data={dataWithoutValues}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => (
               <TouchableOpacity
-                onPress={() => handleSelectItem(item)}
+                onPress={() => {
+                  handleSelectItem(item);
+                }}
                 style={styles.listItem}
               >
                 <Typography>{item}</Typography>
@@ -105,11 +110,12 @@ const styles = StyleSheet.create({
     borderColor: "#ddd",
     borderRadius: 4,
     maxHeight: 150,
-    zIndex: 1000,
+    zIndex: 1001,
   },
   listItem: {
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: "#ddd",
+    zIndex: 1002,
   },
 });

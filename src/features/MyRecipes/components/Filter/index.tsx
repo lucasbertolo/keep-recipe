@@ -1,15 +1,13 @@
 import {
   Button,
   Checkbox,
-  ListChips,
-  Lookup,
   MultiselectChip,
   Space,
   TextInput,
 } from "@/shared/components";
+import { CategoryDictionary, DifficultyDictionary } from "@/shared/enums";
 import { useBottomSheet } from "@gorhom/bottom-sheet";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { useGetTags } from "../../queries";
 
 type FilterProps = {
   filters: Recipes.Filters;
@@ -19,29 +17,68 @@ type FilterProps = {
 export const Filter = ({ filters, setFilters }: FilterProps) => {
   const { close } = useBottomSheet();
 
-  const { data: tags } = useGetTags();
+  // const { data: tags } = useGetTags();
 
-  const { control, setValue, handleSubmit, reset } = useForm({
+  const { control, handleSubmit, reset } = useForm({
     defaultValues: { ...filters },
   });
 
-  const onRemoveTag = (value: string[], field: string) => {
-    const newTags = value.filter((tag) => tag !== field) ?? "";
+  // const onRemoveTag = (value: string[], field: string) => {
+  //   const newTags = value.filter((tag) => tag !== field) ?? "";
 
-    setValue("tags", newTags);
-  };
+  //   setValue("tags", newTags);
+  // };
 
   const resetFilters = () => {
     reset({});
   };
 
+  const getKey = (obj: object, key: string) => {
+    return Object.keys(obj)[Object.values(obj).indexOf(key)];
+  };
+
   const onSubmit: SubmitHandler<Recipes.Filters> = (data) => {
+    const model = { ...data };
+
+    if (data.category.length > 0) {
+      model.category = model.category.map((item) =>
+        getKey(CategoryDictionary, item),
+      );
+    }
+
+    if (data.difficulty.length > 0) {
+      model.difficulty = model.difficulty.map((item) =>
+        getKey(DifficultyDictionary, item),
+      );
+    }
     setFilters(data);
     close();
   };
 
   return (
     <>
+      {/* {!!tags?.length && (
+        <Controller
+          control={control}
+          name="tags"
+          render={({ field: { onChange, value } }) => (
+            <>
+              <Lookup
+                label="Tags"
+                data={tags ?? []}
+                onSelect={onChange}
+                values={value}
+              />
+
+              <ListChips
+                chips={value}
+                onRemove={(e) => onRemoveTag(value, e)}
+              />
+            </>
+          )}
+        />
+      )}
+       */}
       <Controller
         control={control}
         name="prepTime"
@@ -73,7 +110,11 @@ export const Filter = ({ filters, setFilters }: FilterProps) => {
         name="category"
         render={({ field: { onChange, value } }) => (
           <MultiselectChip
-            options={["dessert", "meal", "snack"]}
+            options={[
+              CategoryDictionary.dessert,
+              CategoryDictionary.meal,
+              CategoryDictionary.snack,
+            ]}
             onSelectionChange={onChange}
             value={value}
           />
@@ -85,7 +126,11 @@ export const Filter = ({ filters, setFilters }: FilterProps) => {
         name="difficulty"
         render={({ field: { onChange, value } }) => (
           <MultiselectChip
-            options={["easy", "medium", "hard"]}
+            options={[
+              DifficultyDictionary.easy,
+              DifficultyDictionary.medium,
+              DifficultyDictionary.hard,
+            ]}
             onSelectionChange={onChange}
             value={value}
           />
@@ -138,28 +183,6 @@ export const Filter = ({ filters, setFilters }: FilterProps) => {
           />
         )}
       />
-
-      {!!tags?.length && (
-        <Controller
-          control={control}
-          name="tags"
-          render={({ field: { onChange, value } }) => (
-            <>
-              <Lookup
-                label="Tags"
-                data={tags ?? []}
-                onSelect={onChange}
-                values={value}
-              />
-
-              <ListChips
-                chips={value}
-                onRemove={(e) => onRemoveTag(value, e)}
-              />
-            </>
-          )}
-        />
-      )}
 
       <Button mode="outlined" onPress={resetFilters}>
         Apagar

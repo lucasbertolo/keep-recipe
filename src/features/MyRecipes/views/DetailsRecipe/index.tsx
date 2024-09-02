@@ -1,4 +1,7 @@
-import { FirebaseFirestoreService } from "@/config/services";
+import {
+  FirebaseCrashlyticsService,
+  FirebaseFirestoreService,
+} from "@/config/services";
 import {
   BottomSheet,
   CarouselPhotos,
@@ -10,7 +13,7 @@ import {
 import { CategoryDictionary, DifficultyDictionary } from "@/shared/enums";
 import * as Linking from "expo-linking";
 import { useRouter } from "expo-router";
-import React, { useMemo, useRef } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Divider, IconButton, useTheme } from "react-native-paper";
 import {
@@ -29,6 +32,10 @@ export const DetailsRecipe = () => {
   const theme = useTheme();
   const router = useRouter();
   const { selectedRecipe: recipe } = useMyRecipes();
+
+  useEffect(() => {
+    FirebaseCrashlyticsService.crash();
+  });
 
   const created = useMemo(() => {
     const { date } = FirebaseFirestoreService.getDate(recipe?.createdAt ?? {});
