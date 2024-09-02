@@ -53,7 +53,7 @@ export const Typography: React.FC<TypographyProps> = ({
     <Text
       style={[
         getVariantStyle(),
-        { color: color ?? theme.colors.shadow, fontFamily: getFontFamily() },
+        { color: color ?? theme.colors.secondary, fontFamily: getFontFamily() },
         style,
       ]}
     >

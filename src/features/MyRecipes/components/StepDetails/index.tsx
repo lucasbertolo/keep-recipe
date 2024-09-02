@@ -1,6 +1,6 @@
 import { Space, Typography } from "@/shared/components";
 import React from "react";
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Divider } from "react-native-paper";
 
 type Props = {
@@ -12,7 +12,7 @@ export const StepDetails = ({ recipe }: Props) => {
 
   return (
     <>
-      <View style={{ marginVertical: 12 }}>
+      <View style={styles.container}>
         <Typography variant="subtitle" fontType="semibold">
           Passos
         </Typography>
@@ -20,7 +20,7 @@ export const StepDetails = ({ recipe }: Props) => {
         <Space />
 
         {recipe.steps?.map((step, index) => (
-          <View style={{ marginVertical: 6 }} key={step}>
+          <View style={styles.step} key={step}>
             <Typography fontType="medium">Passo {index + 1} </Typography>
 
             <Typography>{step} </Typography>
@@ -32,3 +32,12 @@ export const StepDetails = ({ recipe }: Props) => {
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    marginVertical: 12,
+  },
+  step: {
+    marginVertical: 6,
+  },
+});

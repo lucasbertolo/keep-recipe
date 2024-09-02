@@ -14,19 +14,13 @@ export const IngredientDetails = ({ recipe }: Props) => {
     <>
       <Divider />
 
-      <View style={{ marginVertical: 12 }}>
+      <View style={styles.container}>
         <Typography variant="subtitle">Ingredientes</Typography>
 
         <Space type="md" />
 
         {recipe.ingredients?.map((ingredient) => (
-          <View
-            style={[
-              styles.row,
-              { justifyContent: "space-between", marginTop: 12 },
-            ]}
-            key={ingredient.name}
-          >
+          <View style={styles.row} key={ingredient.name}>
             <Typography>{ingredient.name} </Typography>
             <Typography>{ingredient.quantity} </Typography>
           </View>
@@ -39,10 +33,14 @@ export const IngredientDetails = ({ recipe }: Props) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    marginVertical: 12,
+  },
   row: {
     flexDirection: "row",
-    justifyContent: "flex-start",
     alignItems: "center",
     marginVertical: 6,
+    justifyContent: "space-between",
+    marginTop: 12,
   },
 });

@@ -1,6 +1,6 @@
 import { FilterSvg } from "@/shared/assets/images/svg";
 import { Shadows } from "@/shared/constants/Shadows";
-import { TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { Searchbar, TextInputProps, useTheme } from "react-native-paper";
 import If from "../If";
 import { useRef } from "react";
@@ -26,24 +26,26 @@ export const SearchBar = ({
 
   return (
     <>
-      <View style={{ padding: 24, flexDirection: "row", alignItems: "center" }}>
-        <View style={{ flex: 4 }}>
+      <View style={styles.searchRow}>
+        <View style={styles.searchCollumn}>
           <Searchbar
             placeholder="Busque sua receita"
             onChangeText={onChangeText}
             value={value ?? ""}
-            inputStyle={{ fontSize: 12 }}
-            style={{
-              backgroundColor: theme.colors.background,
-              ...Shadows.light,
-              borderRadius: 24,
-            }}
+            inputStyle={styles.searchInput}
+            style={[
+              styles.searchContainer,
+              {
+                backgroundColor: theme.colors.background,
+                shadowColor: theme.colors.inverseSurface,
+              },
+            ]}
           />
         </View>
 
-        <If condition={!!filterChildren} style={{ flex: 1 }}>
+        <If condition={!!filterChildren} style={styles.filterContainer}>
           <TouchableOpacity onPress={handleDisplayFilter}>
-            <FilterSvg height={24} />
+            <FilterSvg height={24} fill={theme.colors.onBackground} />
           </TouchableOpacity>
         </If>
       </View>
@@ -59,3 +61,24 @@ export const SearchBar = ({
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  searchRow: {
+    padding: 24,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  searchCollumn: {
+    flex: 4,
+  },
+  searchInput: {
+    fontSize: 12,
+  },
+  searchContainer: {
+    borderRadius: 24,
+    ...Shadows.light,
+  },
+  filterContainer: {
+    flex: 1,
+  },
+});

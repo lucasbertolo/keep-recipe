@@ -148,7 +148,6 @@ const styles = StyleSheet.create({
   },
   close: {},
   containerPhoto: {
-    backgroundColor: "#FFFFFF",
     padding: 16,
     borderRadius: 8,
     alignSelf: "center",

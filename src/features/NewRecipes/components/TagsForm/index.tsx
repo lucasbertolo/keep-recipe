@@ -2,7 +2,7 @@ import { Button, TextInput } from "@/shared/components";
 import { useToast } from "@/shared/hooks";
 import React, { useState } from "react";
 import { useFormContext } from "react-hook-form";
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Chip, useTheme } from "react-native-paper";
 import { InferType } from "yup";
 import { recipeSchema } from "../../validations";
@@ -45,13 +45,8 @@ export const TagsForm = () => {
         subtitle="Palavras chave"
       />
 
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-        }}
-      >
-        <View style={{ flex: 3 }}>
+      <View style={styles.row}>
+        <View style={styles.input}>
           <TextInput
             label="Tags"
             onChangeText={setTag}
@@ -60,15 +55,12 @@ export const TagsForm = () => {
           />
         </View>
 
-        <Button
-          style={{ flex: 2, marginTop: 24 }}
-          onPress={() => addNewTag(tag)}
-        >
+        <Button style={styles.button} onPress={() => addNewTag(tag)}>
           Adicionar
         </Button>
       </View>
 
-      <View style={{ flexDirection: "row", gap: 12, flexWrap: "wrap" }}>
+      <View style={styles.chipsContainer}>
         {getValues("tags")?.map((field) => (
           <Chip
             key={field}
@@ -83,3 +75,22 @@ export const TagsForm = () => {
     </ContainerForm>
   );
 };
+
+const styles = StyleSheet.create({
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  input: {
+    flex: 3,
+  },
+  button: {
+    flex: 2,
+    marginTop: 24,
+  },
+  chipsContainer: {
+    flexDirection: "row",
+    gap: 12,
+    flexWrap: "wrap",
+  },
+});

@@ -1,5 +1,5 @@
 import { If, Space } from "@/shared/components";
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Divider } from "react-native-paper";
 
 type SectionDetailsProps = {
@@ -16,7 +16,7 @@ export const SectionDetails = ({
   if (!condition) return null;
 
   return (
-    <View style={{ marginBottom: 12 }}>
+    <View style={styles.container}>
       {children}
       <If condition={!!hasDivider}>
         <Space />
@@ -25,3 +25,9 @@ export const SectionDetails = ({
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    marginBottom: 12,
+  },
+});

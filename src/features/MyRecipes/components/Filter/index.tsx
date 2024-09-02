@@ -8,7 +8,7 @@ import {
 import { CategoryDictionary, DifficultyDictionary } from "@/shared/enums";
 import { useBottomSheet } from "@gorhom/bottom-sheet";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 type FilterProps = {
   defaultFilters: Recipes.Filters;
@@ -99,8 +99,8 @@ export const Filter = ({
         />
       )}
        */}
-      <View style={{ flexDirection: "row", gap: 12 }}>
-        <View style={{ flex: 1 }}>
+      <View style={styles.timeRow}>
+        <View style={styles.timeCollumn}>
           <Controller
             control={control}
             name="prepTime"
@@ -116,7 +116,7 @@ export const Filter = ({
           />
         </View>
 
-        <View style={{ flex: 1 }}>
+        <View style={styles.timeCollumn}>
           <Controller
             control={control}
             name="servings"
@@ -221,3 +221,13 @@ export const Filter = ({
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  timeRow: {
+    flexDirection: "row",
+    gap: 12,
+  },
+  timeCollumn: {
+    flex: 1,
+  },
+});

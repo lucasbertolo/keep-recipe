@@ -1,14 +1,16 @@
 import { TextInput, Typography } from "@/shared/components";
 import React from "react";
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
-import { TouchableOpacity, View } from "react-native";
-import { IconButton } from "react-native-paper";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { IconButton, useTheme } from "react-native-paper";
 import { InferType } from "yup";
 import { recipeSchema } from "../../validations";
 import { ContainerForm } from "../ContainerForm";
 import { TitleForm } from "../TitleForm";
 
 export const IngredientsForm = () => {
+  const theme = useTheme();
+
   const {
     control,
     formState: { errors },
@@ -31,17 +33,14 @@ export const IngredientsForm = () => {
       />
 
       <TouchableOpacity onPress={addNewIngredient}>
-        <Typography variant="caption" style={{ color: "blue" }}>
+        <Typography variant="caption" style={{ color: theme.colors.tertiary }}>
           Toque aqui para adicionar um novo ingrediente
         </Typography>
       </TouchableOpacity>
 
       {fields.map((item, index) => (
-        <View
-          key={item.id}
-          style={{ flexDirection: "row", alignItems: "center" }}
-        >
-          <View style={{ flex: 4 }}>
+        <View key={item.id} style={styles.row}>
+          <View style={styles.containerName}>
             <Controller
               control={control}
               name={`ingredients.${index}.name`}
@@ -59,7 +58,7 @@ export const IngredientsForm = () => {
             />
           </View>
 
-          <View style={{ flex: 2, marginLeft: 6 }}>
+          <View style={styles.containerQuantity}>
             <Controller
               control={control}
               name={`ingredients.${index}.quantity`}
@@ -78,7 +77,7 @@ export const IngredientsForm = () => {
 
           <TouchableOpacity
             onPress={() => remove(index)}
-            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+            style={styles.containerButton}
           >
             <IconButton icon="trash-can-outline" size={18} />
           </TouchableOpacity>
@@ -87,3 +86,22 @@ export const IngredientsForm = () => {
     </ContainerForm>
   );
 };
+
+const styles = StyleSheet.create({
+  containerName: {
+    flex: 4,
+  },
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  containerQuantity: {
+    flex: 2,
+    marginLeft: 6,
+  },
+  containerButton: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});

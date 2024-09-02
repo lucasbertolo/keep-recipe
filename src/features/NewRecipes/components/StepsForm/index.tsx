@@ -1,14 +1,15 @@
 import { TextInput, Typography } from "@/shared/components";
 import React from "react";
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
-import { TouchableOpacity, View } from "react-native";
-import { IconButton } from "react-native-paper";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { IconButton, useTheme } from "react-native-paper";
 import { InferType } from "yup";
 import { recipeSchema } from "../../validations";
 import { ContainerForm } from "../ContainerForm";
 import { TitleForm } from "../TitleForm";
 
 export const StepsForm = () => {
+  const theme = useTheme();
   const {
     control,
     formState: { errors },
@@ -30,17 +31,14 @@ export const StepsForm = () => {
       <TitleForm title="Descreva os modo de preparo" subtitle="Passo a passo" />
 
       <TouchableOpacity onPress={addNewStep}>
-        <Typography variant="caption" style={{ color: "blue" }}>
+        <Typography variant="caption" style={{ color: theme.colors.tertiary }}>
           Toque aqui para adicionar um novo passo
         </Typography>
       </TouchableOpacity>
 
       {fields.map((item, index) => (
-        <View
-          key={item.id}
-          style={{ flexDirection: "row", alignItems: "center" }}
-        >
-          <View style={{ flex: 3 }}>
+        <View key={item.id} style={styles.row}>
+          <View style={styles.columnInput}>
             <Controller
               control={control}
               name={`steps.${index}.description`}
@@ -64,7 +62,7 @@ export const StepsForm = () => {
 
           <TouchableOpacity
             onPress={() => remove(index)}
-            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+            style={styles.containerButton}
           >
             <IconButton icon="trash-can-outline" size={18} />
           </TouchableOpacity>
@@ -73,3 +71,18 @@ export const StepsForm = () => {
     </ContainerForm>
   );
 };
+
+const styles = StyleSheet.create({
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  columnInput: {
+    flex: 3,
+  },
+  containerButton: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});

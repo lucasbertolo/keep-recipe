@@ -1,5 +1,4 @@
 export * from "./Toast";
-export * from "./Container";
 export * from "./Space";
 export { default as Paragraph } from "./Paragraph";
 export * from "./Typography";

@@ -59,7 +59,15 @@ export const BottomBar = ({
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {
+          backgroundColor: theme.colors.background,
+          shadowColor: theme.colors.onSecondaryContainer,
+        },
+      ]}
+    >
       <View style={styles.tabContainer}>
         {state.routes.map((route, index) => {
           const { options } = descriptors[route.key];
@@ -111,8 +119,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: "#FFF",
-    ...Shadows.medium,
+    ...Shadows.heavy,
   },
   tabContainer: {
     flexDirection: "row",

@@ -27,10 +27,9 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
 
   const containerExtraStyle: StyleProp<ViewStyle> = useMemo(() => {
     if (selected) {
-      const color = "rgba(0, 104, 116, 0.2)";
       return {
-        backgroundColor: color,
-        borderColor: color,
+        backgroundColor: theme.colors.secondaryContainer,
+        borderColor: theme.colors.secondaryContainer,
         borderWidth: 1,
       };
     }
@@ -41,7 +40,14 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={[styles.container, containerExtraStyle]}
+      style={[
+        styles.container,
+        {
+          backgroundColor: theme.colors.background,
+          shadowColor: theme.colors.onSecondaryContainer,
+        },
+        containerExtraStyle,
+      ]}
     >
       <View
         style={[
@@ -78,7 +84,6 @@ const styles = StyleSheet.create({
     height: 80,
     marginBottom: 16,
     padding: 16,
-    backgroundColor: "#FFF",
     ...Shadows.light,
   },
   outerCircle: {

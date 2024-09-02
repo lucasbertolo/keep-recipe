@@ -1,5 +1,5 @@
 import { EmptyListSvg } from "@/shared/assets/images/svg";
-import { Dimensions, View } from "react-native";
+import { Dimensions, StyleSheet, View } from "react-native";
 import { Typography } from "../Typography";
 import { Space } from "../Space";
 
@@ -11,12 +11,10 @@ type Props = {
 export const EmptyList = ({ label, paddingParent }: Props) => {
   return (
     <View
-      style={{
-        flex: 1,
-        width: Dimensions.get("window").width - (paddingParent ?? 24),
-        justifyContent: "center",
-        alignItems: "center",
-      }}
+      style={[
+        styles.container,
+        { width: Dimensions.get("window").width - (paddingParent ?? 24) },
+      ]}
     >
       <EmptyListSvg />
       <Space type="lg" />
@@ -24,3 +22,11 @@ export const EmptyList = ({ label, paddingParent }: Props) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
