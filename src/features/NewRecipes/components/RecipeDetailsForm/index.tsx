@@ -44,7 +44,6 @@ export const RecipeDetailsForm = () => {
             numberOfLines={5}
             multiline
             error={!!errors.description}
-            returnKeyType="done"
           />
         )}
       />

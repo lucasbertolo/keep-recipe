@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "keep-recipes",
+    "name": "Caderno de receitas",
     "slug": "keep-recipes",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -18,10 +18,6 @@
       "bundleIdentifier": "com.lucasbertolo2.keeprecipes"
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./src/shared/assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
       "googleServicesFile": "./src/config/services/firebase/google-services.json",
       "package": "com.lucasbertolo2.keeprecipes"
     }, 

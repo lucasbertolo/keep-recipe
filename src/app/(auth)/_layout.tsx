@@ -1,4 +1,4 @@
-import useReactQueryConfig from "@/config/apiConfig";
+import { useReactQueryConfig } from "@/config/services";
 import { useAuth } from "@/features/Auth/provider";
 import { MyRecipesProvider } from "@/features/MyRecipes/provider";
 import { Redirect, Stack } from "expo-router";
@@ -6,7 +6,7 @@ import { Redirect, Stack } from "expo-router";
 export default function RootLayout() {
   const { initializing, user } = useAuth();
 
-  useReactQueryConfig();
+  useReactQueryConfig(user);
 
   if (initializing) return null;
 

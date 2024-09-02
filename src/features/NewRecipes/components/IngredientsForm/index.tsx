@@ -68,7 +68,6 @@ export const IngredientsForm = () => {
                 <TextInput
                   label="Qtde"
                   onBlur={onBlur}
-                  keyboardType="numeric"
                   onChangeText={onChange}
                   value={value}
                   error={!!errors?.ingredients?.[index]?.quantity}

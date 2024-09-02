@@ -5,6 +5,7 @@ import {
   Dimensions,
   FlatList,
   ListRenderItemInfo,
+  ScrollView,
   StyleSheet,
   TouchableOpacity,
   View,
@@ -129,7 +130,7 @@ export const ListRecipes = () => {
   }, [isLoading, recipes?.length, isRefetching]);
 
   return (
-    <View style={{ flex: 1 }}>
+    <ScrollView>
       <SearchBar
         onChangeText={handleSearch}
         value={search}
@@ -148,7 +149,7 @@ export const ListRecipes = () => {
         horizontal
         ListEmptyComponent={ListEmptyComponent}
       />
-    </View>
+    </ScrollView>
   );
 };
 

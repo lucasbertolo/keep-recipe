@@ -1,32 +1,58 @@
 import { CameraView, useCameraPermissions } from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
-import React, { useRef, useState } from "react";
-import { Modal, StyleSheet, TouchableOpacity, View } from "react-native";
+import React, { useCallback, useMemo, useRef, useState } from "react";
+import {
+  Linking,
+  Modal,
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { IconButton, useTheme } from "react-native-paper";
+import Button from "../Button";
+import { Typography } from "../Typography";
 
 interface CameraComponentProps {
   onTakePhoto: (photoUri: string) => void;
 }
 
 export const Camera: React.FC<CameraComponentProps> = ({ onTakePhoto }) => {
-  const theme = useTheme();
-  const [permission, requestPermission] = useCameraPermissions();
   const cameraRef = useRef<CameraView>(null);
 
-  const [isCameraOpen, setIsCameraOpen] = useState(false);
+  const theme = useTheme();
+  const [permission, requestPermission] = useCameraPermissions();
 
-  const handleOpenCamera = async () => {
+  const [isCameraOpen, setIsCameraOpen] = useState(false);
+  const [isWarningOpen, setIsWarningOpen] = useState(false);
+
+  const openAppSettings = useCallback(() => {
+    setIsWarningOpen(false);
+
+    if (Platform.OS === "android") {
+      Linking.openURL(
+        "package:" +
+          "com.lucasbertolo2.keeprecipes" +
+          "#Intent;action=android.settings.APPLICATION_DETAILS_SETTINGS;scheme=package;end",
+      );
+      return;
+    }
+
+    Linking.openURL("app-settings:");
+  }, [setIsWarningOpen]);
+
+  const handleOpenCamera = useCallback(async () => {
     if (!permission) {
       const hasPermission = await requestPermission();
 
       if (!hasPermission) {
-        // showToast({ type: "error", message: "É necessário acesso a camera" });
+        setIsWarningOpen(true);
         return;
       }
     }
 
     setIsCameraOpen(true);
-  };
+  }, [setIsWarningOpen, setIsCameraOpen, permission, requestPermission]);
 
   const handleCloseCamera = () => {
     setIsCameraOpen(false);
@@ -56,15 +82,31 @@ export const Camera: React.FC<CameraComponentProps> = ({ onTakePhoto }) => {
     }
   };
 
+  const contentRender = useMemo(() => {
+    if (isWarningOpen) {
+      return (
+        <View>
+          <Typography>
+            É necessário permitir o acesso à camera para prosseguir
+          </Typography>
+
+          <Button onPress={openAppSettings}>Ir para os ajustes</Button>
+        </View>
+      );
+    }
+
+    return (
+      <IconButton
+        icon={"plus"}
+        onPress={handleOpenCamera}
+        style={[styles.openCamera, { borderColor: theme.colors.tertiary }]}
+      />
+    );
+  }, [isWarningOpen, handleOpenCamera, openAppSettings, theme.colors.tertiary]);
+
   return (
     <>
-      <View style={styles.containerPhoto}>
-        <IconButton
-          icon={"plus"}
-          onPress={handleOpenCamera}
-          style={[styles.openCamera, { borderColor: theme.colors.tertiary }]}
-        />
-      </View>
+      <View style={styles.containerPhoto}>{contentRender}</View>
 
       <Modal visible={isCameraOpen} animationType="slide">
         <View style={styles.container}>
