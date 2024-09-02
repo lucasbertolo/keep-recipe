@@ -7,18 +7,9 @@ type Props = {
   text?: string;
   style?: TextStyle;
   variant?: "subtitle" | "body" | "caption";
-  hasMarginBottom?: boolean;
-  hasDivider?: boolean;
 };
 
-export const TextDetailCard = ({
-  text,
-  style,
-  shouldHide,
-  variant,
-  hasDivider,
-  hasMarginBottom,
-}: Props) => {
+export const TextDetailCard = ({ text, style, shouldHide, variant }: Props) => {
   if (shouldHide) return null;
 
   return (
@@ -26,14 +17,6 @@ export const TextDetailCard = ({
       <Typography style={style} variant={variant}>
         {text}
       </Typography>
-
-      <If condition={!!hasMarginBottom}>
-        <Space type="md" />
-      </If>
-
-      <If condition={!!hasDivider}>
-        <Divider />
-      </If>
     </>
   );
 };

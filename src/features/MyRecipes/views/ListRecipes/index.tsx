@@ -5,7 +5,6 @@ import {
   Dimensions,
   FlatList,
   ListRenderItemInfo,
-  ScrollView,
   StyleSheet,
   TouchableOpacity,
   View,
@@ -23,6 +22,18 @@ const searchParams: (keyof Recipes.Recipe)[] = [
   "createdAt",
 ];
 
+const defaultFilters = {
+  category: [] as string[],
+  difficulty: [] as string[],
+  isVegan: false,
+  isVegetarian: false,
+  isGlutenFree: false,
+  isDairyFree: false,
+  prepTime: 0,
+  servings: 0,
+  tags: [] as string[],
+};
+
 export const ListRecipes = () => {
   const router = useRouter();
   const { selectRecipe } = useMyRecipes();
@@ -31,17 +42,7 @@ export const ListRecipes = () => {
 
   const { data: recipes, isLoading, isRefetching } = useGetRecipes();
 
-  const [filters, setFilters] = useState<Recipes.Filters>({
-    category: [] as string[],
-    difficulty: [] as string[],
-    isVegan: false,
-    isVegetarian: false,
-    isGlutenFree: false,
-    isDairyFree: false,
-    prepTime: 0,
-    servings: 0,
-    tags: [] as string[],
-  });
+  const [filters, setFilters] = useState<Recipes.Filters>(defaultFilters);
 
   const navigateToDetails = (recipe: Recipes.Recipe) => {
     selectRecipe(recipe);
@@ -63,6 +64,10 @@ export const ListRecipes = () => {
     if (!recipes) return [] as Recipes.Recipe[];
 
     let model = [...recipes];
+
+    console.log("model", model);
+
+    console.log("filters", filters);
 
     if (filters.category.length > 0) {
       model = model.filter((recipe) =>
@@ -130,16 +135,18 @@ export const ListRecipes = () => {
   }, [isLoading, recipes?.length, isRefetching]);
 
   return (
-    <ScrollView>
+    <View style={{ flex: 1 }}>
       <SearchBar
         onChangeText={handleSearch}
         value={search}
-        filterChildren={<Filter setFilters={setFilters} filters={filters} />}
+        filterChildren={
+          <Filter
+            setFilters={setFilters}
+            filters={filters}
+            defaultFilters={defaultFilters}
+          />
+        }
       />
-
-      <View style={styles.title}>
-        <Typography variant="subtitle">Minhas receitas</Typography>
-      </View>
 
       <FlatList
         data={filteredRecipes}
@@ -149,7 +156,7 @@ export const ListRecipes = () => {
         horizontal
         ListEmptyComponent={ListEmptyComponent}
       />
-    </ScrollView>
+    </View>
   );
 };
 

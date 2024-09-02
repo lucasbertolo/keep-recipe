@@ -19,6 +19,7 @@ import { Divider, IconButton, useTheme } from "react-native-paper";
 import {
   IngredientDetails,
   MenuDetail,
+  SectionDetails,
   StepDetails,
   TextDetailCard,
   TimeDetails,
@@ -53,6 +54,18 @@ export const DetailsRecipe = () => {
   const handleDisplayMenu = (): void => {
     if (menuModalRef?.current) menuModalRef.current.present();
   };
+
+  const shouldShowHealthDetails =
+    !!recipe?.isDairyFree ||
+    !!recipe?.isGlutenFree ||
+    !!recipe?.isVegan ||
+    !!recipe?.isVegetarian;
+
+  const shouldShowGeneralDetails =
+    !!recipe?.observation ||
+    !!recipe?.rating ||
+    !!recipe?.source ||
+    !!recipe?.createdAt;
 
   return (
     <ScrollView>
@@ -91,81 +104,102 @@ export const DetailsRecipe = () => {
             shouldHide={!recipe?.category}
           />
         </View>
+
         <Space type="sm" />
         <Divider />
         <Space type="sm" />
-        <TextDetailCard
-          text={recipe?.description}
-          shouldHide={!recipe?.description}
-          hasMarginBottom
-        />
 
-        <TextDetailCard
-          variant="caption"
-          text={recipe?.isDairyFree ? "Sem latícinios" : ""}
-          shouldHide={!recipe?.isDairyFree}
-          style={{ color: theme.colors.outline }}
-        />
-        <TextDetailCard
-          variant="caption"
-          text={recipe?.isVegan ? "Vegano" : ""}
-          shouldHide={!recipe?.isDairyFree}
-          style={{ color: theme.colors.outline }}
-        />
-        <TextDetailCard
-          variant="caption"
-          text={recipe?.isVegetarian ? "Vegetariano" : ""}
-          shouldHide={!recipe?.isDairyFree}
-          style={{ color: theme.colors.outline }}
-        />
-        <TextDetailCard
-          variant="caption"
-          text={recipe?.isGlutenFree ? "Sem gluten" : ""}
-          shouldHide={!recipe?.isDairyFree}
-          style={{ color: theme.colors.outline }}
-        />
+        <SectionDetails condition={!!recipe?.description}>
+          <TextDetailCard
+            text={recipe?.description}
+            shouldHide={!recipe?.description}
+          />
+        </SectionDetails>
 
-        <TextDetailCard
-          text={`Dificuldade: ${DifficultyDictionary[recipe?.difficulty!]}`}
-          shouldHide={!recipe?.difficulty}
-        />
-        <TextDetailCard
-          text={`Serve: ${recipe?.servings} porções`}
-          shouldHide={!recipe?.servings}
-          hasMarginBottom
-        />
-        <ListChips chips={recipe?.tags ?? []} />
-        <TimeDetails recipe={recipe} />
-        <IngredientDetails recipe={recipe} />
-        <StepDetails recipe={recipe} />
-        <TextDetailCard
-          text={`Observação: ${recipe?.observation}`}
-          shouldHide={!recipe?.observation}
-          hasMarginBottom
-        />
-        <TextDetailCard
-          text={`Nota: ${recipe?.rating}`}
-          shouldHide={!recipe?.rating}
-        />
-        <If
-          condition={!!recipe?.source}
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            marginBottom: 6,
-          }}
+        <SectionDetails condition={shouldShowHealthDetails} hasDivider>
+          <>
+            <TextDetailCard
+              variant="caption"
+              text={recipe?.isDairyFree ? "Sem latícinios" : ""}
+              shouldHide={!recipe?.isDairyFree}
+              style={{ color: theme.colors.outline }}
+            />
+            <TextDetailCard
+              variant="caption"
+              text={recipe?.isVegan ? "Vegano" : ""}
+              shouldHide={!recipe?.isVegan}
+              style={{ color: theme.colors.outline }}
+            />
+            <TextDetailCard
+              variant="caption"
+              text={recipe?.isVegetarian ? "Vegetariano" : ""}
+              shouldHide={!recipe?.isVegetarian}
+              style={{ color: theme.colors.outline }}
+            />
+            <TextDetailCard
+              variant="caption"
+              text={recipe?.isGlutenFree ? "Sem gluten" : ""}
+              shouldHide={!recipe?.isGlutenFree}
+              style={{ color: theme.colors.outline }}
+            />
+          </>
+        </SectionDetails>
+
+        <SectionDetails
+          condition={!!recipe?.difficulty?.length || !!recipe?.servings}
+          hasDivider
         >
-          <Typography>Fonte: </Typography>
-          <TouchableOpacity onPress={goToSource}>
-            <Typography color={theme.colors.primary}>
-              {recipe?.source}
-            </Typography>
-          </TouchableOpacity>
-        </If>
-        <TextDetailCard
-          text={`Data de criação: ${created}`}
-          shouldHide={!recipe?.createdAt?.seconds}
-        />
+          <>
+            <TextDetailCard
+              text={`Dificuldade: ${DifficultyDictionary[recipe?.difficulty!]}`}
+              shouldHide={!recipe?.difficulty}
+            />
+            <TextDetailCard
+              text={`Serve: ${recipe?.servings} porções`}
+              shouldHide={!recipe?.servings}
+            />
+          </>
+        </SectionDetails>
+
+        <ListChips chips={recipe?.tags ?? []} />
+
+        <TimeDetails recipe={recipe} />
+
+        <IngredientDetails recipe={recipe} />
+
+        <StepDetails recipe={recipe} />
+
+        <SectionDetails condition={shouldShowGeneralDetails}>
+          <>
+            <TextDetailCard
+              text={`Observação: ${recipe?.observation}`}
+              shouldHide={!recipe?.observation}
+            />
+            <TextDetailCard
+              text={`Nota: ${recipe?.rating}`}
+              shouldHide={!recipe?.rating}
+            />
+            <If
+              condition={!!recipe?.source}
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                marginBottom: 6,
+              }}
+            >
+              <Typography>Fonte: </Typography>
+              <TouchableOpacity onPress={goToSource}>
+                <Typography color={theme.colors.primary}>
+                  {recipe?.source}
+                </Typography>
+              </TouchableOpacity>
+            </If>
+            <TextDetailCard
+              text={`Data de criação: ${created}`}
+              shouldHide={!recipe?.createdAt?.seconds}
+            />
+          </>
+        </SectionDetails>
       </View>
 
       <BottomSheet
