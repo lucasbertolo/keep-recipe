@@ -2,6 +2,10 @@
 
 Este é um aplicativo de receitas onde os usuários podem adicionar, editar e visualizar suas próprias receitas. As receitas podem incluir fotos e são armazenadas de forma privada para cada usuário.
 
+## Explicação projeto (Vídeo)
+
+- https://drive.google.com/file/d/1QAOSHehFyry-ZiG0MNiJSCPRwTcU6efj/view?usp=share_link
+
 ## Funcionalidades
 
 - Adicionar receitas com fotos
