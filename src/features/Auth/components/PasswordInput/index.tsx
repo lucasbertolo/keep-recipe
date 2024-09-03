@@ -18,7 +18,7 @@ export const PasswordInput = ({
     <TextInput
       {...rest}
       label={label ?? "Senha"}
-      secureTextEntry={!!showPassword}
+      secureTextEntry={!showPassword}
       textContentType="oneTimeCode"
       onChange={onChange}
       value={value}
