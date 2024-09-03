@@ -18,8 +18,6 @@ export const useReactQueryConfig = (user?: Auth.User) => {
   const { showToast } = useToast();
   const queryClient = useQueryClient();
 
-  console.log("useReactQueryConfig", user);
-
   const firebaseCrashlytics = (error: unknown, context?: object) => {
     const errorMessage = `.:Erro capturado pelo react-query:. \n ${JSON.stringify(error)}`;
 
