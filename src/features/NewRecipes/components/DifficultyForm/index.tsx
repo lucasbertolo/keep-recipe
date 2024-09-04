@@ -21,6 +21,12 @@ export const DifficultyForm = () => {
         subtitle="Preparo"
       />
 
+      <If condition={!!errors.difficulty?.message}>
+        <Typography color={theme.colors.error}>
+          {errors.difficulty?.message}
+        </Typography>
+      </If>
+
       <Controller
         control={control}
         name="difficulty"
@@ -49,12 +55,6 @@ export const DifficultyForm = () => {
           </RNPRadioButton.Group>
         )}
       />
-
-      <If condition={!!errors.difficulty?.message}>
-        <Typography color={theme.colors.error}>
-          {errors.difficulty?.message}
-        </Typography>
-      </If>
     </ContainerForm>
   );
 };

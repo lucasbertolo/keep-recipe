@@ -14,7 +14,7 @@ const retry = (failureCount: number, error: any): boolean => {
   return failureCount < 3;
 };
 
-export const useReactQueryConfig = (user?: Auth.User) => {
+export const useReactQueryConfig = (user?: Auth.User | null) => {
   const { showToast } = useToast();
   const queryClient = useQueryClient();
 
@@ -30,37 +30,39 @@ export const useReactQueryConfig = (user?: Auth.User) => {
 
   const defaultConfig = {
     refetchOnWindowFocus: true,
-    onError: (error: Error, context: unknown) => {
-      if ("queryKey" in (context as any)) {
-        const queryContext = context as { queryKey: unknown[]; meta: unknown };
-
-        firebaseCrashlytics(error, {
-          queryKey: queryContext.queryKey,
-          meta: queryContext.meta,
-        });
-      } else if ("mutationKey" in (context as any)) {
-        const mutationContext = context as {
-          mutationKey: unknown[];
-          variables: unknown;
-          meta: unknown;
-        };
-
-        firebaseCrashlytics(error, {
-          mutationKey: mutationContext.mutationKey,
-          variables: mutationContext.variables,
-          meta: mutationContext.meta,
-        });
-      } else {
-        firebaseCrashlytics(error);
-      }
-
-      showToast({ message: error.message, type: "error" });
-    },
     retry,
   };
 
   queryClient.setDefaultOptions({
     queries: { ...defaultConfig },
-    mutations: { ...defaultConfig },
+    mutations: {
+      ...defaultConfig,
+      onError: (error, variables, context) => {
+        try {
+          showToast({ message: error.message, type: "error" });
+
+          if (!!context && "mutationKey" in (context as any)) {
+            const mutationContext = context as {
+              mutationKey: unknown[];
+              variables: unknown;
+              meta: unknown;
+            };
+
+            firebaseCrashlytics(error, {
+              mutationKey: mutationContext.mutationKey,
+              variables: variables,
+              meta: mutationContext.meta,
+            });
+
+            return;
+          }
+
+          firebaseCrashlytics(error);
+        } catch (error) {
+          return error;
+        }
+      },
+      retry: false,
+    },
   });
 };

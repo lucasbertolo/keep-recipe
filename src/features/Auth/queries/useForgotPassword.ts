@@ -3,21 +3,22 @@ import { useMutation } from "@tanstack/react-query";
 import { useAuth } from "../provider";
 import { useRouter } from "expo-router";
 
-export const useCreateUser = () => {
+export const useForgotPassword = () => {
   const auth = useAuth();
-  const router = useRouter();
   const toast = useToast();
+  const router = useRouter();
 
   return useMutation({
-    mutationFn: auth.service.registerUser,
+    mutationFn: async (email: string) => {
+      await auth.service.resetPassword(email);
+    },
     onSuccess: () => {
-      toast.showToast({
-        message:
-          "Usuário criado com sucesso, verifique seu email para poder fazer o login",
-        type: "success",
-      });
+      router.back();
 
-      router.navigate("/verify-email");
+      toast.showToast({
+        type: "success",
+        message: "Email enviado com sucesso",
+      });
     },
   });
 };

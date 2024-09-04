@@ -6,6 +6,9 @@ type FirebaseError = Error & {
 };
 
 export class FirebaseAuthService implements Auth.Actions {
+  private lastVerificationEmailSent: number | null = null;
+  private emailCooldown = 60 * 1000;
+
   async signIn(username: string, password: string): Promise<void> {
     try {
       await auth().signInWithEmailAndPassword(username, password);
@@ -34,11 +37,11 @@ export class FirebaseAuthService implements Auth.Actions {
     }
   }
 
-  async registerUser({
+  registerUser = async ({
     email,
     password,
     displayName,
-  }: Auth.RegisterUser): Promise<void> {
+  }: Auth.RegisterUser) => {
     try {
       const userCredentials = await auth().createUserWithEmailAndPassword(
         email,
@@ -46,6 +49,8 @@ export class FirebaseAuthService implements Auth.Actions {
       );
 
       await userCredentials.user.updateProfile({ displayName });
+
+      await this.sendEmailVerification();
     } catch (error) {
       const firebaseError = error as FirebaseError;
 
@@ -55,5 +60,51 @@ export class FirebaseAuthService implements Auth.Actions {
 
       throw error;
     }
-  }
+  };
+
+  sendEmailVerification = async () => {
+    const user = auth().currentUser;
+
+    if (!user) {
+      throw new Error("Ocorreu um problema.");
+    }
+
+    if (user.emailVerified) {
+      throw new Error("Email já verificado.");
+    }
+
+    const currentTime = Date.now();
+
+    if (
+      this.lastVerificationEmailSent &&
+      currentTime - this.lastVerificationEmailSent < this.emailCooldown
+    ) {
+      const secondsRemaining = Math.ceil(
+        (this.emailCooldown - (currentTime - this.lastVerificationEmailSent)) /
+          1000,
+      );
+
+      throw new Error(
+        `Por favor, aguarde ${secondsRemaining} segundos antes de tentar novamente`,
+      );
+    }
+
+    await user.sendEmailVerification();
+
+    this.lastVerificationEmailSent = Date.now();
+  };
+
+  resetPassword = async (email: string) => {
+    try {
+      await auth().sendPasswordResetEmail(email);
+    } catch (error) {
+      const firebaseError = error as FirebaseError;
+
+      if (firebaseError) {
+        throw new Error(formatFirebaseAuthError(firebaseError.code));
+      }
+
+      throw error;
+    }
+  };
 }

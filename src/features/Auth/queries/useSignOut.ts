@@ -6,7 +6,7 @@ export const useSignOut = () => {
 
   return useMutation({
     mutationFn: async () => {
-      return auth.service.signOut();
+      await auth.service.signOut();
     },
   });
 };

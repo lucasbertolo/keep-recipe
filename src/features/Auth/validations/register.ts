@@ -3,6 +3,7 @@ import {
   containNumber,
   containUppercase,
   containWhitespace,
+  noSpecialCharacters,
 } from "@/shared/utils";
 import * as Yup from "yup";
 
@@ -18,7 +19,16 @@ export const registerSchema = Yup.object().shape({
   displayName: Yup.string()
     .required("Por favor, insira um nome usuário válido.")
     .min(3, "Usuário precisa de pelo menos 3 caracteres")
-    .max(20, "Usuário pode ter no máximo 20 caracteres"),
+    .max(20, "Usuário pode ter no máximo 20 caracteres")
+    .test(
+      "displayName",
+      "Usuário não pode conter caractere especial",
+      (item) => {
+        if (!item) return false;
+
+        return noSpecialCharacters(item);
+      },
+    ),
   email: Yup.string()
     .email("Email inválido")
     .required("Por favor, insira um email válido."),

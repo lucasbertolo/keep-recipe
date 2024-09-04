@@ -15,6 +15,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         service: authService,
         initializing: session.initializing,
         user: session.user,
+        reloadUser: session.reloadUser,
       }}
     >
       {children}
@@ -28,5 +29,6 @@ export const useAuth = (): Auth.Provider => {
   if (!context) {
     throw new Error("useAuth must be used within an AuthProvider");
   }
+
   return context;
 };

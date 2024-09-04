@@ -1,23 +1,18 @@
 import { useToast } from "@/shared/hooks";
 import { useMutation } from "@tanstack/react-query";
 import { useAuth } from "../provider";
-import { useRouter } from "expo-router";
 
-export const useCreateUser = () => {
+export const useSendEmailVerification = () => {
   const auth = useAuth();
-  const router = useRouter();
   const toast = useToast();
 
   return useMutation({
-    mutationFn: auth.service.registerUser,
+    mutationFn: auth.service.sendEmailVerification,
     onSuccess: () => {
       toast.showToast({
-        message:
-          "Usuário criado com sucesso, verifique seu email para poder fazer o login",
         type: "success",
+        message: "Email enviado com sucesso",
       });
-
-      router.navigate("/verify-email");
     },
   });
 };

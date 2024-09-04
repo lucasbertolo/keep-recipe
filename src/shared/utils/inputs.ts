@@ -12,3 +12,6 @@ export const containLowercase = (value?: string): boolean =>
 
 export const containWhitespace = (value?: string): boolean =>
   !!value && !/\s/.test(value);
+
+export const noSpecialCharacters = (value?: string): boolean =>
+  !!value && /^[a-zA-Z0-9]{1,15}$/.test(value);
