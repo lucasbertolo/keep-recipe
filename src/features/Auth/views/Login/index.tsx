@@ -6,18 +6,28 @@ import {
   WrapperForm,
 } from "@/shared/components";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useRouter } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
+import { useCallback } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { InferType } from "yup";
 import { LinkText, PasswordInput } from "../../components";
+import { useAuth } from "../../provider";
 import { useSignIn } from "../../queries";
 import { loginSchema } from "../../validations";
 
 type Fields = InferType<typeof loginSchema>;
 
 export default function LoginScreen() {
+  const { reloadUser, user } = useAuth();
+
   const router = useRouter();
   const { mutate: signIn, isPending } = useSignIn();
+
+  useFocusEffect(
+    useCallback(() => {
+      if (user) reloadUser();
+    }, [user]),
+  );
 
   const handleLogin: SubmitHandler<Fields> = async (data) => {
     signIn({ email: data.email, password: data.password });
@@ -40,6 +50,8 @@ export default function LoginScreen() {
 
   return (
     <WrapperForm>
+      <Space type="lg" />
+
       <Logo />
 
       <Controller

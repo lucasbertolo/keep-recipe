@@ -1,7 +1,7 @@
-import { LoginView } from "@/features/Auth/views";
+import { LoginScreen } from "@/features/Auth/views";
 
 export { ErrorBoundary } from "@/shared/components/ErrorBoundary";
 
 export default function Login() {
-  return <LoginView />;
+  return <LoginScreen />;
 }

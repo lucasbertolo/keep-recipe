@@ -1,10 +1,5 @@
 import React, { memo } from "react";
-import {
-  KeyboardAvoidingView,
-  ScrollView,
-  StyleSheet,
-  View,
-} from "react-native";
+import { KeyboardAvoidingView, ScrollView, StyleSheet } from "react-native";
 import { useTheme } from "react-native-paper";
 
 type Props = {
@@ -34,7 +29,6 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   container: {
-    flex: 1,
     padding: 20,
     width: "100%",
     maxWidth: 340,

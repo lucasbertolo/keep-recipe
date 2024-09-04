@@ -8,17 +8,20 @@ declare namespace Auth {
     signIn: (username: string, password: string) => Promise<void>;
     signOut: () => Promise<void>;
     registerUser: (props: RegisterUser) => Promise<void>;
+    sendEmailVerification: () => Promise<void>;
   }
 
   interface User {
     uid: string;
     displayName: string | null;
     email: string | null;
+    emailVerified?: boolean;
   }
 
   interface Provider {
     service: Auth.Actions;
-    user?: Auth.User;
+    user?: Auth.User | null;
     initializing: boolean;
+    reloadUser: () => Promise<void>;
   }
 }

@@ -12,6 +12,8 @@ export default function RootLayout() {
 
   if (!user) return <Redirect href="../login" />;
 
+  if (user && !user.emailVerified) return <Redirect href="../verify-email" />;
+
   return (
     <MyRecipesProvider>
       <Stack>

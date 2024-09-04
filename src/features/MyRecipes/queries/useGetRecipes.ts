@@ -13,5 +13,6 @@ export const useGetRecipes = () => {
     queryFn: async () => {
       return service.getRecipes(auth.user?.uid ?? "");
     },
+    staleTime: 60 * 1000 * 30, // 120 min
   });
 };
