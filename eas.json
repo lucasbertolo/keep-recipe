@@ -13,9 +13,25 @@
     "preview": {
       "distribution": "internal"
     },
-    "production": {}
+    "staging": {
+      "env": {
+        "EXPO_ENV": "staging"
+      },
+      "image": "default",
+      "node": "16.x",
+      "yarn": "classic"
+    },
+    "production": {
+      "env": {
+        "EXPO_ENV": "production"
+      },
+      "image": "default",
+      "node": "16.x",
+      "yarn": "classic"
+    }
   },
   "submit": {
-    "production": {}
+    "production": {},
+    "staging": {}
   }
 }
