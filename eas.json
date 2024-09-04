@@ -18,7 +18,7 @@
         "EXPO_ENV": "staging"
       },
       "image": "default",
-      "node": "16.x",
+      "node": "20.14.0",
       "yarn": "classic"
     },
     "production": {
@@ -26,7 +26,7 @@
         "EXPO_ENV": "production"
       },
       "image": "default",
-      "node": "16.x",
+      "node": "20.14.0",
       "yarn": "classic"
     }
   },
