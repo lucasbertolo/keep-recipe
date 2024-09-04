@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   carousel: {
     borderRadius: 12,
     width: 240,
-    height: 360,
+    height: 340,
     ...Shadows.light,
   },
   details: {

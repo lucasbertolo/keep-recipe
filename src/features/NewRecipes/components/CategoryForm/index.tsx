@@ -19,6 +19,12 @@ export const CategoryForm = () => {
     <ContainerForm>
       <TitleForm title="Qual a categoria?" />
 
+      <If condition={!!errors.category?.message}>
+        <Typography color={theme.colors.error}>
+          {errors.category?.message}
+        </Typography>
+      </If>
+
       <Controller
         control={control}
         name="category"
@@ -47,12 +53,6 @@ export const CategoryForm = () => {
           </RNPRadioButton.Group>
         )}
       />
-
-      <If condition={!!errors.category?.message}>
-        <Typography color={theme.colors.error}>
-          {errors.category?.message}
-        </Typography>
-      </If>
     </ContainerForm>
   );
 };

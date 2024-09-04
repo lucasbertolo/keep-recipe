@@ -114,7 +114,7 @@ export const Camera: React.FC<CameraComponentProps> = ({ onTakePhoto }) => {
             <IconButton
               icon={"close"}
               onPress={handleCloseCamera}
-              iconColor={theme.colors.background}
+              iconColor={theme.colors.onBackground}
             />
           </View>
           <CameraView style={styles.camera} ref={cameraRef}>

@@ -60,8 +60,6 @@ export default function LoginScreen() {
 
   return (
     <WrapperForm>
-      <Space type="lg" />
-
       <Logo />
 
       <Controller

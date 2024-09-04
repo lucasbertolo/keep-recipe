@@ -25,8 +25,8 @@ const WrapperForm = ({ children }: Props) => {
 
 const styles = StyleSheet.create({
   background: {
-    flex: 1,
     width: "100%",
+    paddingVertical: 36,
   },
   container: {
     padding: 20,
