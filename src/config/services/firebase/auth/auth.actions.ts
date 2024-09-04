@@ -94,15 +94,9 @@ export class FirebaseAuthService implements Auth.Actions {
     this.lastVerificationEmailSent = Date.now();
   };
 
-  resetPassword = async () => {
+  resetPassword = async (email: string) => {
     try {
-      const user = auth().currentUser;
-
-      if (!user || !user?.email) {
-        throw new Error("Usuário não encontrado.");
-      }
-
-      await auth().sendPasswordResetEmail(user.email);
+      await auth().sendPasswordResetEmail(email);
     } catch (error) {
       const firebaseError = error as FirebaseError;
 

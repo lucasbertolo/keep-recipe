@@ -9,6 +9,7 @@ declare namespace Auth {
     signOut: () => Promise<void>;
     registerUser: (props: RegisterUser) => Promise<void>;
     sendEmailVerification: () => Promise<void>;
+    resetPassword: (email: string) => Promise<void>;
   }
 
   interface User {

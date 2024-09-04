@@ -3,6 +3,7 @@ import {
   Logo,
   Space,
   TextInput,
+  Typography,
   WrapperForm,
 } from "@/shared/components";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -14,13 +15,17 @@ import { LinkText, PasswordInput } from "../../components";
 import { useAuth } from "../../provider";
 import { useSignIn } from "../../queries";
 import { loginSchema } from "../../validations";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { useTheme } from "react-native-paper";
 
 type Fields = InferType<typeof loginSchema>;
 
 export default function LoginScreen() {
+  const theme = useTheme();
+  const router = useRouter();
+
   const { reloadUser, user } = useAuth();
 
-  const router = useRouter();
   const { mutate: signIn, isPending } = useSignIn();
 
   useFocusEffect(
@@ -46,6 +51,11 @@ export default function LoginScreen() {
   const navigateToRegister = () => {
     reset({});
     router.push("./register");
+  };
+
+  const navigateToReset = () => {
+    reset({});
+    router.push("./forgot-password");
   };
 
   return (
@@ -86,6 +96,15 @@ export default function LoginScreen() {
           />
         )}
       />
+      <TouchableOpacity style={styles.reset} onPress={navigateToReset}>
+        <Typography
+          style={{ color: theme.colors.primary }}
+          fontType="semibold"
+          variant="caption"
+        >
+          Esqueceu sua senha?
+        </Typography>
+      </TouchableOpacity>
 
       <Space />
 
@@ -105,3 +124,9 @@ export default function LoginScreen() {
     </WrapperForm>
   );
 }
+
+const styles = StyleSheet.create({
+  reset: {
+    alignSelf: "flex-end",
+  },
+});
