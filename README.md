@@ -6,6 +6,12 @@ Este é um aplicativo de receitas onde os usuários podem adicionar, editar e vi
 
 - https://drive.google.com/file/d/1QAOSHehFyry-ZiG0MNiJSCPRwTcU6efj/view?usp=share_link
 
+## Builds(v1.0.0)
+
+- Android: https://expo.dev/accounts/lucasbertolo2/projects/keep-recipes/builds/b1ef005f-3bae-4a57-b97d-259ae40229ad
+
+- Ios: https://expo.dev/accounts/lucasbertolo2/projects/keep-recipes/builds/447f9ecb-90d1-4b13-a6f3-d992bbc83e73
+
 ## Funcionalidades
 
 - Adicionar receitas com fotos
