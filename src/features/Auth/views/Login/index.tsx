@@ -10,13 +10,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { StyleSheet, TouchableOpacity } from "react-native";
+import { useTheme } from "react-native-paper";
 import { InferType } from "yup";
 import { LinkText, PasswordInput } from "../../components";
 import { useAuth } from "../../provider";
 import { useSignIn } from "../../queries";
 import { loginSchema } from "../../validations";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
-import { useTheme } from "react-native-paper";
 
 type Fields = InferType<typeof loginSchema>;
 

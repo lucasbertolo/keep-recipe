@@ -1,14 +1,14 @@
+import { Shadows } from "@/shared/constants/Shadows";
 import React, { useMemo } from "react";
 import {
-  View,
-  TouchableOpacity,
-  StyleSheet,
   StyleProp,
+  StyleSheet,
+  TouchableOpacity,
+  View,
   ViewStyle,
 } from "react-native";
-import { Text, useTheme } from "react-native-paper";
+import { useTheme } from "react-native-paper";
 import { Typography } from "../../Typography";
-import { Shadows } from "@/shared/constants/Shadows";
 
 interface RadioButtonProps {
   selected: boolean;

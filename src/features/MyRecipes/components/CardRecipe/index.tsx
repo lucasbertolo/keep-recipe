@@ -70,7 +70,8 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     width: 240,
     height: 340,
-    ...Shadows.light,
+    backgroundColor: "#FFF",
+    ...Shadows.heavy,
   },
   details: {
     padding: 12,

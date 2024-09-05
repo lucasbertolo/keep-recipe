@@ -13,9 +13,12 @@
     "preview": {
       "distribution": "internal"
     },
-    "production": {}
+    "production": {
+      "distribution": "store"
+    }
   },
   "submit": {
-    "production": {}
+    "production": {},
+    "staging": {}
   }
 }
