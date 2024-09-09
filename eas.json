@@ -10,24 +10,17 @@
         "simulator": true
       }
     },
+    "internal": {
+      "distribution": "internal",
+      "ios": {
+        "simulator": false
+      }
+    },
     "preview": {
       "distribution": "internal"
     },
-    "staging": {
-      "env": {
-        "EXPO_ENV": "staging"
-      },
-      "image": "default",
-      "node": "20.14.0",
-      "yarn": "classic"
-    },
     "production": {
-      "env": {
-        "EXPO_ENV": "production"
-      },
-      "image": "default",
-      "node": "20.14.0",
-      "yarn": "classic"
+      "distribution": "store"
     }
   },
   "submit": {

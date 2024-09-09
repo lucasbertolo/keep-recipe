@@ -14,3 +14,4 @@ export * from "./SearchBar";
 export * from "./BottomSheet";
 export * from "./Chips";
 export * from "./EmptyList";
+export * from "./TabBarIcon";

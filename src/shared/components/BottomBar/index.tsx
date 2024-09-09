@@ -1,15 +1,14 @@
+import { Shadows } from "@/shared/constants/Shadows";
 import {
   CommonActions,
   NavigationHelpers,
   ParamListBase,
   TabNavigationState,
 } from "@react-navigation/native";
-import React, { useMemo } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { FAB, IconButton, useTheme } from "react-native-paper";
-import { TabBarIcon } from "../navigation/TabBarIcon";
+import React from "react";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { IconButton, useTheme } from "react-native-paper";
 import If from "../If";
-import { Shadows } from "@/shared/constants/Shadows";
 
 type BottomTabDescriptor = any;
 type BottomTabDescriptorMap = Record<string, BottomTabDescriptor>;

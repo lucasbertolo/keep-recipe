@@ -48,6 +48,7 @@ export const AddRecipe = () => {
   const onSubmit: SubmitHandler<InferType<typeof recipeSchema>> = (data) => {
     const model: Recipes.Recipe = {
       ...methods.getValues(),
+      id: "",
       userId: "",
       totalTime: (data.cookTime ?? 0) + (data.prepTime ?? 0),
       steps: data.steps?.map((s) => s.description),

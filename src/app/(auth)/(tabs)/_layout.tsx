@@ -1,5 +1,4 @@
-import { BottomBar } from "@/shared/components";
-import { TabBarIcon } from "@/shared/components/navigation/TabBarIcon";
+import { BottomBar, TabBarIcon } from "@/shared/components";
 import { Tabs } from "expo-router";
 import React from "react";
 import { useTheme } from "react-native-paper";
