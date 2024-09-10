@@ -60,7 +60,9 @@ Antes de começar, certifique-se de ter instalado:
 3. **Inicie o projeto com Expo:**
 
    Ios: ```npx expo run:ios```
+
    Android: ```npx expo run: android```
+   
 
    Para rodar somente o servidor expo: ```npx expo start```
 
