@@ -2,6 +2,12 @@
 
 Este é um aplicativo de receitas onde os usuários podem adicionar, editar e visualizar suas próprias receitas. As receitas podem incluir fotos e são armazenadas de forma privada para cada usuário.
 
+![login](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExcTFjY3Y2cHQ3cWE4eHNkcmtpZ25jMmc4dmxyb2l5MHZpMDF3cHZubiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/6eQbWrCwAAWMDeTgaQ/giphy.gif)
+![recipes](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbzIydmhscjk0bTkxbmE5aHF5amVpcm82NmR6MnJraGw4anhneGNvMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/35n2purDmO5lMde50y/giphy.gif)
+![new recipe](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExa2Y1ZG1nbmkzNjl1OTI0djd6Z2k1bTY2d21rdnJqZzV3dWt6MGx5ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/6ZnFAXvCMWcVblVdqc/giphy.gif)
+![new recipe final](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ2t3ZGc1MmhjeHJmc3FmZTFocmY2b3huaXZmNmdkajU4cTBhbWZvNSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Lu46fqyDAwBnXwKBGi/giphy.gif)
+
+
 ## Explicação projeto (Vídeo)
 
 - https://drive.google.com/file/d/1QAOSHehFyry-ZiG0MNiJSCPRwTcU6efj/view?usp=share_link
@@ -47,24 +53,22 @@ Antes de começar, certifique-se de ter instalado:
 
 2. **Instale as dependências:**
 
-   ```npm install```
+   ```npm i```
 
    ```yarn install```
 
-3. **Configure o Firebase:**
+3. **Inicie o projeto com Expo:**
 
-Crie um projeto no Firebase.
-Adicione as configurações geradas ao criar os serviços de storage/firestore/auth do Firebase na src/config/services/firebase
+   Ios: ```npx expo run:ios```
+   Android: ```npx expo run: android```
 
-4. **Inicie o projeto com Expo:**
-
-   ```npx expo start```
+   Para rodar somente o servidor expo: ```npx expo start```
 
 ## Dicas para Rodar o Projeto
 
-- Erros de Permissão: Certifique-se de configurar as permissões corretas no Firebase Firestore e Storage.
 - Ambiente de Desenvolvimento: Se estiver testando em um emulador iOS, certifique-se de que todas as permissões (como câmera e galeria) estão devidamente configuradas.
 - Expo CLI: Para evitar erros de compatibilidade, sempre use a versão recomendada de Expo para cada pacote (verifique o package.json).
+
 
 ## Contribuição
 
